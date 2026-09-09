@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://saasweave.local/hermes/change-risk.schema.json",
+  "title": "Hermes change risk classification",
+  "type": "object",
+  "required": ["change_id", "workstream", "risk", "scope", "gates"],
+  "additionalProperties": false,
+  "properties": {
+    "change_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "workstream": { "type": "string", "minLength": 1 },
+    "risk": { "enum": ["low", "medium", "high", "critical"] },
+    "scope": { "enum": ["documentation", "ui", "api", "data", "security", "release"] },
+    "impact": {
+      "type": "object",
+      "required": ["surfaces", "invariants", "rollback"],
+      "additionalProperties": false,
+      "properties": {
+        "surfaces": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "invariants": { "type": "array", "items": { "type": "string" } },
+        "rollback": { "type": "string", "minLength": 1 }
+      }
+    },
+    "gates": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+  }
+}

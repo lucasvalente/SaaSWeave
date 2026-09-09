@@ -69,6 +69,8 @@
     "babel-plugin-react-compiler": "catalog:",
     "cross-env": "catalog:",
     "nitro": "catalog:",
+    "otplib": "catalog:",
+    "postgres": "catalog:",
     "tailwindcss": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:"

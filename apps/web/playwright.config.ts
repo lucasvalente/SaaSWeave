@@ -40,6 +40,7 @@ export default defineConfig({
   use: {
     baseURL,
     trace: "on-first-retry",
+    screenshot: "only-on-failure",
     video: process.env.CI ? "retain-on-failure" : "off"
   },
   projects: [
@@ -47,7 +48,10 @@ export default defineConfig({
       name: "chromium",
       use: {
         ...devices["Desktop Chrome"],
-        launchOptions: { args: ["--no-sandbox", "--disable-dev-shm-usage"] }
+        launchOptions: {
+          args: ["--no-sandbox", "--disable-dev-shm-usage"],
+          executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH
+        }
       }
     }
   ],

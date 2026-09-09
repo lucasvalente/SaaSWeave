@@ -9,6 +9,7 @@ import {
   getAuthUserQueryOptions
 } from "@saasweave/auth/react/tanstack-start/queries";
 import { Link } from "@saasweave/i18n/tanstack-start/components/link";
+import { m } from "@saasweave/i18n/messages";
 import { useLocation } from "@saasweave/i18n/tanstack-start/hooks/use-location";
 import { useNavigate } from "@saasweave/i18n/tanstack-start/hooks/use-navigate";
 import { redirect } from "@saasweave/i18n/tanstack-start/lib/redirect";
@@ -16,7 +17,12 @@ import { stripLocalePrefix } from "@saasweave/i18n/tanstack-start/lib/strip-loca
 import { validateNavigateTo } from "@saasweave/i18n/tanstack-start/lib/validate-navigate-to";
 import { Button } from "@saasweave/ui/components/button";
 
-import { ConsoleOrgSwitcher, SidebarPlanCard, useConsoleNavGroups } from "@/features/console-nav";
+import {
+  ConsoleOrgSwitcher,
+  SidebarPlanCard,
+  useConsoleFeatureEnabled,
+  useConsoleNavGroups
+} from "@/features/console-nav";
 
 import { ConsoleLayout } from "@/widgets/console-layout";
 
@@ -63,7 +69,11 @@ function ConsoleLayoutRoute() {
   const navigate = useNavigate();
   const location = useLocation();
   const { data: user } = useQuery(getAuthUserQueryOptions());
+  const { data: adminAccess } = useQuery(orpc.admin.access.queryOptions());
   const navGroups = useConsoleNavGroups();
+  const billingEnabled = useConsoleFeatureEnabled("billing_portal");
+  const teamManagementEnabled = useConsoleFeatureEnabled("team_management");
+  const notificationsEnabled = useConsoleFeatureEnabled("notifications");
 
   useEffect(() => {
     if (user === null) {
@@ -87,25 +97,28 @@ function ConsoleLayoutRoute() {
     <ConsoleLayout
       groups={navGroups}
       homeTo="/app"
-      ariaLabel="Workspace"
+      ariaLabel={m.console_nav__workspace_heading()}
       topSlot={<ConsoleOrgSwitcher />}
-      footer={<SidebarPlanCard />}
+      footer={billingEnabled ? <SidebarPlanCard /> : undefined}
+      showNotifications={notificationsEnabled}
       actions={
         <>
-          {user?.role === "admin" ? (
+          {(user?.role === "admin" || adminAccess?.permissions.includes("platform.dashboard.read")) ? (
             <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
-              <Link to="/admin">
+              <Link to="/admin/">
                 <ShieldCheck className="size-4" aria-hidden="true" />
-                Admin
+                {m.admin_layout__platform_admin()}
               </Link>
             </Button>
           ) : null}
-          <Button asChild variant="outline" size="sm" className="hidden sm:inline-flex">
-            <Link to="/app/team">
-              <UserPlus className="size-4" aria-hidden="true" />
-              Invite
-            </Link>
-          </Button>
+          {teamManagementEnabled ? (
+            <Button asChild variant="outline" size="sm" className="hidden sm:inline-flex">
+              <Link to="/app/team">
+                <UserPlus className="size-4" aria-hidden="true" />
+                {m.onboarding__invite()}
+              </Link>
+            </Button>
+          ) : null}
         </>
       }
     >

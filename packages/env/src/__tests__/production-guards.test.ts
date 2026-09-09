@@ -164,4 +164,16 @@ describe("assertProductionRuntimeGuards", () => {
       })
     ).not.toThrow();
   });
+
+  it("skips production-only deployment requirements in the dedicated test environment", () => {
+    expect(() =>
+      assertProductionRuntimeGuards({
+        ...productionBase,
+        MAIL_PROVIDER: "console",
+        NODE_ENV: "test",
+        PLATFORM_ADMIN_EMAILS: "",
+        RESEND_API_KEY: ""
+      })
+    ).not.toThrow();
+  });
 });

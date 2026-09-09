@@ -36,6 +36,7 @@ import { Route as Char123LocaleChar125consoleLayoutAppWebhooksIndexRouteImport }
 import { Route as Char123LocaleChar125consoleLayoutAppTeamIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/team/index'
 import { Route as Char123LocaleChar125consoleLayoutAppSettingsIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/settings/index'
 import { Route as Char123LocaleChar125consoleLayoutAppSecurityIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/security/index'
+import { Route as Char123LocaleChar125consoleLayoutAppProjectsIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/projects/index'
 import { Route as Char123LocaleChar125consoleLayoutAppProfileIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/profile/index'
 import { Route as Char123LocaleChar125consoleLayoutAppNotificationsIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/notifications/index'
 import { Route as Char123LocaleChar125consoleLayoutAppFeaturesIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/features/index'
@@ -51,12 +52,35 @@ import { Route as Char123LocaleChar125centeredLayoutguestCreateAnAccountIndexRou
 import { Route as Char123LocaleChar125centeredLayoutguestAcceptInviteIndexRouteImport } from './routes/{-$locale}/(centered-layout)/(guest)/accept-invite/index'
 import { Route as Char123LocaleChar125adminLayoutAdminWorkspacesIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/workspaces/index'
 import { Route as Char123LocaleChar125adminLayoutAdminUsersIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/users/index'
+import { Route as Char123LocaleChar125adminLayoutAdminUsageIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/usage/index'
+import { Route as Char123LocaleChar125adminLayoutAdminSubscriptionsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/subscriptions/index'
 import { Route as Char123LocaleChar125adminLayoutAdminSettingsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/settings/index'
+import { Route as Char123LocaleChar125adminLayoutAdminSessionsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/sessions/index'
+import { Route as Char123LocaleChar125adminLayoutAdminProjectsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/projects/index'
 import { Route as Char123LocaleChar125adminLayoutAdminPlansIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/plans/index'
 import { Route as Char123LocaleChar125adminLayoutAdminFeaturesIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/features/index'
+import { Route as Char123LocaleChar125adminLayoutAdminFeatureFlagsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/feature-flags/index'
 import { Route as Char123LocaleChar125adminLayoutAdminEmailsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/emails/index'
+import { Route as Char123LocaleChar125adminLayoutAdminBillingIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/billing/index'
 import { Route as Char123LocaleChar125adminLayoutAdminAuditIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/audit/index'
+import { Route as Char123LocaleChar125consoleLayoutAppProjectsProjectIdIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/projects/$projectId/index'
 import { Route as Char123LocaleChar125adminLayoutAdminWorkspacesIdIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/workspaces/$id/index'
+import { Route as Char123LocaleChar125adminLayoutAdminUsersIdIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/users/$id/index'
+import { Route as Char123LocaleChar125adminLayoutAdminSystemWorkersIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/system/workers/index'
+import { Route as Char123LocaleChar125adminLayoutAdminSystemJobsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/system/jobs/index'
+import { Route as Char123LocaleChar125adminLayoutAdminSystemIncidentsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/system/incidents/index'
+import { Route as Char123LocaleChar125adminLayoutAdminSystemHealthIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/system/health/index'
+import { Route as Char123LocaleChar125adminLayoutAdminSubscriptionsIdIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/subscriptions/$id/index'
+import { Route as Char123LocaleChar125adminLayoutAdminSecurityEventsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/security/events/index'
+import { Route as Char123LocaleChar125adminLayoutAdminProjectsProjectIdIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/projects/$projectId/index'
+import { Route as Char123LocaleChar125adminLayoutAdminPlansIdIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/plans/$id/index'
+import { Route as Char123LocaleChar125adminLayoutAdminBillingProfileIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/billing/profile/index'
+import { Route as Char123LocaleChar125adminLayoutAdminBillingInvoicesIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/billing/invoices/index'
+import { Route as Char123LocaleChar125adminLayoutAdminAccessRolesIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/access/roles/index'
+import { Route as Char123LocaleChar125consoleLayoutAppProjectsProjectIdSettingsRouteImport } from './routes/{-$locale}/(console-layout)/app/projects/$projectId/settings'
+import { Route as Char123LocaleChar125consoleLayoutAppProjectsProjectIdBuildRouteImport } from './routes/{-$locale}/(console-layout)/app/projects/$projectId/build'
+import { Route as Char123LocaleChar125adminLayoutAdminSystemJobsJobIdIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/system/jobs/$jobId/index'
+import { Route as Char123LocaleChar125adminLayoutAdminBillingInvoicesIdIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/billing/invoices/$id/index'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -211,6 +235,12 @@ const Char123LocaleChar125consoleLayoutAppSecurityIndexRoute =
     path: '/app/security/',
     getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
   } as any)
+const Char123LocaleChar125consoleLayoutAppProjectsIndexRoute =
+  Char123LocaleChar125consoleLayoutAppProjectsIndexRouteImport.update({
+    id: '/app/projects/',
+    path: '/app/projects/',
+    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
+  } as any)
 const Char123LocaleChar125consoleLayoutAppProfileIndexRoute =
   Char123LocaleChar125consoleLayoutAppProfileIndexRouteImport.update({
     id: '/app/profile/',
@@ -303,10 +333,34 @@ const Char123LocaleChar125adminLayoutAdminUsersIndexRoute =
     path: '/admin/users/',
     getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
   } as any)
+const Char123LocaleChar125adminLayoutAdminUsageIndexRoute =
+  Char123LocaleChar125adminLayoutAdminUsageIndexRouteImport.update({
+    id: '/admin/usage/',
+    path: '/admin/usage/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminSubscriptionsIndexRoute =
+  Char123LocaleChar125adminLayoutAdminSubscriptionsIndexRouteImport.update({
+    id: '/admin/subscriptions/',
+    path: '/admin/subscriptions/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
 const Char123LocaleChar125adminLayoutAdminSettingsIndexRoute =
   Char123LocaleChar125adminLayoutAdminSettingsIndexRouteImport.update({
     id: '/admin/settings/',
     path: '/admin/settings/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminSessionsIndexRoute =
+  Char123LocaleChar125adminLayoutAdminSessionsIndexRouteImport.update({
+    id: '/admin/sessions/',
+    path: '/admin/sessions/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminProjectsIndexRoute =
+  Char123LocaleChar125adminLayoutAdminProjectsIndexRouteImport.update({
+    id: '/admin/projects/',
+    path: '/admin/projects/',
     getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
   } as any)
 const Char123LocaleChar125adminLayoutAdminPlansIndexRoute =
@@ -321,10 +375,22 @@ const Char123LocaleChar125adminLayoutAdminFeaturesIndexRoute =
     path: '/admin/features/',
     getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
   } as any)
+const Char123LocaleChar125adminLayoutAdminFeatureFlagsIndexRoute =
+  Char123LocaleChar125adminLayoutAdminFeatureFlagsIndexRouteImport.update({
+    id: '/admin/feature-flags/',
+    path: '/admin/feature-flags/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
 const Char123LocaleChar125adminLayoutAdminEmailsIndexRoute =
   Char123LocaleChar125adminLayoutAdminEmailsIndexRouteImport.update({
     id: '/admin/emails/',
     path: '/admin/emails/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminBillingIndexRoute =
+  Char123LocaleChar125adminLayoutAdminBillingIndexRouteImport.update({
+    id: '/admin/billing/',
+    path: '/admin/billing/',
     getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
   } as any)
 const Char123LocaleChar125adminLayoutAdminAuditIndexRoute =
@@ -333,10 +399,114 @@ const Char123LocaleChar125adminLayoutAdminAuditIndexRoute =
     path: '/admin/audit/',
     getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
   } as any)
+const Char123LocaleChar125consoleLayoutAppProjectsProjectIdIndexRoute =
+  Char123LocaleChar125consoleLayoutAppProjectsProjectIdIndexRouteImport.update({
+    id: '/app/projects/$projectId/',
+    path: '/app/projects/$projectId/',
+    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
+  } as any)
 const Char123LocaleChar125adminLayoutAdminWorkspacesIdIndexRoute =
   Char123LocaleChar125adminLayoutAdminWorkspacesIdIndexRouteImport.update({
     id: '/admin/workspaces/$id/',
     path: '/admin/workspaces/$id/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminUsersIdIndexRoute =
+  Char123LocaleChar125adminLayoutAdminUsersIdIndexRouteImport.update({
+    id: '/admin/users/$id/',
+    path: '/admin/users/$id/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminSystemWorkersIndexRoute =
+  Char123LocaleChar125adminLayoutAdminSystemWorkersIndexRouteImport.update({
+    id: '/admin/system/workers/',
+    path: '/admin/system/workers/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminSystemJobsIndexRoute =
+  Char123LocaleChar125adminLayoutAdminSystemJobsIndexRouteImport.update({
+    id: '/admin/system/jobs/',
+    path: '/admin/system/jobs/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminSystemIncidentsIndexRoute =
+  Char123LocaleChar125adminLayoutAdminSystemIncidentsIndexRouteImport.update({
+    id: '/admin/system/incidents/',
+    path: '/admin/system/incidents/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminSystemHealthIndexRoute =
+  Char123LocaleChar125adminLayoutAdminSystemHealthIndexRouteImport.update({
+    id: '/admin/system/health/',
+    path: '/admin/system/health/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminSubscriptionsIdIndexRoute =
+  Char123LocaleChar125adminLayoutAdminSubscriptionsIdIndexRouteImport.update({
+    id: '/admin/subscriptions/$id/',
+    path: '/admin/subscriptions/$id/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminSecurityEventsIndexRoute =
+  Char123LocaleChar125adminLayoutAdminSecurityEventsIndexRouteImport.update({
+    id: '/admin/security/events/',
+    path: '/admin/security/events/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminProjectsProjectIdIndexRoute =
+  Char123LocaleChar125adminLayoutAdminProjectsProjectIdIndexRouteImport.update({
+    id: '/admin/projects/$projectId/',
+    path: '/admin/projects/$projectId/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminPlansIdIndexRoute =
+  Char123LocaleChar125adminLayoutAdminPlansIdIndexRouteImport.update({
+    id: '/admin/plans/$id/',
+    path: '/admin/plans/$id/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminBillingProfileIndexRoute =
+  Char123LocaleChar125adminLayoutAdminBillingProfileIndexRouteImport.update({
+    id: '/admin/billing/profile/',
+    path: '/admin/billing/profile/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminBillingInvoicesIndexRoute =
+  Char123LocaleChar125adminLayoutAdminBillingInvoicesIndexRouteImport.update({
+    id: '/admin/billing/invoices/',
+    path: '/admin/billing/invoices/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminAccessRolesIndexRoute =
+  Char123LocaleChar125adminLayoutAdminAccessRolesIndexRouteImport.update({
+    id: '/admin/access/roles/',
+    path: '/admin/access/roles/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125consoleLayoutAppProjectsProjectIdSettingsRoute =
+  Char123LocaleChar125consoleLayoutAppProjectsProjectIdSettingsRouteImport.update(
+    {
+      id: '/app/projects/$projectId/settings',
+      path: '/app/projects/$projectId/settings',
+      getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
+    } as any,
+  )
+const Char123LocaleChar125consoleLayoutAppProjectsProjectIdBuildRoute =
+  Char123LocaleChar125consoleLayoutAppProjectsProjectIdBuildRouteImport.update({
+    id: '/app/projects/$projectId/build',
+    path: '/app/projects/$projectId/build',
+    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminSystemJobsJobIdIndexRoute =
+  Char123LocaleChar125adminLayoutAdminSystemJobsJobIdIndexRouteImport.update({
+    id: '/admin/system/jobs/$jobId/',
+    path: '/admin/system/jobs/$jobId/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminBillingInvoicesIdIndexRoute =
+  Char123LocaleChar125adminLayoutAdminBillingInvoicesIdIndexRouteImport.update({
+    id: '/admin/billing/invoices/$id/',
+    path: '/admin/billing/invoices/$id/',
     getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
   } as any)
 
@@ -357,10 +527,16 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/status/': typeof Char123LocaleChar125rootLayoutStatusIndexRoute
   '/{-$locale}/terms-of-service/': typeof Char123LocaleChar125rootLayoutTermsOfServiceIndexRoute
   '/{-$locale}/admin/audit/': typeof Char123LocaleChar125adminLayoutAdminAuditIndexRoute
+  '/{-$locale}/admin/billing/': typeof Char123LocaleChar125adminLayoutAdminBillingIndexRoute
   '/{-$locale}/admin/emails/': typeof Char123LocaleChar125adminLayoutAdminEmailsIndexRoute
+  '/{-$locale}/admin/feature-flags/': typeof Char123LocaleChar125adminLayoutAdminFeatureFlagsIndexRoute
   '/{-$locale}/admin/features/': typeof Char123LocaleChar125adminLayoutAdminFeaturesIndexRoute
   '/{-$locale}/admin/plans/': typeof Char123LocaleChar125adminLayoutAdminPlansIndexRoute
+  '/{-$locale}/admin/projects/': typeof Char123LocaleChar125adminLayoutAdminProjectsIndexRoute
+  '/{-$locale}/admin/sessions/': typeof Char123LocaleChar125adminLayoutAdminSessionsIndexRoute
   '/{-$locale}/admin/settings/': typeof Char123LocaleChar125adminLayoutAdminSettingsIndexRoute
+  '/{-$locale}/admin/subscriptions/': typeof Char123LocaleChar125adminLayoutAdminSubscriptionsIndexRoute
+  '/{-$locale}/admin/usage/': typeof Char123LocaleChar125adminLayoutAdminUsageIndexRoute
   '/{-$locale}/admin/users/': typeof Char123LocaleChar125adminLayoutAdminUsersIndexRoute
   '/{-$locale}/admin/workspaces/': typeof Char123LocaleChar125adminLayoutAdminWorkspacesIndexRoute
   '/{-$locale}/accept-invite/': typeof Char123LocaleChar125centeredLayoutguestAcceptInviteIndexRoute
@@ -376,13 +552,31 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/app/features/': typeof Char123LocaleChar125consoleLayoutAppFeaturesIndexRoute
   '/{-$locale}/app/notifications/': typeof Char123LocaleChar125consoleLayoutAppNotificationsIndexRoute
   '/{-$locale}/app/profile/': typeof Char123LocaleChar125consoleLayoutAppProfileIndexRoute
+  '/{-$locale}/app/projects/': typeof Char123LocaleChar125consoleLayoutAppProjectsIndexRoute
   '/{-$locale}/app/security/': typeof Char123LocaleChar125consoleLayoutAppSecurityIndexRoute
   '/{-$locale}/app/settings/': typeof Char123LocaleChar125consoleLayoutAppSettingsIndexRoute
   '/{-$locale}/app/team/': typeof Char123LocaleChar125consoleLayoutAppTeamIndexRoute
   '/{-$locale}/app/webhooks/': typeof Char123LocaleChar125consoleLayoutAppWebhooksIndexRoute
   '/{-$locale}/dashboard/': typeof Char123LocaleChar125rootLayoutauthDashboardIndexRoute
   '/{-$locale}/onboarding/': typeof Char123LocaleChar125rootLayoutauthOnboardingIndexRoute
+  '/{-$locale}/app/projects/$projectId/build': typeof Char123LocaleChar125consoleLayoutAppProjectsProjectIdBuildRoute
+  '/{-$locale}/app/projects/$projectId/settings': typeof Char123LocaleChar125consoleLayoutAppProjectsProjectIdSettingsRoute
+  '/{-$locale}/admin/access/roles/': typeof Char123LocaleChar125adminLayoutAdminAccessRolesIndexRoute
+  '/{-$locale}/admin/billing/invoices/': typeof Char123LocaleChar125adminLayoutAdminBillingInvoicesIndexRoute
+  '/{-$locale}/admin/billing/profile/': typeof Char123LocaleChar125adminLayoutAdminBillingProfileIndexRoute
+  '/{-$locale}/admin/plans/$id/': typeof Char123LocaleChar125adminLayoutAdminPlansIdIndexRoute
+  '/{-$locale}/admin/projects/$projectId/': typeof Char123LocaleChar125adminLayoutAdminProjectsProjectIdIndexRoute
+  '/{-$locale}/admin/security/events/': typeof Char123LocaleChar125adminLayoutAdminSecurityEventsIndexRoute
+  '/{-$locale}/admin/subscriptions/$id/': typeof Char123LocaleChar125adminLayoutAdminSubscriptionsIdIndexRoute
+  '/{-$locale}/admin/system/health/': typeof Char123LocaleChar125adminLayoutAdminSystemHealthIndexRoute
+  '/{-$locale}/admin/system/incidents/': typeof Char123LocaleChar125adminLayoutAdminSystemIncidentsIndexRoute
+  '/{-$locale}/admin/system/jobs/': typeof Char123LocaleChar125adminLayoutAdminSystemJobsIndexRoute
+  '/{-$locale}/admin/system/workers/': typeof Char123LocaleChar125adminLayoutAdminSystemWorkersIndexRoute
+  '/{-$locale}/admin/users/$id/': typeof Char123LocaleChar125adminLayoutAdminUsersIdIndexRoute
   '/{-$locale}/admin/workspaces/$id/': typeof Char123LocaleChar125adminLayoutAdminWorkspacesIdIndexRoute
+  '/{-$locale}/app/projects/$projectId/': typeof Char123LocaleChar125consoleLayoutAppProjectsProjectIdIndexRoute
+  '/{-$locale}/admin/billing/invoices/$id/': typeof Char123LocaleChar125adminLayoutAdminBillingInvoicesIdIndexRoute
+  '/{-$locale}/admin/system/jobs/$jobId/': typeof Char123LocaleChar125adminLayoutAdminSystemJobsJobIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/{-$locale}': typeof Char123LocaleChar125rootLayoutIndexRoute
@@ -400,10 +594,16 @@ export interface FileRoutesByTo {
   '/{-$locale}/status': typeof Char123LocaleChar125rootLayoutStatusIndexRoute
   '/{-$locale}/terms-of-service': typeof Char123LocaleChar125rootLayoutTermsOfServiceIndexRoute
   '/{-$locale}/admin/audit': typeof Char123LocaleChar125adminLayoutAdminAuditIndexRoute
+  '/{-$locale}/admin/billing': typeof Char123LocaleChar125adminLayoutAdminBillingIndexRoute
   '/{-$locale}/admin/emails': typeof Char123LocaleChar125adminLayoutAdminEmailsIndexRoute
+  '/{-$locale}/admin/feature-flags': typeof Char123LocaleChar125adminLayoutAdminFeatureFlagsIndexRoute
   '/{-$locale}/admin/features': typeof Char123LocaleChar125adminLayoutAdminFeaturesIndexRoute
   '/{-$locale}/admin/plans': typeof Char123LocaleChar125adminLayoutAdminPlansIndexRoute
+  '/{-$locale}/admin/projects': typeof Char123LocaleChar125adminLayoutAdminProjectsIndexRoute
+  '/{-$locale}/admin/sessions': typeof Char123LocaleChar125adminLayoutAdminSessionsIndexRoute
   '/{-$locale}/admin/settings': typeof Char123LocaleChar125adminLayoutAdminSettingsIndexRoute
+  '/{-$locale}/admin/subscriptions': typeof Char123LocaleChar125adminLayoutAdminSubscriptionsIndexRoute
+  '/{-$locale}/admin/usage': typeof Char123LocaleChar125adminLayoutAdminUsageIndexRoute
   '/{-$locale}/admin/users': typeof Char123LocaleChar125adminLayoutAdminUsersIndexRoute
   '/{-$locale}/admin/workspaces': typeof Char123LocaleChar125adminLayoutAdminWorkspacesIndexRoute
   '/{-$locale}/accept-invite': typeof Char123LocaleChar125centeredLayoutguestAcceptInviteIndexRoute
@@ -419,13 +619,31 @@ export interface FileRoutesByTo {
   '/{-$locale}/app/features': typeof Char123LocaleChar125consoleLayoutAppFeaturesIndexRoute
   '/{-$locale}/app/notifications': typeof Char123LocaleChar125consoleLayoutAppNotificationsIndexRoute
   '/{-$locale}/app/profile': typeof Char123LocaleChar125consoleLayoutAppProfileIndexRoute
+  '/{-$locale}/app/projects': typeof Char123LocaleChar125consoleLayoutAppProjectsIndexRoute
   '/{-$locale}/app/security': typeof Char123LocaleChar125consoleLayoutAppSecurityIndexRoute
   '/{-$locale}/app/settings': typeof Char123LocaleChar125consoleLayoutAppSettingsIndexRoute
   '/{-$locale}/app/team': typeof Char123LocaleChar125consoleLayoutAppTeamIndexRoute
   '/{-$locale}/app/webhooks': typeof Char123LocaleChar125consoleLayoutAppWebhooksIndexRoute
   '/{-$locale}/dashboard': typeof Char123LocaleChar125rootLayoutauthDashboardIndexRoute
   '/{-$locale}/onboarding': typeof Char123LocaleChar125rootLayoutauthOnboardingIndexRoute
+  '/{-$locale}/app/projects/$projectId/build': typeof Char123LocaleChar125consoleLayoutAppProjectsProjectIdBuildRoute
+  '/{-$locale}/app/projects/$projectId/settings': typeof Char123LocaleChar125consoleLayoutAppProjectsProjectIdSettingsRoute
+  '/{-$locale}/admin/access/roles': typeof Char123LocaleChar125adminLayoutAdminAccessRolesIndexRoute
+  '/{-$locale}/admin/billing/invoices': typeof Char123LocaleChar125adminLayoutAdminBillingInvoicesIndexRoute
+  '/{-$locale}/admin/billing/profile': typeof Char123LocaleChar125adminLayoutAdminBillingProfileIndexRoute
+  '/{-$locale}/admin/plans/$id': typeof Char123LocaleChar125adminLayoutAdminPlansIdIndexRoute
+  '/{-$locale}/admin/projects/$projectId': typeof Char123LocaleChar125adminLayoutAdminProjectsProjectIdIndexRoute
+  '/{-$locale}/admin/security/events': typeof Char123LocaleChar125adminLayoutAdminSecurityEventsIndexRoute
+  '/{-$locale}/admin/subscriptions/$id': typeof Char123LocaleChar125adminLayoutAdminSubscriptionsIdIndexRoute
+  '/{-$locale}/admin/system/health': typeof Char123LocaleChar125adminLayoutAdminSystemHealthIndexRoute
+  '/{-$locale}/admin/system/incidents': typeof Char123LocaleChar125adminLayoutAdminSystemIncidentsIndexRoute
+  '/{-$locale}/admin/system/jobs': typeof Char123LocaleChar125adminLayoutAdminSystemJobsIndexRoute
+  '/{-$locale}/admin/system/workers': typeof Char123LocaleChar125adminLayoutAdminSystemWorkersIndexRoute
+  '/{-$locale}/admin/users/$id': typeof Char123LocaleChar125adminLayoutAdminUsersIdIndexRoute
   '/{-$locale}/admin/workspaces/$id': typeof Char123LocaleChar125adminLayoutAdminWorkspacesIdIndexRoute
+  '/{-$locale}/app/projects/$projectId': typeof Char123LocaleChar125consoleLayoutAppProjectsProjectIdIndexRoute
+  '/{-$locale}/admin/billing/invoices/$id': typeof Char123LocaleChar125adminLayoutAdminBillingInvoicesIdIndexRoute
+  '/{-$locale}/admin/system/jobs/$jobId': typeof Char123LocaleChar125adminLayoutAdminSystemJobsJobIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -451,10 +669,16 @@ export interface FileRoutesById {
   '/{-$locale}/(root-layout)/status/': typeof Char123LocaleChar125rootLayoutStatusIndexRoute
   '/{-$locale}/(root-layout)/terms-of-service/': typeof Char123LocaleChar125rootLayoutTermsOfServiceIndexRoute
   '/{-$locale}/(admin-layout)/admin/audit/': typeof Char123LocaleChar125adminLayoutAdminAuditIndexRoute
+  '/{-$locale}/(admin-layout)/admin/billing/': typeof Char123LocaleChar125adminLayoutAdminBillingIndexRoute
   '/{-$locale}/(admin-layout)/admin/emails/': typeof Char123LocaleChar125adminLayoutAdminEmailsIndexRoute
+  '/{-$locale}/(admin-layout)/admin/feature-flags/': typeof Char123LocaleChar125adminLayoutAdminFeatureFlagsIndexRoute
   '/{-$locale}/(admin-layout)/admin/features/': typeof Char123LocaleChar125adminLayoutAdminFeaturesIndexRoute
   '/{-$locale}/(admin-layout)/admin/plans/': typeof Char123LocaleChar125adminLayoutAdminPlansIndexRoute
+  '/{-$locale}/(admin-layout)/admin/projects/': typeof Char123LocaleChar125adminLayoutAdminProjectsIndexRoute
+  '/{-$locale}/(admin-layout)/admin/sessions/': typeof Char123LocaleChar125adminLayoutAdminSessionsIndexRoute
   '/{-$locale}/(admin-layout)/admin/settings/': typeof Char123LocaleChar125adminLayoutAdminSettingsIndexRoute
+  '/{-$locale}/(admin-layout)/admin/subscriptions/': typeof Char123LocaleChar125adminLayoutAdminSubscriptionsIndexRoute
+  '/{-$locale}/(admin-layout)/admin/usage/': typeof Char123LocaleChar125adminLayoutAdminUsageIndexRoute
   '/{-$locale}/(admin-layout)/admin/users/': typeof Char123LocaleChar125adminLayoutAdminUsersIndexRoute
   '/{-$locale}/(admin-layout)/admin/workspaces/': typeof Char123LocaleChar125adminLayoutAdminWorkspacesIndexRoute
   '/{-$locale}/(centered-layout)/(guest)/accept-invite/': typeof Char123LocaleChar125centeredLayoutguestAcceptInviteIndexRoute
@@ -470,13 +694,31 @@ export interface FileRoutesById {
   '/{-$locale}/(console-layout)/app/features/': typeof Char123LocaleChar125consoleLayoutAppFeaturesIndexRoute
   '/{-$locale}/(console-layout)/app/notifications/': typeof Char123LocaleChar125consoleLayoutAppNotificationsIndexRoute
   '/{-$locale}/(console-layout)/app/profile/': typeof Char123LocaleChar125consoleLayoutAppProfileIndexRoute
+  '/{-$locale}/(console-layout)/app/projects/': typeof Char123LocaleChar125consoleLayoutAppProjectsIndexRoute
   '/{-$locale}/(console-layout)/app/security/': typeof Char123LocaleChar125consoleLayoutAppSecurityIndexRoute
   '/{-$locale}/(console-layout)/app/settings/': typeof Char123LocaleChar125consoleLayoutAppSettingsIndexRoute
   '/{-$locale}/(console-layout)/app/team/': typeof Char123LocaleChar125consoleLayoutAppTeamIndexRoute
   '/{-$locale}/(console-layout)/app/webhooks/': typeof Char123LocaleChar125consoleLayoutAppWebhooksIndexRoute
   '/{-$locale}/(root-layout)/(auth)/dashboard/': typeof Char123LocaleChar125rootLayoutauthDashboardIndexRoute
   '/{-$locale}/(root-layout)/(auth)/onboarding/': typeof Char123LocaleChar125rootLayoutauthOnboardingIndexRoute
+  '/{-$locale}/(console-layout)/app/projects/$projectId/build': typeof Char123LocaleChar125consoleLayoutAppProjectsProjectIdBuildRoute
+  '/{-$locale}/(console-layout)/app/projects/$projectId/settings': typeof Char123LocaleChar125consoleLayoutAppProjectsProjectIdSettingsRoute
+  '/{-$locale}/(admin-layout)/admin/access/roles/': typeof Char123LocaleChar125adminLayoutAdminAccessRolesIndexRoute
+  '/{-$locale}/(admin-layout)/admin/billing/invoices/': typeof Char123LocaleChar125adminLayoutAdminBillingInvoicesIndexRoute
+  '/{-$locale}/(admin-layout)/admin/billing/profile/': typeof Char123LocaleChar125adminLayoutAdminBillingProfileIndexRoute
+  '/{-$locale}/(admin-layout)/admin/plans/$id/': typeof Char123LocaleChar125adminLayoutAdminPlansIdIndexRoute
+  '/{-$locale}/(admin-layout)/admin/projects/$projectId/': typeof Char123LocaleChar125adminLayoutAdminProjectsProjectIdIndexRoute
+  '/{-$locale}/(admin-layout)/admin/security/events/': typeof Char123LocaleChar125adminLayoutAdminSecurityEventsIndexRoute
+  '/{-$locale}/(admin-layout)/admin/subscriptions/$id/': typeof Char123LocaleChar125adminLayoutAdminSubscriptionsIdIndexRoute
+  '/{-$locale}/(admin-layout)/admin/system/health/': typeof Char123LocaleChar125adminLayoutAdminSystemHealthIndexRoute
+  '/{-$locale}/(admin-layout)/admin/system/incidents/': typeof Char123LocaleChar125adminLayoutAdminSystemIncidentsIndexRoute
+  '/{-$locale}/(admin-layout)/admin/system/jobs/': typeof Char123LocaleChar125adminLayoutAdminSystemJobsIndexRoute
+  '/{-$locale}/(admin-layout)/admin/system/workers/': typeof Char123LocaleChar125adminLayoutAdminSystemWorkersIndexRoute
+  '/{-$locale}/(admin-layout)/admin/users/$id/': typeof Char123LocaleChar125adminLayoutAdminUsersIdIndexRoute
   '/{-$locale}/(admin-layout)/admin/workspaces/$id/': typeof Char123LocaleChar125adminLayoutAdminWorkspacesIdIndexRoute
+  '/{-$locale}/(console-layout)/app/projects/$projectId/': typeof Char123LocaleChar125consoleLayoutAppProjectsProjectIdIndexRoute
+  '/{-$locale}/(admin-layout)/admin/billing/invoices/$id/': typeof Char123LocaleChar125adminLayoutAdminBillingInvoicesIdIndexRoute
+  '/{-$locale}/(admin-layout)/admin/system/jobs/$jobId/': typeof Char123LocaleChar125adminLayoutAdminSystemJobsJobIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -497,10 +739,16 @@ export interface FileRouteTypes {
     | '/{-$locale}/status/'
     | '/{-$locale}/terms-of-service/'
     | '/{-$locale}/admin/audit/'
+    | '/{-$locale}/admin/billing/'
     | '/{-$locale}/admin/emails/'
+    | '/{-$locale}/admin/feature-flags/'
     | '/{-$locale}/admin/features/'
     | '/{-$locale}/admin/plans/'
+    | '/{-$locale}/admin/projects/'
+    | '/{-$locale}/admin/sessions/'
     | '/{-$locale}/admin/settings/'
+    | '/{-$locale}/admin/subscriptions/'
+    | '/{-$locale}/admin/usage/'
     | '/{-$locale}/admin/users/'
     | '/{-$locale}/admin/workspaces/'
     | '/{-$locale}/accept-invite/'
@@ -516,13 +764,31 @@ export interface FileRouteTypes {
     | '/{-$locale}/app/features/'
     | '/{-$locale}/app/notifications/'
     | '/{-$locale}/app/profile/'
+    | '/{-$locale}/app/projects/'
     | '/{-$locale}/app/security/'
     | '/{-$locale}/app/settings/'
     | '/{-$locale}/app/team/'
     | '/{-$locale}/app/webhooks/'
     | '/{-$locale}/dashboard/'
     | '/{-$locale}/onboarding/'
+    | '/{-$locale}/app/projects/$projectId/build'
+    | '/{-$locale}/app/projects/$projectId/settings'
+    | '/{-$locale}/admin/access/roles/'
+    | '/{-$locale}/admin/billing/invoices/'
+    | '/{-$locale}/admin/billing/profile/'
+    | '/{-$locale}/admin/plans/$id/'
+    | '/{-$locale}/admin/projects/$projectId/'
+    | '/{-$locale}/admin/security/events/'
+    | '/{-$locale}/admin/subscriptions/$id/'
+    | '/{-$locale}/admin/system/health/'
+    | '/{-$locale}/admin/system/incidents/'
+    | '/{-$locale}/admin/system/jobs/'
+    | '/{-$locale}/admin/system/workers/'
+    | '/{-$locale}/admin/users/$id/'
     | '/{-$locale}/admin/workspaces/$id/'
+    | '/{-$locale}/app/projects/$projectId/'
+    | '/{-$locale}/admin/billing/invoices/$id/'
+    | '/{-$locale}/admin/system/jobs/$jobId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/{-$locale}'
@@ -540,10 +806,16 @@ export interface FileRouteTypes {
     | '/{-$locale}/status'
     | '/{-$locale}/terms-of-service'
     | '/{-$locale}/admin/audit'
+    | '/{-$locale}/admin/billing'
     | '/{-$locale}/admin/emails'
+    | '/{-$locale}/admin/feature-flags'
     | '/{-$locale}/admin/features'
     | '/{-$locale}/admin/plans'
+    | '/{-$locale}/admin/projects'
+    | '/{-$locale}/admin/sessions'
     | '/{-$locale}/admin/settings'
+    | '/{-$locale}/admin/subscriptions'
+    | '/{-$locale}/admin/usage'
     | '/{-$locale}/admin/users'
     | '/{-$locale}/admin/workspaces'
     | '/{-$locale}/accept-invite'
@@ -559,13 +831,31 @@ export interface FileRouteTypes {
     | '/{-$locale}/app/features'
     | '/{-$locale}/app/notifications'
     | '/{-$locale}/app/profile'
+    | '/{-$locale}/app/projects'
     | '/{-$locale}/app/security'
     | '/{-$locale}/app/settings'
     | '/{-$locale}/app/team'
     | '/{-$locale}/app/webhooks'
     | '/{-$locale}/dashboard'
     | '/{-$locale}/onboarding'
+    | '/{-$locale}/app/projects/$projectId/build'
+    | '/{-$locale}/app/projects/$projectId/settings'
+    | '/{-$locale}/admin/access/roles'
+    | '/{-$locale}/admin/billing/invoices'
+    | '/{-$locale}/admin/billing/profile'
+    | '/{-$locale}/admin/plans/$id'
+    | '/{-$locale}/admin/projects/$projectId'
+    | '/{-$locale}/admin/security/events'
+    | '/{-$locale}/admin/subscriptions/$id'
+    | '/{-$locale}/admin/system/health'
+    | '/{-$locale}/admin/system/incidents'
+    | '/{-$locale}/admin/system/jobs'
+    | '/{-$locale}/admin/system/workers'
+    | '/{-$locale}/admin/users/$id'
     | '/{-$locale}/admin/workspaces/$id'
+    | '/{-$locale}/app/projects/$projectId'
+    | '/{-$locale}/admin/billing/invoices/$id'
+    | '/{-$locale}/admin/system/jobs/$jobId'
   id:
     | '__root__'
     | '/{-$locale}'
@@ -590,10 +880,16 @@ export interface FileRouteTypes {
     | '/{-$locale}/(root-layout)/status/'
     | '/{-$locale}/(root-layout)/terms-of-service/'
     | '/{-$locale}/(admin-layout)/admin/audit/'
+    | '/{-$locale}/(admin-layout)/admin/billing/'
     | '/{-$locale}/(admin-layout)/admin/emails/'
+    | '/{-$locale}/(admin-layout)/admin/feature-flags/'
     | '/{-$locale}/(admin-layout)/admin/features/'
     | '/{-$locale}/(admin-layout)/admin/plans/'
+    | '/{-$locale}/(admin-layout)/admin/projects/'
+    | '/{-$locale}/(admin-layout)/admin/sessions/'
     | '/{-$locale}/(admin-layout)/admin/settings/'
+    | '/{-$locale}/(admin-layout)/admin/subscriptions/'
+    | '/{-$locale}/(admin-layout)/admin/usage/'
     | '/{-$locale}/(admin-layout)/admin/users/'
     | '/{-$locale}/(admin-layout)/admin/workspaces/'
     | '/{-$locale}/(centered-layout)/(guest)/accept-invite/'
@@ -609,13 +905,31 @@ export interface FileRouteTypes {
     | '/{-$locale}/(console-layout)/app/features/'
     | '/{-$locale}/(console-layout)/app/notifications/'
     | '/{-$locale}/(console-layout)/app/profile/'
+    | '/{-$locale}/(console-layout)/app/projects/'
     | '/{-$locale}/(console-layout)/app/security/'
     | '/{-$locale}/(console-layout)/app/settings/'
     | '/{-$locale}/(console-layout)/app/team/'
     | '/{-$locale}/(console-layout)/app/webhooks/'
     | '/{-$locale}/(root-layout)/(auth)/dashboard/'
     | '/{-$locale}/(root-layout)/(auth)/onboarding/'
+    | '/{-$locale}/(console-layout)/app/projects/$projectId/build'
+    | '/{-$locale}/(console-layout)/app/projects/$projectId/settings'
+    | '/{-$locale}/(admin-layout)/admin/access/roles/'
+    | '/{-$locale}/(admin-layout)/admin/billing/invoices/'
+    | '/{-$locale}/(admin-layout)/admin/billing/profile/'
+    | '/{-$locale}/(admin-layout)/admin/plans/$id/'
+    | '/{-$locale}/(admin-layout)/admin/projects/$projectId/'
+    | '/{-$locale}/(admin-layout)/admin/security/events/'
+    | '/{-$locale}/(admin-layout)/admin/subscriptions/$id/'
+    | '/{-$locale}/(admin-layout)/admin/system/health/'
+    | '/{-$locale}/(admin-layout)/admin/system/incidents/'
+    | '/{-$locale}/(admin-layout)/admin/system/jobs/'
+    | '/{-$locale}/(admin-layout)/admin/system/workers/'
+    | '/{-$locale}/(admin-layout)/admin/users/$id/'
     | '/{-$locale}/(admin-layout)/admin/workspaces/$id/'
+    | '/{-$locale}/(console-layout)/app/projects/$projectId/'
+    | '/{-$locale}/(admin-layout)/admin/billing/invoices/$id/'
+    | '/{-$locale}/(admin-layout)/admin/system/jobs/$jobId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -816,6 +1130,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppSecurityIndexRouteImport
       parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
     }
+    '/{-$locale}/(console-layout)/app/projects/': {
+      id: '/{-$locale}/(console-layout)/app/projects/'
+      path: '/app/projects'
+      fullPath: '/{-$locale}/app/projects/'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppProjectsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
+    }
     '/{-$locale}/(console-layout)/app/profile/': {
       id: '/{-$locale}/(console-layout)/app/profile/'
       path: '/app/profile'
@@ -921,11 +1242,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminUsersIndexRouteImport
       parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
     }
+    '/{-$locale}/(admin-layout)/admin/usage/': {
+      id: '/{-$locale}/(admin-layout)/admin/usage/'
+      path: '/admin/usage'
+      fullPath: '/{-$locale}/admin/usage/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminUsageIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/subscriptions/': {
+      id: '/{-$locale}/(admin-layout)/admin/subscriptions/'
+      path: '/admin/subscriptions'
+      fullPath: '/{-$locale}/admin/subscriptions/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSubscriptionsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
     '/{-$locale}/(admin-layout)/admin/settings/': {
       id: '/{-$locale}/(admin-layout)/admin/settings/'
       path: '/admin/settings'
       fullPath: '/{-$locale}/admin/settings/'
       preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSettingsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/sessions/': {
+      id: '/{-$locale}/(admin-layout)/admin/sessions/'
+      path: '/admin/sessions'
+      fullPath: '/{-$locale}/admin/sessions/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSessionsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/projects/': {
+      id: '/{-$locale}/(admin-layout)/admin/projects/'
+      path: '/admin/projects'
+      fullPath: '/{-$locale}/admin/projects/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminProjectsIndexRouteImport
       parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
     }
     '/{-$locale}/(admin-layout)/admin/plans/': {
@@ -942,11 +1291,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminFeaturesIndexRouteImport
       parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
     }
+    '/{-$locale}/(admin-layout)/admin/feature-flags/': {
+      id: '/{-$locale}/(admin-layout)/admin/feature-flags/'
+      path: '/admin/feature-flags'
+      fullPath: '/{-$locale}/admin/feature-flags/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminFeatureFlagsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
     '/{-$locale}/(admin-layout)/admin/emails/': {
       id: '/{-$locale}/(admin-layout)/admin/emails/'
       path: '/admin/emails'
       fullPath: '/{-$locale}/admin/emails/'
       preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminEmailsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/billing/': {
+      id: '/{-$locale}/(admin-layout)/admin/billing/'
+      path: '/admin/billing'
+      fullPath: '/{-$locale}/admin/billing/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminBillingIndexRouteImport
       parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
     }
     '/{-$locale}/(admin-layout)/admin/audit/': {
@@ -956,11 +1319,130 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminAuditIndexRouteImport
       parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
     }
+    '/{-$locale}/(console-layout)/app/projects/$projectId/': {
+      id: '/{-$locale}/(console-layout)/app/projects/$projectId/'
+      path: '/app/projects/$projectId'
+      fullPath: '/{-$locale}/app/projects/$projectId/'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppProjectsProjectIdIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
+    }
     '/{-$locale}/(admin-layout)/admin/workspaces/$id/': {
       id: '/{-$locale}/(admin-layout)/admin/workspaces/$id/'
       path: '/admin/workspaces/$id'
       fullPath: '/{-$locale}/admin/workspaces/$id/'
       preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminWorkspacesIdIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/users/$id/': {
+      id: '/{-$locale}/(admin-layout)/admin/users/$id/'
+      path: '/admin/users/$id'
+      fullPath: '/{-$locale}/admin/users/$id/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminUsersIdIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/system/workers/': {
+      id: '/{-$locale}/(admin-layout)/admin/system/workers/'
+      path: '/admin/system/workers'
+      fullPath: '/{-$locale}/admin/system/workers/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSystemWorkersIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/system/jobs/': {
+      id: '/{-$locale}/(admin-layout)/admin/system/jobs/'
+      path: '/admin/system/jobs'
+      fullPath: '/{-$locale}/admin/system/jobs/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSystemJobsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/system/incidents/': {
+      id: '/{-$locale}/(admin-layout)/admin/system/incidents/'
+      path: '/admin/system/incidents'
+      fullPath: '/{-$locale}/admin/system/incidents/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSystemIncidentsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/system/health/': {
+      id: '/{-$locale}/(admin-layout)/admin/system/health/'
+      path: '/admin/system/health'
+      fullPath: '/{-$locale}/admin/system/health/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSystemHealthIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/subscriptions/$id/': {
+      id: '/{-$locale}/(admin-layout)/admin/subscriptions/$id/'
+      path: '/admin/subscriptions/$id'
+      fullPath: '/{-$locale}/admin/subscriptions/$id/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSubscriptionsIdIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/security/events/': {
+      id: '/{-$locale}/(admin-layout)/admin/security/events/'
+      path: '/admin/security/events'
+      fullPath: '/{-$locale}/admin/security/events/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSecurityEventsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/projects/$projectId/': {
+      id: '/{-$locale}/(admin-layout)/admin/projects/$projectId/'
+      path: '/admin/projects/$projectId'
+      fullPath: '/{-$locale}/admin/projects/$projectId/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminProjectsProjectIdIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/plans/$id/': {
+      id: '/{-$locale}/(admin-layout)/admin/plans/$id/'
+      path: '/admin/plans/$id'
+      fullPath: '/{-$locale}/admin/plans/$id/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminPlansIdIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/billing/profile/': {
+      id: '/{-$locale}/(admin-layout)/admin/billing/profile/'
+      path: '/admin/billing/profile'
+      fullPath: '/{-$locale}/admin/billing/profile/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminBillingProfileIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/billing/invoices/': {
+      id: '/{-$locale}/(admin-layout)/admin/billing/invoices/'
+      path: '/admin/billing/invoices'
+      fullPath: '/{-$locale}/admin/billing/invoices/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminBillingInvoicesIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/access/roles/': {
+      id: '/{-$locale}/(admin-layout)/admin/access/roles/'
+      path: '/admin/access/roles'
+      fullPath: '/{-$locale}/admin/access/roles/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminAccessRolesIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(console-layout)/app/projects/$projectId/settings': {
+      id: '/{-$locale}/(console-layout)/app/projects/$projectId/settings'
+      path: '/app/projects/$projectId/settings'
+      fullPath: '/{-$locale}/app/projects/$projectId/settings'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppProjectsProjectIdSettingsRouteImport
+      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
+    }
+    '/{-$locale}/(console-layout)/app/projects/$projectId/build': {
+      id: '/{-$locale}/(console-layout)/app/projects/$projectId/build'
+      path: '/app/projects/$projectId/build'
+      fullPath: '/{-$locale}/app/projects/$projectId/build'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppProjectsProjectIdBuildRouteImport
+      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/system/jobs/$jobId/': {
+      id: '/{-$locale}/(admin-layout)/admin/system/jobs/$jobId/'
+      path: '/admin/system/jobs/$jobId'
+      fullPath: '/{-$locale}/admin/system/jobs/$jobId/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSystemJobsJobIdIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/billing/invoices/$id/': {
+      id: '/{-$locale}/(admin-layout)/admin/billing/invoices/$id/'
+      path: '/admin/billing/invoices/$id'
+      fullPath: '/{-$locale}/admin/billing/invoices/$id/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminBillingInvoicesIdIndexRouteImport
       parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
     }
   }
@@ -969,13 +1451,33 @@ declare module '@tanstack/react-router' {
 interface Char123LocaleChar125adminLayoutRouteRouteChildren {
   Char123LocaleChar125adminLayoutAdminIndexRoute: typeof Char123LocaleChar125adminLayoutAdminIndexRoute
   Char123LocaleChar125adminLayoutAdminAuditIndexRoute: typeof Char123LocaleChar125adminLayoutAdminAuditIndexRoute
+  Char123LocaleChar125adminLayoutAdminBillingIndexRoute: typeof Char123LocaleChar125adminLayoutAdminBillingIndexRoute
   Char123LocaleChar125adminLayoutAdminEmailsIndexRoute: typeof Char123LocaleChar125adminLayoutAdminEmailsIndexRoute
+  Char123LocaleChar125adminLayoutAdminFeatureFlagsIndexRoute: typeof Char123LocaleChar125adminLayoutAdminFeatureFlagsIndexRoute
   Char123LocaleChar125adminLayoutAdminFeaturesIndexRoute: typeof Char123LocaleChar125adminLayoutAdminFeaturesIndexRoute
   Char123LocaleChar125adminLayoutAdminPlansIndexRoute: typeof Char123LocaleChar125adminLayoutAdminPlansIndexRoute
+  Char123LocaleChar125adminLayoutAdminProjectsIndexRoute: typeof Char123LocaleChar125adminLayoutAdminProjectsIndexRoute
+  Char123LocaleChar125adminLayoutAdminSessionsIndexRoute: typeof Char123LocaleChar125adminLayoutAdminSessionsIndexRoute
   Char123LocaleChar125adminLayoutAdminSettingsIndexRoute: typeof Char123LocaleChar125adminLayoutAdminSettingsIndexRoute
+  Char123LocaleChar125adminLayoutAdminSubscriptionsIndexRoute: typeof Char123LocaleChar125adminLayoutAdminSubscriptionsIndexRoute
+  Char123LocaleChar125adminLayoutAdminUsageIndexRoute: typeof Char123LocaleChar125adminLayoutAdminUsageIndexRoute
   Char123LocaleChar125adminLayoutAdminUsersIndexRoute: typeof Char123LocaleChar125adminLayoutAdminUsersIndexRoute
   Char123LocaleChar125adminLayoutAdminWorkspacesIndexRoute: typeof Char123LocaleChar125adminLayoutAdminWorkspacesIndexRoute
+  Char123LocaleChar125adminLayoutAdminAccessRolesIndexRoute: typeof Char123LocaleChar125adminLayoutAdminAccessRolesIndexRoute
+  Char123LocaleChar125adminLayoutAdminBillingInvoicesIndexRoute: typeof Char123LocaleChar125adminLayoutAdminBillingInvoicesIndexRoute
+  Char123LocaleChar125adminLayoutAdminBillingProfileIndexRoute: typeof Char123LocaleChar125adminLayoutAdminBillingProfileIndexRoute
+  Char123LocaleChar125adminLayoutAdminPlansIdIndexRoute: typeof Char123LocaleChar125adminLayoutAdminPlansIdIndexRoute
+  Char123LocaleChar125adminLayoutAdminProjectsProjectIdIndexRoute: typeof Char123LocaleChar125adminLayoutAdminProjectsProjectIdIndexRoute
+  Char123LocaleChar125adminLayoutAdminSecurityEventsIndexRoute: typeof Char123LocaleChar125adminLayoutAdminSecurityEventsIndexRoute
+  Char123LocaleChar125adminLayoutAdminSubscriptionsIdIndexRoute: typeof Char123LocaleChar125adminLayoutAdminSubscriptionsIdIndexRoute
+  Char123LocaleChar125adminLayoutAdminSystemHealthIndexRoute: typeof Char123LocaleChar125adminLayoutAdminSystemHealthIndexRoute
+  Char123LocaleChar125adminLayoutAdminSystemIncidentsIndexRoute: typeof Char123LocaleChar125adminLayoutAdminSystemIncidentsIndexRoute
+  Char123LocaleChar125adminLayoutAdminSystemJobsIndexRoute: typeof Char123LocaleChar125adminLayoutAdminSystemJobsIndexRoute
+  Char123LocaleChar125adminLayoutAdminSystemWorkersIndexRoute: typeof Char123LocaleChar125adminLayoutAdminSystemWorkersIndexRoute
+  Char123LocaleChar125adminLayoutAdminUsersIdIndexRoute: typeof Char123LocaleChar125adminLayoutAdminUsersIdIndexRoute
   Char123LocaleChar125adminLayoutAdminWorkspacesIdIndexRoute: typeof Char123LocaleChar125adminLayoutAdminWorkspacesIdIndexRoute
+  Char123LocaleChar125adminLayoutAdminBillingInvoicesIdIndexRoute: typeof Char123LocaleChar125adminLayoutAdminBillingInvoicesIdIndexRoute
+  Char123LocaleChar125adminLayoutAdminSystemJobsJobIdIndexRoute: typeof Char123LocaleChar125adminLayoutAdminSystemJobsJobIdIndexRoute
 }
 
 const Char123LocaleChar125adminLayoutRouteRouteChildren: Char123LocaleChar125adminLayoutRouteRouteChildren =
@@ -984,20 +1486,60 @@ const Char123LocaleChar125adminLayoutRouteRouteChildren: Char123LocaleChar125adm
       Char123LocaleChar125adminLayoutAdminIndexRoute,
     Char123LocaleChar125adminLayoutAdminAuditIndexRoute:
       Char123LocaleChar125adminLayoutAdminAuditIndexRoute,
+    Char123LocaleChar125adminLayoutAdminBillingIndexRoute:
+      Char123LocaleChar125adminLayoutAdminBillingIndexRoute,
     Char123LocaleChar125adminLayoutAdminEmailsIndexRoute:
       Char123LocaleChar125adminLayoutAdminEmailsIndexRoute,
+    Char123LocaleChar125adminLayoutAdminFeatureFlagsIndexRoute:
+      Char123LocaleChar125adminLayoutAdminFeatureFlagsIndexRoute,
     Char123LocaleChar125adminLayoutAdminFeaturesIndexRoute:
       Char123LocaleChar125adminLayoutAdminFeaturesIndexRoute,
     Char123LocaleChar125adminLayoutAdminPlansIndexRoute:
       Char123LocaleChar125adminLayoutAdminPlansIndexRoute,
+    Char123LocaleChar125adminLayoutAdminProjectsIndexRoute:
+      Char123LocaleChar125adminLayoutAdminProjectsIndexRoute,
+    Char123LocaleChar125adminLayoutAdminSessionsIndexRoute:
+      Char123LocaleChar125adminLayoutAdminSessionsIndexRoute,
     Char123LocaleChar125adminLayoutAdminSettingsIndexRoute:
       Char123LocaleChar125adminLayoutAdminSettingsIndexRoute,
+    Char123LocaleChar125adminLayoutAdminSubscriptionsIndexRoute:
+      Char123LocaleChar125adminLayoutAdminSubscriptionsIndexRoute,
+    Char123LocaleChar125adminLayoutAdminUsageIndexRoute:
+      Char123LocaleChar125adminLayoutAdminUsageIndexRoute,
     Char123LocaleChar125adminLayoutAdminUsersIndexRoute:
       Char123LocaleChar125adminLayoutAdminUsersIndexRoute,
     Char123LocaleChar125adminLayoutAdminWorkspacesIndexRoute:
       Char123LocaleChar125adminLayoutAdminWorkspacesIndexRoute,
+    Char123LocaleChar125adminLayoutAdminAccessRolesIndexRoute:
+      Char123LocaleChar125adminLayoutAdminAccessRolesIndexRoute,
+    Char123LocaleChar125adminLayoutAdminBillingInvoicesIndexRoute:
+      Char123LocaleChar125adminLayoutAdminBillingInvoicesIndexRoute,
+    Char123LocaleChar125adminLayoutAdminBillingProfileIndexRoute:
+      Char123LocaleChar125adminLayoutAdminBillingProfileIndexRoute,
+    Char123LocaleChar125adminLayoutAdminPlansIdIndexRoute:
+      Char123LocaleChar125adminLayoutAdminPlansIdIndexRoute,
+    Char123LocaleChar125adminLayoutAdminProjectsProjectIdIndexRoute:
+      Char123LocaleChar125adminLayoutAdminProjectsProjectIdIndexRoute,
+    Char123LocaleChar125adminLayoutAdminSecurityEventsIndexRoute:
+      Char123LocaleChar125adminLayoutAdminSecurityEventsIndexRoute,
+    Char123LocaleChar125adminLayoutAdminSubscriptionsIdIndexRoute:
+      Char123LocaleChar125adminLayoutAdminSubscriptionsIdIndexRoute,
+    Char123LocaleChar125adminLayoutAdminSystemHealthIndexRoute:
+      Char123LocaleChar125adminLayoutAdminSystemHealthIndexRoute,
+    Char123LocaleChar125adminLayoutAdminSystemIncidentsIndexRoute:
+      Char123LocaleChar125adminLayoutAdminSystemIncidentsIndexRoute,
+    Char123LocaleChar125adminLayoutAdminSystemJobsIndexRoute:
+      Char123LocaleChar125adminLayoutAdminSystemJobsIndexRoute,
+    Char123LocaleChar125adminLayoutAdminSystemWorkersIndexRoute:
+      Char123LocaleChar125adminLayoutAdminSystemWorkersIndexRoute,
+    Char123LocaleChar125adminLayoutAdminUsersIdIndexRoute:
+      Char123LocaleChar125adminLayoutAdminUsersIdIndexRoute,
     Char123LocaleChar125adminLayoutAdminWorkspacesIdIndexRoute:
       Char123LocaleChar125adminLayoutAdminWorkspacesIdIndexRoute,
+    Char123LocaleChar125adminLayoutAdminBillingInvoicesIdIndexRoute:
+      Char123LocaleChar125adminLayoutAdminBillingInvoicesIdIndexRoute,
+    Char123LocaleChar125adminLayoutAdminSystemJobsJobIdIndexRoute:
+      Char123LocaleChar125adminLayoutAdminSystemJobsJobIdIndexRoute,
   }
 
 const Char123LocaleChar125adminLayoutRouteRouteWithChildren =
@@ -1057,10 +1599,14 @@ interface Char123LocaleChar125consoleLayoutRouteRouteChildren {
   Char123LocaleChar125consoleLayoutAppFeaturesIndexRoute: typeof Char123LocaleChar125consoleLayoutAppFeaturesIndexRoute
   Char123LocaleChar125consoleLayoutAppNotificationsIndexRoute: typeof Char123LocaleChar125consoleLayoutAppNotificationsIndexRoute
   Char123LocaleChar125consoleLayoutAppProfileIndexRoute: typeof Char123LocaleChar125consoleLayoutAppProfileIndexRoute
+  Char123LocaleChar125consoleLayoutAppProjectsIndexRoute: typeof Char123LocaleChar125consoleLayoutAppProjectsIndexRoute
   Char123LocaleChar125consoleLayoutAppSecurityIndexRoute: typeof Char123LocaleChar125consoleLayoutAppSecurityIndexRoute
   Char123LocaleChar125consoleLayoutAppSettingsIndexRoute: typeof Char123LocaleChar125consoleLayoutAppSettingsIndexRoute
   Char123LocaleChar125consoleLayoutAppTeamIndexRoute: typeof Char123LocaleChar125consoleLayoutAppTeamIndexRoute
   Char123LocaleChar125consoleLayoutAppWebhooksIndexRoute: typeof Char123LocaleChar125consoleLayoutAppWebhooksIndexRoute
+  Char123LocaleChar125consoleLayoutAppProjectsProjectIdBuildRoute: typeof Char123LocaleChar125consoleLayoutAppProjectsProjectIdBuildRoute
+  Char123LocaleChar125consoleLayoutAppProjectsProjectIdSettingsRoute: typeof Char123LocaleChar125consoleLayoutAppProjectsProjectIdSettingsRoute
+  Char123LocaleChar125consoleLayoutAppProjectsProjectIdIndexRoute: typeof Char123LocaleChar125consoleLayoutAppProjectsProjectIdIndexRoute
 }
 
 const Char123LocaleChar125consoleLayoutRouteRouteChildren: Char123LocaleChar125consoleLayoutRouteRouteChildren =
@@ -1083,6 +1629,8 @@ const Char123LocaleChar125consoleLayoutRouteRouteChildren: Char123LocaleChar125c
       Char123LocaleChar125consoleLayoutAppNotificationsIndexRoute,
     Char123LocaleChar125consoleLayoutAppProfileIndexRoute:
       Char123LocaleChar125consoleLayoutAppProfileIndexRoute,
+    Char123LocaleChar125consoleLayoutAppProjectsIndexRoute:
+      Char123LocaleChar125consoleLayoutAppProjectsIndexRoute,
     Char123LocaleChar125consoleLayoutAppSecurityIndexRoute:
       Char123LocaleChar125consoleLayoutAppSecurityIndexRoute,
     Char123LocaleChar125consoleLayoutAppSettingsIndexRoute:
@@ -1091,6 +1639,12 @@ const Char123LocaleChar125consoleLayoutRouteRouteChildren: Char123LocaleChar125c
       Char123LocaleChar125consoleLayoutAppTeamIndexRoute,
     Char123LocaleChar125consoleLayoutAppWebhooksIndexRoute:
       Char123LocaleChar125consoleLayoutAppWebhooksIndexRoute,
+    Char123LocaleChar125consoleLayoutAppProjectsProjectIdBuildRoute:
+      Char123LocaleChar125consoleLayoutAppProjectsProjectIdBuildRoute,
+    Char123LocaleChar125consoleLayoutAppProjectsProjectIdSettingsRoute:
+      Char123LocaleChar125consoleLayoutAppProjectsProjectIdSettingsRoute,
+    Char123LocaleChar125consoleLayoutAppProjectsProjectIdIndexRoute:
+      Char123LocaleChar125consoleLayoutAppProjectsProjectIdIndexRoute,
   }
 
 const Char123LocaleChar125consoleLayoutRouteRouteWithChildren =

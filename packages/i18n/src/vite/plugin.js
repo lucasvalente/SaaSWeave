@@ -42,7 +42,13 @@ export function paraglideVitePlugin(options) {
     outdir: resolve(I18N_ROOT, "src/paraglide"),
     outputStructure: "message-modules",
     project: resolve(I18N_ROOT, "project.inlang"),
-    strategy: ["url", "baseLocale"],
+    // Explicit URL locales are supported, but the persisted cookie must win
+    // on the unprefixed base route so SSR and hydration share one locale.
+    strategy: ["cookie", "url", "baseLocale"],
+    // Keep the generated runtime aligned with the application's persisted
+    // preference keys (the SSR extractor reads this cookie directly).
+    cookieName: "saasweave_locale",
+    localStorageKey: "saasweave.locale",
     urlPatterns: [
       {
         localized,

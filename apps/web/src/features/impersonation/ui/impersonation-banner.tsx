@@ -3,6 +3,7 @@ import { toast } from "sonner";
 
 import { stopImpersonating } from "@saasweave/auth/react/impersonation";
 import { useAuth } from "@saasweave/auth/react/tanstack-start/hooks";
+import { m } from "@saasweave/i18n/messages";
 import { Button } from "@saasweave/ui/components/button";
 
 export function ImpersonationBanner() {
@@ -17,7 +18,7 @@ export function ImpersonationBanner() {
       await stopImpersonating();
       window.location.assign("/app");
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Could not stop impersonating.");
+      toast.error(error instanceof Error ? error.message : m.impersonation__stop_failed());
       setPending(false);
     }
   }
@@ -25,11 +26,12 @@ export function ImpersonationBanner() {
   return (
     <div className="border-amber-500/30 bg-amber-500/10 text-amber-800 dark:text-amber-300 flex items-center justify-between gap-3 border-b px-4 py-2 text-sm sm:px-6 lg:px-8">
       <p>
-        <span className="font-medium">Impersonation active.</span> You are viewing the workspace as{" "}
-        <span className="font-medium">{user.name}</span> ({user.email}).
+        <span className="font-medium">{m.impersonation__active()}</span>{" "}
+        {m.impersonation__viewing_as()} <span className="font-medium">{user.name}</span> (
+        {user.email}).
       </p>
       <Button disabled={pending} onClick={handleStop} size="sm" variant="outline">
-        {pending ? "Stopping…" : "Stop impersonating"}
+        {pending ? m.impersonation__stopping() : m.impersonation__stop()}
       </Button>
     </div>
   );

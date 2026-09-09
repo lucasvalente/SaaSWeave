@@ -1,0 +1,1 @@
+{"version":"2026-09-07","golden_stack":"Docker web/server/Postgres/Redis","module_status":{"global-i18n":"complete","admin-navigation-consolidation":"complete"},"invariants":["fail-closed RBAC","no destructive production actions"],"conventions":["pt-BR/en/es parity","targeted tests by impact"]}

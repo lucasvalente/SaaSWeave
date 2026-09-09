@@ -9,11 +9,7 @@ import { requireConsoleFeature } from "@/features/console-nav";
 import { NotificationsPage } from "@/pages/console/notifications";
 
 export const Route = createFileRoute("/{-$locale}/(console-layout)/app/notifications/")({
-  beforeLoad: async ({ context, preload }) => {
-    if (!preload) {
-      await requireConsoleFeature(context.queryClient, "notifications");
-    }
-  },
+  beforeLoad: ({ context }) => requireConsoleFeature(context.queryClient, "notifications"),
   loader: ({ context }) =>
     context.queryClient.ensureQueryData(orpc.console.notifications.list.queryOptions()),
   head: ({ params }) =>

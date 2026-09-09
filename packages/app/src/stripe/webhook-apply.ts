@@ -22,6 +22,34 @@ export type StripeWebhookApplyResult = {
 
 type DbExecutor = Pick<typeof db, "insert" | "select" | "update">;
 
+/** Resolve a webhook's organization without allowing metadata to cross tenants. */
+async function resolveOrganizationId(
+  customerId: string | undefined,
+  metadataOrganizationId: string | null | undefined,
+  executor: Pick<typeof db, "select">
+): Promise<string | null> {
+  if (metadataOrganizationId) {
+    const [metadataOrg] = await executor
+      .select({ id: organization.id, stripeCustomerId: organization.stripeCustomerId })
+      .from(organization)
+      .where(eq(organization.id, metadataOrganizationId))
+      .limit(1);
+    if (
+      metadataOrg &&
+      (!metadataOrg.stripeCustomerId || metadataOrg.stripeCustomerId === customerId)
+    ) {
+      return metadataOrg.id;
+    }
+  }
+  if (!customerId) return null;
+  const [customerOrg] = await executor
+    .select({ id: organization.id })
+    .from(organization)
+    .where(eq(organization.stripeCustomerId, customerId))
+    .limit(1);
+  return customerOrg?.id ?? null;
+}
+
 export function extractStripeCustomerId(event: Stripe.Event): string | null {
   if (
     event.type === "customer.subscription.created" ||
@@ -85,21 +113,12 @@ async function applySubscription(
     subscriptionStatus: subscription.status
   };
 
-  let auditOrgId = organizationId ?? null;
-  if (organizationId) {
-    await executor.update(organization).set(values).where(eq(organization.id, organizationId));
-  } else {
-    await executor
-      .update(organization)
-      .set(values)
-      .where(eq(organization.stripeCustomerId, customerId));
-    const row = await executor
-      .select({ id: organization.id })
-      .from(organization)
-      .where(eq(organization.stripeCustomerId, customerId))
-      .limit(1);
-    auditOrgId = row[0]?.id ?? null;
-  }
+  const auditOrgId = await resolveOrganizationId(customerId, organizationId, executor);
+  if (!auditOrgId) return null;
+  await executor
+    .update(organization)
+    .set(values)
+    .where(eq(organization.id, auditOrgId));
 
   if (auditOrgId) {
     await recordAudit({
@@ -148,22 +167,17 @@ export async function applyStripeWebhookEvent(
 
   if (event.type === "invoice.payment_failed") {
     const invoice = event.data.object;
-    const organizationId = invoice.metadata?.organizationId ?? null;
     const customerId =
       typeof invoice.customer === "string" ? invoice.customer : invoice.customer?.id;
-    let orgId = organizationId;
-    if (!orgId && customerId) {
-      const row = await executor
-        .select({ id: organization.id })
-        .from(organization)
-        .where(eq(organization.stripeCustomerId, customerId))
-        .limit(1);
-      orgId = row[0]?.id ?? null;
-    }
-    if (orgId) {
+    const organizationId = await resolveOrganizationId(
+      customerId,
+      invoice.metadata?.organizationId,
+      executor
+    );
+    if (organizationId) {
       await recordAudit({
         action: "billing.payment_failed",
-        organizationId: orgId,
+        organizationId,
         targetLabel: invoice.id,
         targetType: "invoice"
       });

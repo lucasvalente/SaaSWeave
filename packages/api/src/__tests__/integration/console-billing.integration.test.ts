@@ -44,7 +44,7 @@ describe.sequential("console billing (sample mode)", () => {
 
   integrationIt("checkout rejects members without billing access (FORBIDDEN)", async () => {
     const seed = await seedOrgWithOwner({ role: "member" });
-    await seedOrganizationPlan(seed.organizationId);
+    await seedOrganizationPlan(seed.organizationId, "growth");
     await seedOrganizationFeatureFlags(seed.organizationId, { billing_portal: true });
     const caller = await createCallerFor({ seed, role: "member" });
 
@@ -56,7 +56,7 @@ describe.sequential("console billing (sample mode)", () => {
 
   integrationIt("checkout rejects annual billing when the feature is off (FORBIDDEN)", async () => {
     const seed = await seedOrgWithOwner();
-    await seedOrganizationPlan(seed.organizationId);
+    await seedOrganizationPlan(seed.organizationId, "growth");
     await seedOrganizationFeatureFlags(seed.organizationId, {
       annual_billing: false,
       billing_portal: true
@@ -64,7 +64,7 @@ describe.sequential("console billing (sample mode)", () => {
     const caller = await createCallerFor({ seed });
 
     await expectOrpcError(
-      () => caller.console.checkout({ interval: "annual", planId: "growth" }),
+      () => caller.console.checkout({ interval: "annual", planId: "scale" }),
       "FORBIDDEN"
     );
   });

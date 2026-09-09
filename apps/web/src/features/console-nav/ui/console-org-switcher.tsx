@@ -5,6 +5,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 import { authClient } from "@saasweave/auth/react/auth-client";
+import { m } from "@saasweave/i18n/messages";
 import { Button } from "@saasweave/ui/components/button";
 import {
   DropdownMenu,
@@ -44,12 +45,12 @@ function CreateWorkspaceSheet({ onCreated }: { onCreated: () => Promise<void> })
     const slug = `${base || "workspace"}-${Math.random().toString(36).slice(2, 10)}`;
     const created = await authClient.organization.create({ name, slug });
     if (created.error) {
-      toast.error(created.error.message ?? "Failed to create workspace");
+      toast.error(created.error.message ?? m.console_settings__workspace_update_failed());
       setPending(false);
       return;
     }
     await authClient.organization.setActive({ organizationId: created.data.id });
-    toast.success(`Created ${name}`);
+    toast.success(m.console_nav__workspace_created({ name }));
     setName("");
     setPending(false);
     setOpen(false);
@@ -67,26 +68,26 @@ function CreateWorkspaceSheet({ onCreated }: { onCreated: () => Promise<void> })
           }}
         >
           <Plus className="size-4 opacity-60" aria-hidden="true" />
-          New workspace
+          {m.console_nav__new_workspace()}
         </DropdownMenuItem>
       </SheetTrigger>
       <SheetContent side="right" className="w-full sm:max-w-md">
         <SheetHeader className="border-b border-border px-5 py-4">
-          <SheetTitle>Create a workspace</SheetTitle>
+          <SheetTitle>{m.console_nav__create_workspace()}</SheetTitle>
         </SheetHeader>
         <form className="flex flex-col gap-5 p-5" onSubmit={handleSubmit}>
           <div className="space-y-2">
-            <Label htmlFor="workspace-name">Workspace name</Label>
+            <Label htmlFor="workspace-name">{m.console_settings__workspace_name_label()}</Label>
             <Input
               id="workspace-name"
               required
               value={name}
               onChange={(event) => setName(event.target.value)}
-              placeholder="Acme Inc."
+              placeholder={m.console_settings__workspace_name_placeholder()}
             />
           </div>
           <Button type="submit" disabled={pending || !name.trim()} className="w-full">
-            {pending ? "Creating…" : "Create workspace"}
+            {pending ? m.console_nav__creating_workspace() : m.console_nav__create_workspace()}
           </Button>
         </form>
       </SheetContent>
@@ -109,13 +110,13 @@ export function ConsoleOrgSwitcher() {
     if (organizationId === activeOrganization?.id) return;
     const result = await authClient.organization.setActive({ organizationId });
     if (result.error) {
-      toast.error(result.error.message ?? "Failed to switch workspace");
+      toast.error(result.error.message ?? m.console_settings__workspace_update_failed());
       return;
     }
     await refresh();
   };
 
-  const activeName = activeOrganization?.name ?? "Workspace";
+  const activeName = activeOrganization?.name ?? m.console_settings__workspace_name_label();
 
   return (
     <DropdownMenu>
@@ -123,7 +124,7 @@ export function ConsoleOrgSwitcher() {
         <Button
           variant="outline"
           className="h-auto w-full justify-between px-2.5 py-2"
-          aria-label="Switch workspace"
+          aria-label={m.console_nav__switch_workspace()}
         >
           <span className="flex min-w-0 items-center gap-2">
             <span className="flex size-6 shrink-0 items-center justify-center rounded-md bg-brand text-xs font-semibold text-brand-foreground">
@@ -135,7 +136,9 @@ export function ConsoleOrgSwitcher() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="w-[13.5rem]">
-        <DropdownMenuLabel className="text-xs text-muted-foreground">Workspaces</DropdownMenuLabel>
+        <DropdownMenuLabel className="text-xs text-muted-foreground">
+          {m.admin_nav__workspaces()}
+        </DropdownMenuLabel>
         {(organizations ?? []).map((org) => (
           <DropdownMenuItem
             key={org.id}

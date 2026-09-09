@@ -16,7 +16,7 @@ const onboardingSearchSchema = z.object({
     .catch(undefined)
     .transform((val) =>
       validateNavigateTo({
-        fallbackTo: "/app",
+        fallbackTo: "/app/projects",
         routeTree,
         shouldIncludeRoute: (route) => !route.id.includes("(guest)"),
         to: val

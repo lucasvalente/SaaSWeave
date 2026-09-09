@@ -30,16 +30,13 @@ export function AboutPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-20 sm:py-28">
       <div className="text-center">
-        <p className="mb-3 text-sm font-medium tracking-wide text-brand uppercase">About</p>
-        <h1 className="font-display text-4xl font-medium -tracking-[0.01em] text-balance text-foreground sm:text-5xl">
-          The operations console for AI-native teams
-        </h1>
-        <p className="mt-4 text-balance text-muted-foreground">
-          SaaSWeave started as a simple question: what would it take to track product usage, meter
-          every AI request, and bill for it, without stitching together five different tools? This
-          console is the answer — one workspace for usage, billing, and the platform controls that
-          keep it running.
+        <p className="mb-3 text-sm font-medium tracking-wide text-brand uppercase">
+          {m.about__label()}
         </p>
+        <h1 className="font-display text-4xl font-medium -tracking-[0.01em] text-balance text-foreground sm:text-5xl">
+          {m.about__title()}
+        </h1>
+        <p className="mt-4 text-balance text-muted-foreground">{m.about__description()}</p>
       </div>
 
       <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-3">

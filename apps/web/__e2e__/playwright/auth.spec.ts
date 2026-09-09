@@ -40,7 +40,7 @@ test.describe("authenticated auth flows", () => {
   test("signs up a new account and lands authenticated", async ({ page }) => {
     await page.goto("/create-an-account");
 
-    await expect(page.getByRole("heading", { name: "Create an account" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Create an account|Criar uma conta|Crear una cuenta/i })).toBeVisible();
     await page.getByLabel("Name").fill("E2E User");
     await page.getByLabel("Email").fill(email);
     await page.getByLabel("Password", { exact: true }).fill(password);
@@ -59,7 +59,7 @@ test.describe("authenticated auth flows", () => {
     await expect(page.getByRole("button", { name: "Sign out" })).toBeVisible();
 
     await signOutFromConsole(page);
-    await expect(page.getByRole("heading", { name: "Sign in to your account" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Sign in to your account|Entre na sua conta|Inicia sesión en tu cuenta/i })).toBeVisible();
 
     await signIn(page, email);
     await expect(page.getByRole("button", { name: "Sign out" })).toBeVisible();

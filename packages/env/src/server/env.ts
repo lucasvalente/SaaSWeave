@@ -18,7 +18,11 @@ export const ENV_SERVER = createEnv({
     DATABASE_PREPARED_STATEMENTS: z.stringbool().default(true),
     DATABASE_MAX_CONNECTIONS: z.coerce.number().int().positive().default(10),
     BETTER_AUTH_SECRET: z.string().min(32),
-    NODE_ENV: z.enum(["development", "production"]).default("development"),
+    // Test runners need a first-class environment instead of impersonating
+    // production (and therefore accidentally requiring production-only
+    // deployment credentials). Production guards remain exclusive to
+    // NODE_ENV=production below.
+    NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
     // Require verified email before sign-in in production unless explicitly disabled.
     REQUIRE_EMAIL_VERIFICATION: z.stringbool().default(isProduction),
     // Trust X-Forwarded-For / X-Real-IP for auth rate limits (enable behind a trusted reverse proxy).
@@ -91,6 +95,10 @@ export const ENV_SERVER = createEnv({
     RETENTION_PURGE_DRY_RUN: z.stringbool().default(false),
     RETENTION_LEGAL_HOLD_ORG_IDS: z.string().default(""),
     BACKUP_RESTORE_ALLOW_REMOTE: z.stringbool().default(false)
+    ,AI_MODEL_PROVIDER: z.enum(["deterministic", "openai-compatible"]).default("deterministic")
+    ,AI_MODEL_NAME: z.string().min(1).default("gpt-4o-mini")
+    ,AI_MODEL_API_URL: z.url().default("https://api.openai.com/v1/chat/completions")
+    ,AI_MODEL_API_KEY: z.string().default("")
   },
   onValidationError: (error) => {
     console.debug("Invalid environment variables:", error);

@@ -1,7 +1,7 @@
 import { createServerFn, createServerOnlyFn } from "@tanstack/react-start";
 import { getRequest, setResponseHeader } from "@tanstack/react-start/server";
 
-import { auth } from "#@/index";
+import { type auth } from "@saasweave/auth/index";
 
 export type AuthState = {
   impersonatedBy: string | null;
@@ -34,20 +34,35 @@ type GetUserServerQuery = {
  */
 export const _getAuthState = createServerOnlyFn(
   async (query?: GetUserServerQuery): Promise<AuthState> => {
-    const session = await auth.api.getSession({
-      headers: getRequest().headers,
-      query,
-      returnHeaders: true
-    });
+    if (process.env.IS_BUILD === "true") return { impersonatedBy: null, user: null };
+    const request = getRequest();
+    const apiBaseUrl = process.env.INTERNAL_SERVER_URL ?? process.env.VITE_SERVER_URL;
+    if (!apiBaseUrl) return { impersonatedBy: null, user: null };
+    const endpoint = new URL("auth/get-session", `${apiBaseUrl.replace(/\/$/, "")}/`);
+    if (query?.disableCookieCache) endpoint.searchParams.set("disableCookieCache", "true");
+    if (query?.disableRefresh) endpoint.searchParams.set("disableRefresh", "true");
 
-    const cookies = session.headers?.getSetCookie();
-    if (cookies?.length) {
-      setResponseHeader("Set-Cookie", cookies);
-    }
+    // The browser talks to the API auth origin directly. In a split web/API
+    // deployment, verify that same session at its canonical origin rather than
+    // reinterpreting it in the SSR process.
+    const response = await fetch(endpoint, {
+      headers: request.headers.get("cookie")
+        ? { cookie: request.headers.get("cookie")! }
+        : undefined
+    });
+    const cookies = response.headers.getSetCookie();
+    if (cookies.length > 0) setResponseHeader("Set-Cookie", cookies);
+
+    if (!response.ok) return { impersonatedBy: null, user: null };
+
+    const session = (await response.json()) as {
+      session?: { impersonatedBy?: string | null };
+      user?: AuthState["user"];
+    } | null;
 
     return {
-      impersonatedBy: session.response?.session?.impersonatedBy ?? null,
-      user: session.response?.user ?? null
+      impersonatedBy: session?.session?.impersonatedBy ?? null,
+      user: session?.user ?? null
     };
   }
 );

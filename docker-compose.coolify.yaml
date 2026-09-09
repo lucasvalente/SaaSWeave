@@ -69,6 +69,11 @@ x-server-env: &server-env
   SECURITY_HEADERS_ENABLED: ${SECURITY_HEADERS_ENABLED:-true}
   SECURITY_CSP_REPORT_ONLY: ${SECURITY_CSP_REPORT_ONLY:-false}
   SECURITY_CSP_REPORT_URI: ${SECURITY_CSP_REPORT_URI:-}
+  # The server talks only to the controller; it never receives Docker access.
+  # The host-gateway mapping below is used solely for the controller-owned,
+  # loopback-published preview gateway.
+  SANDBOX_RUNTIME_CONTROLLER_URL: ${SANDBOX_RUNTIME_CONTROLLER_URL:-http://sandbox-runtime:8787}
+  RUNTIME_CONTROLLER_TOKEN: ${RUNTIME_CONTROLLER_TOKEN:?Set RUNTIME_CONTROLLER_TOKEN}
 
 services:
   migrate:
@@ -79,7 +84,6 @@ services:
       target: migrator
     environment:
       <<: *server-env
-    exclude_from_hc: true
     depends_on:
       postgres:
         condition: service_healthy
@@ -99,6 +103,8 @@ services:
     environment:
       SERVICE_URL_SERVER_5000:
       <<: *server-env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     healthcheck:
       test:
         [
@@ -116,6 +122,35 @@ services:
         condition: service_healthy
       minio-init:
         condition: service_completed_successfully
+      sandbox-runtime:
+        condition: service_healthy
+    networks:
+      - default
+      - sandbox-control-network
+
+  # Deliberately internal: this is the only service with Docker authority.
+  # It creates isolated preview containers and controller-owned gateways; do
+  # not publish this port or mount docker.sock into application services.
+  sandbox-runtime:
+    container_name: saasweave-sandbox-runtime
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: apps/sandbox-runtime/Dockerfile
+    environment:
+      PORT: 8787
+      RUNTIME_CONTROLLER_TOKEN: ${RUNTIME_CONTROLLER_TOKEN:?Set RUNTIME_CONTROLLER_TOKEN}
+      SANDBOX_IMAGE: ${SANDBOX_IMAGE:-saasweave-sandbox:1.0.3}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8787/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    networks:
+      - sandbox-control-network
 
   web:
     container_name: saasweave-web
@@ -263,3 +298,15 @@ volumes:
   saasweave-pg-data:
   saasweave-redis-data:
   saasweave-minio-data:
+
+networks:
+  # Coolify still attaches its edge proxy to the default network. The named
+  # networks below exist for controller-created preview containers, not for
+  # public ingress.
+  sandbox-control-network:
+    internal: true
+  sandbox-preview-network:
+    name: sandbox-preview-network
+    internal: true
+  sandbox-preview-gateway-network:
+    name: sandbox-preview-gateway-network

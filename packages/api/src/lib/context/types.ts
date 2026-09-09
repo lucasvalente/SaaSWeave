@@ -15,4 +15,6 @@ export type OrpcContext = {
   organization?: { id: string; role: string };
   headers: Headers;
   clientIp: string;
+  requestId?: string;
+  traceId?: string;
 };

@@ -6,6 +6,20 @@ Operator guide for backups, recovery, observability, container hardening, and da
 SaaSWeave. Local Docker defaults are documented in [LOCAL-STACK.md](./LOCAL-STACK.md); this runbook
 defines **production** expectations.
 
+The executable release path uses a separate production environment file and compose file; it never
+uses `.env.docker`, which is intentionally local-only:
+
+```bash
+cp .env.production.example .env.production
+# Fill values using the VPS secret manager; do not commit this file.
+pnpm run ops:production-env-validate
+pnpm run ops:deploy-production
+```
+
+The deploy helper validates configuration, runs the one-off migrator, starts the production
+services, and waits for health gates. Preview it safely with
+`pnpm run ops:deploy-production -- --dry-run`.
+
 ## First deployment preflight
 
 Before starting the Coolify stack, set these required values:
@@ -16,10 +30,15 @@ Before starting the Coolify stack, set these required values:
 - `MINIO_ACCESS_KEY_ID`, `MINIO_SECRET_ACCESS_KEY`, and the externally reachable
   `MINIO_PUBLIC_BASE_URL`
 - `METRICS_BEARER_TOKEN` with at least 32 characters when metrics are enabled
+- `RUNTIME_CONTROLLER_TOKEN` with at least 32 random characters; shared only
+  by `server` and the internal runtime controller
+- `SANDBOX_IMAGE` pinned to the approved sandbox image tag or digest
 
 Runtime guards fail closed when administrator, mail, Redis, metrics, or object-storage groups are
 partially configured. The root `docker-compose.yaml` is a loopback-bound local stack; use
-`docker-compose.coolify.yaml` or managed services for production.
+`docker-compose.prod.yml`, `docker-compose.coolify.yaml`, or managed services for production.
+Production Compose requires Linux Docker Engine with `host-gateway`; it does not rely on Docker
+Desktop.
 
 ## Ownership
 
@@ -95,6 +114,17 @@ Rotate on schedule or immediately after suspected compromise:
 3. Confirm `/server/health/ready` and worker `GET :9100/health/ready`.
 4. Monitor `http_requests_total{status_class="5xx"}` for 30 minutes.
 
+For a compose deployment with registry images, use an immutable release tag or digest, never
+`latest`:
+
+```bash
+ROLLBACK_IMAGE_TAG=sha-<previous-release> pnpm run ops:rollback-production
+```
+
+The rollback helper only replaces application containers. It deliberately does **not** reverse
+migrations or overwrite persistent volumes. After rollback, run the normal health gate and retain
+the incident snapshot until the rollback is declared stable.
+
 ## Migration compatibility
 
 - Migrations run as a **single pre-deploy** step (`pnpm run db:migrate`) with Postgres advisory
@@ -110,9 +140,16 @@ pnpm run ops:backup-verify
 
 # Compose production + local configs
 pnpm run ops:compose-validate
+
+# Local/CI restart and persistence drill (restarts local critical services)
+pnpm run ops:restart-recovery-verify:docker
 ```
 
 The backup drill inserts a disposable `audit_log` marker, `pg_dump`s, restores to an isolated database, compares row count and checksum, then cleans up. A Docker volume alone is **not** a backup.
+
+For an operator drill against a disposable or restored clone, the script refuses non-local targets
+unless `BACKUP_RESTORE_ALLOW_REMOTE=true` is deliberately set. For a production restore, follow the
+new-instance procedure above and do not use the drill as an in-place restore tool.
 
 ## Worker readiness
 
@@ -185,7 +222,7 @@ Distributed tracing is not currently configured. Use request IDs to correlate st
 
 ## Container hardening (production)
 
-Production compose (`docker-compose.coolify.yaml`) applies:
+Production compose (`docker-compose.prod.yml` or `docker-compose.coolify.yaml`) applies:
 
 - Non-root UIDs (server/web/worker images)
 - `read_only: true` + `tmpfs /tmp` for app containers
@@ -195,6 +232,18 @@ Production compose (`docker-compose.coolify.yaml`) applies:
 - `restart: unless-stopped`
 - Internal network only — **no published** Postgres, Redis, or MinIO admin ports
 - Immutable image tags/digests via Coolify build (`SOURCE_COMMIT`)
+
+### Sandbox runtime boundary
+
+`sandbox-runtime` is the sole Docker authority. It has no published port and is reachable only by
+`server` over `sandbox-control-network`, authenticated with `RUNTIME_CONTROLLER_TOKEN`. Never
+mount the Docker socket into web, server, worker, migration, database, or proxy containers.
+
+The controller creates sandboxes on the internal `sandbox-preview-network` and controller-owned
+gateways on `sandbox-preview-gateway-network`. Preview ports are loopback-only on the Linux host;
+the server reaches them through the explicit `host.docker.internal:host-gateway` mapping. This is
+not an external ingress path. Preview responses allow framing only by the configured
+`VITE_WEB_URL` origin, so production builds must use final HTTPS URLs, never localhost values.
 
 Local `docker-compose.yaml` keeps admin ports for developer ergonomics.
 

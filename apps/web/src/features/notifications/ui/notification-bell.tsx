@@ -1,7 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Bell, CheckCheck } from "lucide-react";
+import { toast } from "sonner";
 
 import { client, orpc } from "@saasweave/api/client/tanstack-start/orpc";
+import { m } from "@saasweave/i18n/messages";
 import { Button } from "@saasweave/ui/components/button";
 import {
   DropdownMenu,
@@ -35,7 +37,8 @@ export function NotificationBell() {
 
   const markAll = useMutation({
     mutationFn: () => client.console.notifications.markAllRead(),
-    onSuccess: invalidate
+    onSuccess: invalidate,
+    onError: () => toast.error(m.console_notifications__error_description())
   });
 
   function isSafeUrl(url: string): boolean {
@@ -49,14 +52,21 @@ export function NotificationBell() {
   }
 
   function open(id: string, actionUrl: string | null) {
-    void client.console.notifications.markRead({ id }).then(invalidate);
+    void client.console.notifications.markRead({ id }).then(invalidate).catch(() => {
+      toast.error(m.console_notifications__error_description());
+    });
     if (actionUrl && isSafeUrl(actionUrl)) window.location.assign(actionUrl);
   }
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button aria-label="Notifications" className="relative" size="icon-sm" variant="ghost">
+        <Button
+          aria-label={m.console_nav__notifications()}
+          className="relative"
+          size="icon-sm"
+          variant="ghost"
+        >
           <Bell />
           {count > 0 ? (
             <span className="absolute -top-0.5 -right-0.5 flex min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-semibold text-primary-foreground">
@@ -67,7 +77,9 @@ export function NotificationBell() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-80 p-0">
         <div className="flex items-center justify-between border-b border-border px-3 py-2.5">
-          <span className="text-sm font-medium text-foreground">Notifications</span>
+          <span className="text-sm font-medium text-foreground">
+            {m.console_nav__notifications()}
+          </span>
           {count > 0 ? (
             <button
               className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
@@ -75,7 +87,7 @@ export function NotificationBell() {
               type="button"
             >
               <CheckCheck aria-hidden="true" className="size-3.5" />
-              Mark all read
+              {m.global__mark_all_read()}
             </button>
           ) : null}
         </div>
@@ -114,7 +126,7 @@ export function NotificationBell() {
         ) : (
           <div className="px-3 py-10 text-center text-sm text-muted-foreground">
             <Bell aria-hidden="true" className="mx-auto mb-2 size-5 opacity-40" />
-            You're all caught up.
+            {m.global__all_caught_up()}
           </div>
         )}
       </DropdownMenuContent>

@@ -18,6 +18,12 @@ import { type ContentfulStatusCode } from "hono/utils/http-status";
 import { createContext } from "@saasweave/api/lib/context/hono/create-context";
 import { constructWebhookEvent, isStripeEnabled } from "@saasweave/api/lib/stripe";
 import { dispatchStripeWebhook } from "@saasweave/api/lib/stripe-dispatch";
+import { handlePreviewRoute } from "@saasweave/api/sandbox";
+import { revalidatePreviewRuntime } from "@saasweave/api/sandbox";
+import { resolvePreviewUpstream } from "@saasweave/api/sandbox";
+import { HttpRuntimeControllerClient } from "@saasweave/api/sandbox";
+import { db, sandboxSession } from "@saasweave/db";
+import { and, eq } from "drizzle-orm";
 import { appRouter } from "@saasweave/api/routers/index";
 import { auth } from "@saasweave/auth/index";
 import { getPublicAuthProviderFlags } from "@saasweave/auth/public-providers";
@@ -49,6 +55,7 @@ import {
   startEventLoopLagMonitor
 } from "@saasweave/observability";
 
+import { createTrustedAuthRequest } from "#@/auth/request";
 import {
   boundedJsonBodyMiddleware,
   buildApiBodyLimitExclusionPattern
@@ -70,7 +77,12 @@ type ServerVariables = {
 
 const serverHostname = hostname();
 const serverUrl = new URL(ENV_SERVER.VITE_SERVER_URL);
-const serverPort = Number(serverUrl.port || (serverUrl.protocol === "https:" ? 443 : 80));
+// The public URL is normally HTTPS (443), while the application process stays
+// on its private container port behind Caddy. Prefer an explicit PORT so a
+// production HTTPS origin never makes the server bind to privileged port 443.
+const serverPort = Number(
+  process.env.PORT ?? (serverUrl.port || (serverUrl.protocol === "https:" ? 443 : 80))
+);
 const CSP_REPORT_MAX_BYTES = 16 * 1_024;
 const CSP_REPORT_RATE_LIMIT = 60;
 const CSP_REPORT_RATE_WINDOW_SECONDS = 60;
@@ -82,6 +94,33 @@ function logIngestRateLimitFailureMode(): RateLimitFailureMode {
 export const app = new Hono<ServerVariables>().basePath(
   new URL(ENV_SERVER.VITE_SERVER_URL).pathname
 );
+
+const previewRuntime = new HttpRuntimeControllerClient(
+  process.env.SANDBOX_RUNTIME_CONTROLLER_URL ?? "http://sandbox-runtime:8787",
+  ((input, init) => fetch(input, { ...init, headers: { ...(init?.headers ?? {}), authorization: `Bearer ${process.env.RUNTIME_CONTROLLER_TOKEN ?? ""}` } })) as typeof fetch
+);
+app.get("/preview/:projectId/:sandboxId", async (c) => {
+  const projectId = c.req.param("projectId");
+  const sandboxId = c.req.param("sandboxId");
+  const token = c.req.query("token");
+  if (!token) return c.text("PREVIEW_FORBIDDEN", 403);
+  const response = await handlePreviewRoute(c.req.raw, { token, projectId }, {
+    secret: ENV_SERVER.BETTER_AUTH_SECRET,
+    resolveUpstream: async (claims) => {
+      const [row] = await db.select().from(sandboxSession).where(and(eq(sandboxSession.id, claims.sandboxId), eq(sandboxSession.projectId, projectId), eq(sandboxSession.workspaceId, claims.workspaceId))).limit(1);
+      if (!row || row.id !== sandboxId || !row.previewHostPort) return null;
+      const mapped = resolvePreviewUpstream({ hostIp: row.previewHostIp ?? "", hostPort: row.previewHostPort, containerPort: row.previewContainerPort ?? 4173 }, row.previewContainerPort ?? 4173);
+      return mapped?.replace("127.0.0.1", "host.docker.internal") ?? null;
+    },
+    loadSandbox: async (claims) => {
+      const [row] = await db.select().from(sandboxSession).where(and(eq(sandboxSession.id, claims.sandboxId), eq(sandboxSession.projectId, projectId), eq(sandboxSession.workspaceId, claims.workspaceId))).limit(1);
+      return row ? row : null;
+    },
+    revalidateRuntime: async (sandbox) => revalidatePreviewRuntime(sandbox, previewRuntime),
+    isHealthy: async (claims) => { const [row] = await db.select({ port: sandboxSession.previewHostPort }).from(sandboxSession).where(eq(sandboxSession.id, claims.sandboxId)).limit(1); if (!row?.port) return false; try { const res = await fetch(`http://host.docker.internal:${row.port}`); return res.ok; } catch { return false; } }
+  });
+  return c.newResponse(response.body, response);
+});
 
 app.use(
   "/*",
@@ -218,7 +257,9 @@ app.use(
 
 app.get("/auth/providers", async (c) => c.json(await getPublicAuthProviderFlags(ENV_SERVER)));
 
-app.on(["POST", "GET"], "/auth/*", authRateLimitMiddleware, async (c) => auth.handler(c.req.raw));
+app.on(["POST", "GET"], "/auth/*", authRateLimitMiddleware, async (c) =>
+  auth.handler(createTrustedAuthRequest(c.req.raw, getConnInfo(c).remote.address))
+);
 
 app.route("/media", mediaRoutes);
 app.route("/exports", dataExportRoutes);

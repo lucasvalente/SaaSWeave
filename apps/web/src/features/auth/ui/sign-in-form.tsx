@@ -1,5 +1,6 @@
 import { useForm } from "@tanstack/react-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -34,6 +35,8 @@ export function SignInForm({
   const isClient = useIsClient();
   const queryClient = useQueryClient();
   const providers = useAuthProviders();
+  const [twoFactorPending, setTwoFactorPending] = useState(false);
+  const [twoFactorCode, setTwoFactorCode] = useState("");
   const callbackUrl = new URL("/app", appConfig.site.url).href;
 
   const signInMutation = useMutation({
@@ -47,17 +50,52 @@ export function SignInForm({
         throw new Error(result.error?.message ?? m.auth__sign_in_failed());
       }
 
-      return result;
+      if ("twoFactorRedirect" in result.data && result.data.twoFactorRedirect) {
+        return { requiresTwoFactor: true };
+      }
+
+      return { requiresTwoFactor: false };
     },
     onError: (error: Error) => {
       toast.error(error.message || m.auth__sign_in_failed());
     },
-    onSuccess: async () => {
+    onSuccess: async (result) => {
+      if (result.requiresTwoFactor) {
+        setTwoFactorCode("");
+        setTwoFactorPending(true);
+        return;
+      }
       // Invalidate auth cache to force refetch with new user data
       await queryClient.invalidateQueries(getAuthUserQueryOptions());
       await navigate({
         to: redirectTo
       });
+      toast.success(m.auth__sign_in_successful());
+    }
+  });
+
+  const twoFactorMutation = useMutation({
+    mutationFn: async (code: string) => {
+      const result = await authClient.twoFactor.verifyTotp({ code, trustDevice: false });
+      if (result.error) throw new Error(result.error.message ?? m.auth__sign_in_failed());
+      // Force a database-backed session read after MFA before navigating. The
+      // verification response sets the HttpOnly cookie asynchronously; a
+      // cached getSession can resolve first and let the SSR console guard see
+      // a stale/empty cookie during the immediate navigation.
+      const session = await authClient.getSession({
+        query: { disableCookieCache: true, disableRefresh: true }
+      });
+      if (!session.data?.user) throw new Error(m.auth__sign_in_failed());
+      // Allow the browser to commit the HttpOnly Set-Cookie before the
+      // immediate client navigation triggers an SSR request.
+      await new Promise((resolve) => setTimeout(resolve, 2_000));
+    },
+    onError: (error: Error) => toast.error(error.message || m.auth__sign_in_failed()),
+    onSuccess: async () => {
+      setTwoFactorCode("");
+      setTwoFactorPending(false);
+      await queryClient.invalidateQueries(getAuthUserQueryOptions());
+      await navigate({ to: redirectTo });
       toast.success(m.auth__sign_in_successful());
     }
   });
@@ -103,72 +141,95 @@ export function SignInForm({
             </FieldDescription>
           </div>
 
-          <form.Field name="email">
-            {(field) => (
+          {!twoFactorPending ? (
+            <>
+              <form.Field name="email">
+                {(field) => (
+                  <Field>
+                    <FieldLabel htmlFor={field.name}>{m.auth__email_label()}</FieldLabel>
+                    <Input
+                      disabled={!isClient}
+                      id={field.name}
+                      name={field.name}
+                      onBlur={field.handleBlur}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      type="email"
+                      value={field.state.value}
+                      placeholder={m.auth__email_placeholder()}
+                    />
+                    {field.state.meta.errors.map((error) => (
+                      <p className="text-sm text-destructive" key={error?.message}>
+                        {error?.message}
+                      </p>
+                    ))}
+                  </Field>
+                )}
+              </form.Field>
+
+              <form.Field name="password">
+                {(field) => (
+                  <Field>
+                    <div className="flex items-center justify-between gap-2">
+                      <FieldLabel htmlFor={field.name}>{m.auth__password_label()}</FieldLabel>
+                      <Link
+                        className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
+                        to="/forgot-password"
+                      >
+                        {m.auth__forgot_password_link()}
+                      </Link>
+                    </div>
+                    <Input
+                      disabled={!isClient}
+                      id={field.name}
+                      name={field.name}
+                      onBlur={field.handleBlur}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      type="password"
+                      value={field.state.value}
+                    />
+                    {field.state.meta.errors.map((error) => (
+                      <p className="text-sm text-destructive" key={error?.message}>
+                        {error?.message}
+                      </p>
+                    ))}
+                  </Field>
+                )}
+              </form.Field>
+
               <Field>
-                <FieldLabel htmlFor={field.name}>{m.auth__email_label()}</FieldLabel>
-                <Input
-                  disabled={!isClient}
-                  id={field.name}
-                  name={field.name}
-                  onBlur={field.handleBlur}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  type="email"
-                  value={field.state.value}
-                  placeholder={m.auth__email_placeholder()}
-                />
-                {field.state.meta.errors.map((error) => (
-                  <p className="text-sm text-destructive" key={error?.message}>
-                    {error?.message}
-                  </p>
-                ))}
+                <Button
+                  light="skeuomorphic"
+                  type="submit"
+                  disabled={!isClient || signInMutation.isPending || signInMutation.isSuccess}
+                >
+                  {signInMutation.isPending ? m.auth__signing_in() : m.auth__sign_in()}
+                </Button>
               </Field>
-            )}
-          </form.Field>
 
-          <form.Field name="password">
-            {(field) => (
-              <Field>
-                <div className="flex items-center justify-between gap-2">
-                  <FieldLabel htmlFor={field.name}>{m.auth__password_label()}</FieldLabel>
-                  <Link
-                    className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
-                    to="/forgot-password"
-                  >
-                    {m.auth__forgot_password_link()}
-                  </Link>
-                </div>
-                <Input
-                  disabled={!isClient}
-                  id={field.name}
-                  name={field.name}
-                  onBlur={field.handleBlur}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  type="password"
-                  value={field.state.value}
-                />
-                {field.state.meta.errors.map((error) => (
-                  <p className="text-sm text-destructive" key={error?.message}>
-                    {error?.message}
-                  </p>
-                ))}
-              </Field>
-            )}
-          </form.Field>
-
-          <Field>
-            <Button
-              light="skeuomorphic"
-              type="submit"
-              disabled={!isClient || signInMutation.isPending || signInMutation.isSuccess}
-            >
-              {signInMutation.isPending ? m.auth__signing_in() : m.auth__sign_in()}
-            </Button>
-          </Field>
-
-          <OAuthButtons callbackUrl={callbackUrl} />
-          {providers.data?.magicLink ? <MagicLinkForm callbackUrl={callbackUrl} /> : null}
-          <SsoSignInButton callbackUrl={callbackUrl} />
+              <OAuthButtons callbackUrl={callbackUrl} />
+              {providers.data?.magicLink ? <MagicLinkForm callbackUrl={callbackUrl} /> : null}
+              <SsoSignInButton callbackUrl={callbackUrl} />
+            </>
+          ) : (
+            <Field>
+              <FieldLabel htmlFor="two-factor-code">{m.auth__authenticator_code()}</FieldLabel>
+              <Input
+                autoComplete="one-time-code"
+                id="two-factor-code"
+                inputMode="numeric"
+                maxLength={6}
+                onChange={(event) => setTwoFactorCode(event.target.value.replace(/\D/g, ""))}
+                value={twoFactorCode}
+              />
+              <Button
+                disabled={twoFactorMutation.isPending || !/^\d{6}$/.test(twoFactorCode)}
+                onClick={() => twoFactorMutation.mutate(twoFactorCode)}
+                type="button"
+              >
+                {twoFactorMutation.isPending ? m.auth__verifying() : m.auth__verify_sign_in()}
+              </Button>
+            </Field>
+          )}
         </FieldGroup>
       </form>
       <FieldDescription className="px-6 text-center">

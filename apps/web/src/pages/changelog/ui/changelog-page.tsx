@@ -1,3 +1,5 @@
+import { m } from "@saasweave/i18n/messages";
+
 import { Badge } from "@/shared/ui/console-kit";
 
 type ChangelogTag = "new" | "improved" | "fixed";
@@ -9,9 +11,9 @@ type ChangelogEntry = {
 };
 
 const TAG_LABEL: Record<ChangelogTag, string> = {
-  fixed: "Fixed",
-  improved: "Improved",
-  new: "New"
+  fixed: m.changelog__fixed(),
+  improved: m.changelog__improved(),
+  new: m.changelog__new()
 };
 
 const TAG_TONE: Record<ChangelogTag, "brand" | "success" | "info"> = {
@@ -109,24 +111,24 @@ const ENTRIES: ChangelogEntry[] = [
 ];
 
 function formatEntryDate(iso: string): string {
-  return new Date(iso).toLocaleDateString("en-US", {
+  return new Intl.DateTimeFormat(undefined, {
     day: "numeric",
     month: "long",
     year: "numeric"
-  });
+  }).format(new Date(iso));
 }
 
 export function ChangelogPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-20 sm:py-28">
       <div className="text-center">
-        <p className="mb-3 text-sm font-medium tracking-wide text-brand uppercase">Changelog</p>
-        <h1 className="font-display text-4xl font-medium -tracking-[0.01em] text-balance text-foreground sm:text-5xl">
-          What's new
-        </h1>
-        <p className="mt-4 text-balance text-muted-foreground">
-          Everything shipped to the platform, newest first.
+        <p className="mb-3 text-sm font-medium tracking-wide text-brand uppercase">
+          {m.changelog__label()}
         </p>
+        <h1 className="font-display text-4xl font-medium -tracking-[0.01em] text-balance text-foreground sm:text-5xl">
+          {m.changelog__title()}
+        </h1>
+        <p className="mt-4 text-balance text-muted-foreground">{m.changelog__description()}</p>
       </div>
 
       <ol className="mt-16 space-y-14 border-l border-border pl-8">

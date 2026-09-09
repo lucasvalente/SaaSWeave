@@ -1,4 +1,5 @@
-export type NodeEnv = "development" | "production";
+/** `test` deliberately has the same security-header posture as local development. */
+export type NodeEnv = "development" | "test" | "production";
 
 export type SecurityHeadersProfile = "api" | "web";
 

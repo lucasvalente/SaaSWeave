@@ -3,6 +3,7 @@ import { Mail, RotateCcw, Send } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 
+import { m } from "@saasweave/i18n/messages";
 import { Button } from "@saasweave/ui/components/button";
 import { Input } from "@saasweave/ui/components/input";
 import { Label } from "@saasweave/ui/components/label";
@@ -111,11 +112,11 @@ function DeliveriesPanel() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-border text-left text-xs text-muted-foreground">
-                <th className="px-5 py-2.5 font-medium">Status</th>
-                <th className="px-5 py-2.5 font-medium">Template</th>
-                <th className="px-5 py-2.5 font-medium">Recipient</th>
-                <th className="px-5 py-2.5 font-medium">Subject</th>
-                <th className="px-5 py-2.5 text-right font-medium">When</th>
+                <th className="px-5 py-2.5 font-medium">{m.admin__status()}</th>
+                <th className="px-5 py-2.5 font-medium">{m.admin__template()}</th>
+                <th className="px-5 py-2.5 font-medium">{m.admin__recipient()}</th>
+                <th className="px-5 py-2.5 font-medium">{m.admin__subject()}</th>
+                <th className="px-5 py-2.5 text-right font-medium">{m.admin__when()}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
@@ -157,7 +158,7 @@ function DeliveriesPanel() {
         </div>
       ) : (
         <p className="px-5 py-10 text-center text-sm text-muted-foreground">
-          No deliveries yet. Send a test above to see it appear here.
+          {m.admin__no_deliveries()}
         </p>
       )}
     </Panel>
@@ -183,7 +184,7 @@ function TemplateEditor({ template }: { template: TemplateSummary }) {
   const save = useSaveEmailTemplateMutation({
     onError: (error: Error) => toast.error(error.message),
     onSuccess: () => {
-      toast.success("Template saved");
+      toast.success(m.admin__save_changes());
       void queryClient.invalidateQueries({ queryKey: emailTemplatesQueryKeys.all() });
     }
   });
@@ -191,7 +192,7 @@ function TemplateEditor({ template }: { template: TemplateSummary }) {
   const sendTest = useSendTestEmailMutation({
     onError: (error: Error) => toast.error(error.message),
     onSuccess: () => {
-      toast.success(`Test sent to ${testEmail}`);
+      toast.success(`${m.admin__send_test()} ${testEmail}`);
       void queryClient.invalidateQueries({ queryKey: emailDeliveriesQueryKeys.all() });
     }
   });
@@ -253,15 +254,15 @@ function TemplateEditor({ template }: { template: TemplateSummary }) {
                 save.mutate({ copy: draft.copy, key: template.key, subject: draft.subject })
               }
             >
-              {save.isPending ? "Saving…" : "Save changes"}
+              {save.isPending ? m.admin__saving() : m.admin__save_changes()}
             </Button>
             {isDirty ? (
-              <span className="text-xs text-muted-foreground">Unsaved changes</span>
+              <span className="text-xs text-muted-foreground">{m.admin__unsaved_changes()}</span>
             ) : null}
           </div>
 
           <div className="space-y-2 border-t border-border pt-5">
-            <Label htmlFor="test-email">Send a test</Label>
+            <Label htmlFor="test-email">{m.admin__send_test()}</Label>
             <div className="flex gap-2">
               <Input
                 id="test-email"
@@ -276,7 +277,7 @@ function TemplateEditor({ template }: { template: TemplateSummary }) {
                 variant="outline"
               >
                 <Send aria-hidden="true" />
-                {sendTest.isPending ? "Sending…" : "Send"}
+                {sendTest.isPending ? m.admin__sending() : m.admin__send()}
               </Button>
             </div>
             <p className="text-xs text-muted-foreground">
@@ -295,12 +296,12 @@ function TemplateEditor({ template }: { template: TemplateSummary }) {
               className="h-[520px] w-full rounded-lg border border-border bg-white"
               sandbox=""
               srcDoc={preview.html}
-              title="Email preview"
+              title={m.admin__template()}
             />
           ) : (
             <div className="flex h-[520px] items-center justify-center text-sm text-muted-foreground">
               <Mail aria-hidden="true" className="mr-2 size-4" />
-              No preview available
+              {m.admin__no_deliveries()}
             </div>
           )}
         </div>
@@ -321,7 +322,7 @@ function TemplateList({
   return (
     <nav
       className="flex gap-2 overflow-x-auto lg:flex-col lg:overflow-visible"
-      aria-label="Templates"
+      aria-label={m.admin__templates()}
     >
       {templates.map((template) => (
         <button
@@ -355,7 +356,7 @@ function SubjectField({
 }) {
   return (
     <div className="space-y-2">
-      <FieldLabel label="Subject line" onReset={onReset} showReset={value !== placeholder} />
+      <FieldLabel label={m.admin__subject()} onReset={onReset} showReset={value !== placeholder} />
       <Input
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder}
@@ -411,7 +412,7 @@ function FieldLabel({
           type="button"
         >
           <RotateCcw aria-hidden="true" className="size-3" />
-          Reset
+          {m.admin__reset()}
         </button>
       ) : null}
     </div>

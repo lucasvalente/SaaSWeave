@@ -58,8 +58,19 @@ vi.mock("@saasweave/db/schema", () => {
   };
 });
 vi.mock("@saasweave/db", () => {
+  const transaction = {
+    select: () => ({
+      from: () => ({
+        where: () => ({ for: async () => [{ stripeCustomerId: null }] })
+      })
+    }),
+    update: () => ({
+      set: () => ({ where: mocks.updateWhere })
+    })
+  };
   return {
     db: {
+      transaction: async (callback: (tx: any) => Promise<unknown>) => callback(transaction),
       select: () => {
         return {
           from: () => {

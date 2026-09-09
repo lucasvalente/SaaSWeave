@@ -1,0 +1,20 @@
+{
+	# Caddy listens on unprivileged container ports. Compose maps host 80/443
+	# to them, retaining automatic HTTP-to-HTTPS redirect and ACME TLS.
+	http_port 8080
+	https_port 8443
+	email {$ACME_EMAIL}
+}
+
+{$APP_DOMAIN} {
+	encode zstd gzip
+
+	@api path /server /server/*
+	reverse_proxy @api server:5000
+
+	# MinIO stays private; public media is proxied through the same TLS edge.
+	@uploads path /uploads /uploads/*
+	reverse_proxy @uploads minio:9000
+
+	reverse_proxy web:3000
+}

@@ -30,7 +30,9 @@ export {
   type AuditQueryResult
 } from "#@/audit-query";
 
-export { isFeatureGloballyEnabled } from "#@/features";
+export { isFeatureGloballyEnabled, resolveFeatureFlag } from "#@/features";
+
+export { project, projectSupabaseIntegration } from "#@/schema/project.schema";
 
 export {
   createOrganizationIpRule,
@@ -177,6 +179,42 @@ export {
 } from "#@/platform-analytics";
 
 export { runDatabaseMigrations } from "#@/migrate";
+export { BillingConflictError, BillingNotFoundError, createInvoice, createPlanPrice, getBillingProfile, getInvoice, issueInvoice, listInvoices, listPlanPrices, recordManualPayment, recordRefund, upsertBillingProfile, voidInvoice } from "#@/billing";
+export {
+  listEntitlementDefinitions,
+  listPlanEntitlements,
+  removePlanEntitlement,
+  setPlanEntitlement,
+  type EntitlementValue,
+  type EntitlementValueType
+} from "#@/plan-entitlements";
+export {
+  assignSubscription,
+  cancelSubscription,
+  changeSubscription,
+  getSubscription,
+  listSubscriptionHistory,
+  listSubscriptions,
+  resolveOrganizationEntitlements,
+  SubscriptionConcurrencyError,
+  SubscriptionOrganizationNotFoundError,
+  SubscriptionPlanUnavailableError,
+  type SubscriptionStatus
+} from "#@/subscriptions";
+export { getPlatformRoles, listSecurityEvents, recordSecurityEvent } from "#@/security-events";
+export { sandboxSession, sandboxPreview } from "#@/schema/sandbox.schema";
+export {
+  applyCreditOperation,
+  getCreditAccount,
+  getUsageSummary,
+  listCreditLedger,
+  listUsageAggregates,
+  listUsageMetrics,
+  recordUsageEvent,
+  UsageIdempotencyConflictError,
+  type CreditOperation,
+  type UsageEventInput
+} from "#@/usage-metering";
 
 export {
   runRetentionPurgePass,

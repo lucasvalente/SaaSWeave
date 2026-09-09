@@ -3,6 +3,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 import { type FeatureCategory, PLANNED_FEATURES } from "@saasweave/core/features";
+import { m } from "@saasweave/i18n/messages";
 
 import { useGetPlansQuery } from "@/shared/api/get-plans.query";
 import {
@@ -30,18 +31,18 @@ function RolloutInput({ feature }: { feature: AdminFeature }) {
   const queryClient = useQueryClient();
   const [value, setValue] = useState(String(feature.rollout ?? 0));
   const mutation = useUpdateFeatureRolloutMutation({
-    onError: (error) => toast.error(error.message || "Failed to update rollout"),
+    onError: (error) => toast.error(error.message || m.admin__feature_load_error()),
     onSuccess: () => {
-      toast.success(`${feature.name} rollout updated`);
+      toast.success(`${feature.name} ${m.admin__rollout()}`);
       void queryClient.invalidateQueries({ queryKey: featuresQueryKeys.all() });
     }
   });
 
   return (
     <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
-      Rollout
+      {m.admin__rollout()}
       <input
-        aria-label={`Rollout percentage for ${feature.name}`}
+        aria-label={m.admin__rollout_percentage({ name: feature.name })}
         className="w-14 rounded-md border border-input bg-background px-1.5 py-0.5 text-right text-xs tabular-nums outline-none focus-visible:ring-2 focus-visible:ring-ring"
         disabled={mutation.isPending}
         max={100}
@@ -67,9 +68,11 @@ function FeatureRow({ feature }: { feature: AdminFeature }) {
   const staged = typeof feature.rollout === "number" && feature.rollout < 100;
 
   const toggle = useToggleFeatureMutation({
-    onError: (error) => toast.error(error.message || "Failed to update feature"),
+    onError: (error) => toast.error(error.message || m.admin__feature_load_error()),
     onSuccess: () => {
-      toast.success(`${feature.name} ${feature.enabled ? "disabled" : "enabled"}`);
+      toast.success(
+        `${feature.name} ${feature.enabled ? m.console_common__disabled() : m.console_common__enabled()}`
+      );
       void queryClient.invalidateQueries({ queryKey: featuresQueryKeys.all() });
     }
   });
@@ -84,10 +87,7 @@ function FeatureRow({ feature }: { feature: AdminFeature }) {
         <p className="mt-0.5 text-sm text-muted-foreground">{feature.description}</p>
         <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
           <span className="tabular-nums">
-            {formatNumber(feature.stats.requests30d)} tracked requests ·{" "}
-            {formatNumber(feature.stats.workspacesEnabled)} of{" "}
-            {formatNumber(feature.stats.totalWorkspaces)} workspaces ({feature.stats.adoptionPct}%
-            adoption)
+            {m.admin__feature_stats({ requests: formatNumber(feature.stats.requests30d), enabled: formatNumber(feature.stats.workspacesEnabled), total: formatNumber(feature.stats.totalWorkspaces), adoption: feature.stats.adoptionPct })}
           </span>
           <span className="flex items-center gap-1">
             {feature.availableOn.map((planId) => {
@@ -109,7 +109,7 @@ function FeatureRow({ feature }: { feature: AdminFeature }) {
         <Switch
           checked={feature.enabled}
           disabled={toggle.isPending}
-          label={`Toggle ${feature.name}`}
+          label={m.admin__toggle({ name: feature.name })}
           onChange={(next) => toggle.mutate({ enabled: next, key: feature.key })}
         />
       </div>
@@ -123,7 +123,7 @@ function PlannedFeatureRow({ feature }: { feature: (typeof PLANNED_FEATURES)[num
       <div className="min-w-0">
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-sm font-medium text-foreground">{feature.name}</span>
-          <Badge tone="neutral">Planned</Badge>
+          <Badge tone="neutral">{m.admin__planned()}</Badge>
         </div>
         <p className="mt-0.5 text-sm text-muted-foreground">{feature.description}</p>
       </div>
@@ -137,7 +137,7 @@ export function AdminFeaturesPage() {
   if (query.isError) {
     return (
       <ConsoleErrorState
-        description="Couldn't load the feature catalog."
+        description={m.admin__feature_load_error()}
         onRetry={() => query.refetch()}
       />
     );
@@ -153,12 +153,12 @@ export function AdminFeaturesPage() {
   return (
     <div className="space-y-8">
       <SectionHeading
-        eyebrow="Platform"
-        title="Platform features"
-        description="Turn workspace capabilities on or off platform-wide — API keys, webhooks, audit logs, AI, SSO, and billing add-ons."
+        eyebrow={m.admin__platform()}
+        title={m.admin__platform_features()}
+        description={m.admin__platform_features_description()}
         action={
           <Badge tone="neutral">
-            {enabledCount} of {features.length} enabled
+            {m.admin__features_enabled({ enabled: enabledCount, total: features.length })}
           </Badge>
         }
       />
@@ -180,8 +180,8 @@ export function AdminFeaturesPage() {
       {PLANNED_FEATURES.length > 0 ? (
         <Panel>
           <PanelHeader
-            title="Planned capabilities"
-            description="Not shipped yet — listed for roadmap visibility only."
+            title={m.admin__planned_capabilities()}
+            description={m.admin__planned_capabilities_description()}
           />
           <div className="divide-y divide-border">
             {PLANNED_FEATURES.map((feature) => (

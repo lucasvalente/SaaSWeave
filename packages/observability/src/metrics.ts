@@ -29,6 +29,13 @@ export const authFailuresTotal = new Counter({
   registers: [metricsRegistry]
 });
 
+export const adminMutationsTotal = new Counter({
+  name: "admin_mutations_total",
+  help: "Administrative HTTP mutations by outcome",
+  labelNames: ["status_class"] as const,
+  registers: [metricsRegistry]
+});
+
 export const rateLimitHitsTotal = new Counter({
   name: "rate_limit_hits_total",
   help: "Rate limit rejections",

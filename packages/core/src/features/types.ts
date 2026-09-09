@@ -27,6 +27,14 @@ export type PlatformFeatureType = z.infer<typeof PlatformFeatureSchema>;
  */
 export const DEFAULT_FEATURES: PlatformFeatureType[] = [
   {
+    key: "builder_access",
+    name: "Builder access",
+    description: "Access to the project Builder workspace.",
+    category: "Core",
+    enabled: true,
+    availableOn: ["starter", "growth", "scale", "enterprise"]
+  },
+  {
     key: "api_keys",
     name: "API keys",
     description: "Programmatic access keys for workspace integrations.",
@@ -49,6 +57,14 @@ export const DEFAULT_FEATURES: PlatformFeatureType[] = [
     category: "AI",
     enabled: true,
     availableOn: ["starter", "growth", "scale", "enterprise"]
+  },
+  {
+    key: "builder_ai",
+    name: "AI Builder generation",
+    description: "AI-assisted project planning and code generation in Builder.",
+    category: "AI",
+    enabled: false,
+    availableOn: ["growth", "scale", "enterprise"]
   },
   {
     key: "sso",

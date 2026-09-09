@@ -1,3 +1,6 @@
+import { Link } from "@tanstack/react-router";
+
+import { m } from "@saasweave/i18n/messages";
 import { cn } from "@saasweave/ui/lib/utils";
 
 import { useGetPlansQuery } from "@/shared/api/get-plans.query";
@@ -19,9 +22,9 @@ import { CreatePlanSheet, EditPlanSheet } from "@/pages/admin/plans/ui/plan-edit
 import { platformConfig } from "@/config/platform.config";
 
 const BILLING_MODE_COPY = {
-  hybrid: "A base plan plus metered usage overages.",
-  subscription: "Fixed-price tiers billed on a recurring interval.",
-  usage: "Pay-as-you-go, metered by consumption."
+  hybrid: () => m.plans__billing_hybrid(),
+  subscription: () => m.plans__billing_subscription(),
+  usage: () => m.plans__billing_usage()
 } as const;
 
 export function AdminPlansPage() {
@@ -30,7 +33,7 @@ export function AdminPlansPage() {
   if (statsQuery.isError || plansQuery.isError) {
     return (
       <ConsoleErrorState
-        description="Couldn't load the plan catalog."
+        description={m.plans__create_failed()}
         onRetry={() => {
           void statsQuery.refetch();
           void plansQuery.refetch();
@@ -46,14 +49,14 @@ export function AdminPlansPage() {
     <div className="space-y-8">
       <SectionHeading
         eyebrow="Platform"
-        title="Plans & catalog"
-        description="Define what you sell and how it is priced. Every workspace reads live from this catalog."
+        title={m.admin_nav__plans_catalog()}
+        description={m.plans__platform_description()}
         action={<CreatePlanSheet />}
       />
       <Panel>
         <PanelHeader
-          title="Billing model"
-          description="How every customer is charged across the platform"
+          title={m.admin_settings__billing_model()}
+          description={m.plans__billing_description()}
         />
         <div className="flex flex-wrap items-center gap-3 p-5">
           {(["subscription", "usage", "hybrid"] as const).map((mode) => {
@@ -68,9 +71,9 @@ export function AdminPlansPage() {
               >
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-semibold text-foreground capitalize">{mode}</span>
-                  {active ? <Badge tone="brand">Active</Badge> : null}
+                  {active ? <Badge tone="brand">{m.plans__active()}</Badge> : null}
                 </div>
-                <p className="mt-1 text-xs text-muted-foreground">{BILLING_MODE_COPY[mode]}</p>
+                <p className="mt-1 text-xs text-muted-foreground">{BILLING_MODE_COPY[mode]()}</p>
               </div>
             );
           })}
@@ -88,28 +91,36 @@ export function AdminPlansPage() {
               )}
             >
               <div className="flex items-center justify-between gap-2">
-                <h3 className="font-display text-lg font-semibold text-foreground">{plan.name}</h3>
-                {plan.popular ? <Badge tone="brand">Popular</Badge> : null}
+                <Link
+                  className="font-display text-lg font-semibold text-foreground hover:text-brand"
+                  to="/admin/plans/$id"
+                  params={{ id: plan.id }}
+                >
+                  {plan.name}
+                </Link>
+                {plan.popular ? <Badge tone="brand">{m.plans__popular()}</Badge> : null}
               </div>
               <p className="mt-1 min-h-8 text-xs text-muted-foreground">{plan.tagline}</p>
               <div className="mt-3 flex items-baseline gap-1">
                 <span className="font-display text-3xl font-semibold text-foreground tabular-nums">
-                  {plan.priceMonthly === null ? "Custom" : formatCurrency(plan.priceMonthly)}
+                  {plan.priceMonthly === null
+                    ? m.plans__custom()
+                    : formatCurrency(plan.priceMonthly)}
                 </span>
                 {plan.priceMonthly !== null ? (
-                  <span className="text-sm text-muted-foreground">/mo</span>
+                  <span className="text-sm text-muted-foreground">{m.plans__per_month()}</span>
                 ) : null}
               </div>
               <PlanHighlights highlights={plan.highlights} />
               <dl className="mt-5 grid grid-cols-2 gap-3 border-t border-border pt-4 text-sm">
                 <div>
-                  <dt className="text-xs text-muted-foreground">Subscribers</dt>
+                  <dt className="text-xs text-muted-foreground">{m.plans__subscribers()}</dt>
                   <dd className="font-medium text-foreground tabular-nums">
                     {stat ? formatNumber(stat.customers) : "—"}
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-xs text-muted-foreground">MRR</dt>
+                  <dt className="text-xs text-muted-foreground">{m.plans__mrr()}</dt>
                   <dd className="font-medium text-foreground tabular-nums">
                     {stat ? formatCurrency(stat.mrr) : "—"}
                   </dd>

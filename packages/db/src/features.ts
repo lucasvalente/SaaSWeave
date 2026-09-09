@@ -12,3 +12,8 @@ export async function isFeatureGloballyEnabled(key: string): Promise<boolean> {
     .limit(1);
   return row?.enabled ?? false;
 }
+
+/** Canonical server-side global resolver (workspace overrides are handled by API feature service). */
+export async function resolveFeatureFlag(key: string): Promise<boolean> {
+  return isFeatureGloballyEnabled(key);
+}

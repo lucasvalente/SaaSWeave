@@ -1,3 +1,5 @@
+import { resolve } from "node:path";
+
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
 const mocks = vi.hoisted(() => {
@@ -115,7 +117,9 @@ describe("storage lifecycle cleanup", () => {
       orphanedUploads: 1,
       replacedAvatars: 1
     });
-    expect(mocks.unlink).toHaveBeenCalledWith("/tmp/saasweave-cleanup/avatar/user/o.png");
+    expect(mocks.unlink).toHaveBeenCalledWith(
+      resolve("/tmp/saasweave-cleanup", "avatar", "user", "o.png")
+    );
     expect(mocks.deleteMediaAssetObject).toHaveBeenCalledWith("avatar-1", "user-1");
     expect(mocks.deleteMediaAssetRow).toHaveBeenCalledWith("missing-1");
     expect(mocks.recordAudit).toHaveBeenCalledWith(
@@ -148,7 +152,9 @@ describe("storage lifecycle cleanup", () => {
       expiredExports: 2,
       failedExports: 1
     });
-    expect(mocks.unlink).toHaveBeenCalledWith("/tmp/saasweave-cleanup/exports/org/one.ndjson");
+    expect(mocks.unlink).toHaveBeenCalledWith(
+      resolve("/tmp/saasweave-cleanup", "exports", "org", "one.ndjson")
+    );
     expect(mocks.deleteDataExportRequest).toHaveBeenCalledTimes(3);
     expect(mocks.recordAudit).toHaveBeenCalledWith(
       expect.objectContaining({ action: "data_export.cleanup.completed" })

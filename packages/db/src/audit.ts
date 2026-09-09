@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, gte, lte } from "drizzle-orm";
 
 import { db } from "#@/connection";
 import { auditLog } from "#@/schema/index";
@@ -74,12 +74,28 @@ export async function getOrganizationActivity(
 export async function getPlatformAuditLog(input: {
   limit?: number;
   action?: string;
+  actor?: string;
+  resource?: string;
+  workspace?: string;
+  from?: string;
+  to?: string;
+  offset?: number;
 }): Promise<AuditEntry[]> {
   const rows = await db
     .select()
     .from(auditLog)
-    .where(input.action ? and(eq(auditLog.action, input.action)) : undefined)
-    .orderBy(desc(auditLog.createdAt))
-    .limit(input.limit ?? 50);
+    .where(
+      and(
+        input.action ? eq(auditLog.action, input.action) : undefined,
+        input.actor ? eq(auditLog.actorId, input.actor) : undefined,
+        input.resource ? eq(auditLog.targetType, input.resource) : undefined,
+        input.workspace ? eq(auditLog.organizationId, input.workspace) : undefined,
+        input.from ? gte(auditLog.createdAt, new Date(input.from)) : undefined,
+        input.to ? lte(auditLog.createdAt, new Date(input.to)) : undefined
+      )
+    )
+    .orderBy(desc(auditLog.createdAt), desc(auditLog.id))
+    .limit(input.limit ?? 50)
+    .offset(input.offset ?? 0);
   return rows.map(mapRow);
 }

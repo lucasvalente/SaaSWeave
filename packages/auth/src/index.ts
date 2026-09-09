@@ -37,12 +37,30 @@ export const auth = betterAuth({
     schema
   }),
 
-  // https://www.better-auth.com/docs/concepts/session-management#session-caching
+  // Server-side validation keeps revocation immediately effective.
   session: {
     cookieCache: {
-      enabled: true,
-      maxAge: 5 * 60 // 5 minutes
+      enabled: false
     }
+  },
+  advanced: {
+    // The API is served under /server/auth while the authenticated web routes
+    // live at /. Scope the session to the host so the web guard receives it.
+    defaultCookieAttributes: { path: "/" },
+    // apps/server owns this header and overwrites browser-supplied forwarding
+    // headers with the observed TCP peer before Better Auth receives a request.
+    ipAddress: { ipAddressHeaders: ["x-client-ip"] }
+  },
+  // Better Auth's default sign-in rule is too small for the serial browser
+  // acceptance suite (all local requests share one Docker gateway address).
+  // Keep an explicit, finite per-IP rule; the server also retains its longer
+  // 30-attempt/15-minute defense-in-depth rule for this endpoint.
+  rateLimit: {
+    customRules: {
+      "/sign-in/email": { max: 12, window: 60 },
+      "/two-factor/*": { max: 12, window: 60 }
+    },
+    enabled: true
   },
 
   // https://www.better-auth.com/docs/authentication/email-password

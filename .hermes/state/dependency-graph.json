@@ -1,0 +1,4 @@
+{
+  "domains": {"plans": ["subscriptions"], "subscriptions": ["entitlements", "usage"], "usage": ["credits"], "credits": ["billing"], "auth": ["sessions", "rbac", "admin"]},
+  "invariants": ["tenant boundaries are fail-closed", "privileged mutations require step-up where configured"]
+}

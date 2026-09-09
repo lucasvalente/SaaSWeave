@@ -47,6 +47,9 @@ const APP_TABLES = [
   "email_delivery",
   "email_template",
   "audit_log",
+  "security_event",
+  "platform_role_assignment",
+  "project",
   "usage_event",
   "invitation",
   "member",
@@ -87,6 +90,7 @@ export type CreateCallerOverrides = {
   clientIp?: string;
   featureFlags?: Record<string, boolean>;
   headers?: Headers;
+  mfaEnabled?: boolean;
   impersonatedBy?: string | null;
   organizationId?: string;
   role?: string;
@@ -132,6 +136,7 @@ async function withPostgresIntegrationLock<T>(run: () => Promise<T>): Promise<T>
 
   const token = randomUUID();
   const deadline = Date.now() + 30_000;
+  let lockAcquired = false;
   while (Date.now() < deadline) {
     const acquired = await redis.set(
       INTEGRATION_REDIS_LOCK_KEY,
@@ -141,6 +146,7 @@ async function withPostgresIntegrationLock<T>(run: () => Promise<T>): Promise<T>
       "NX"
     );
     if (acquired === "OK") {
+      lockAcquired = true;
       break;
     }
     await new Promise((resolve) => {
@@ -148,6 +154,7 @@ async function withPostgresIntegrationLock<T>(run: () => Promise<T>): Promise<T>
     });
   }
 
+  if (!lockAcquired) throw new Error("Integration database lock acquisition timed out");
   try {
     return await run();
   } finally {
@@ -213,7 +220,8 @@ function buildAuthSession(
   seed: SeedOrgWithOwnerResult,
   organizationId: string,
   impersonatedBy: string | null = null,
-  userRole = "user"
+  userRole = "user",
+  mfaEnabled = false
 ): AuthSession {
   const now = new Date();
   return {
@@ -240,7 +248,7 @@ function buildAuthSession(
       image: null,
       name: seed.name,
       role: userRole,
-      twoFactorEnabled: false,
+      twoFactorEnabled: mfaEnabled,
       updatedAt: now
     }
   } as AuthSession;
@@ -510,7 +518,16 @@ function buildOrpcContext(
   const impersonatedBy = overrides.impersonatedBy === undefined ? null : overrides.impersonatedBy;
   const userRole = overrides.userRole ?? "user";
   const authSession =
-    overrides.session ?? buildAuthSession(seed, organizationId, impersonatedBy, userRole);
+    overrides.session ??
+    buildAuthSession(
+      seed,
+      organizationId,
+      impersonatedBy,
+      userRole,
+      // Platform-role fixtures model the production enrollment requirement by
+      // default. Negative authorization tests can still opt out explicitly.
+      overrides.mfaEnabled ?? userRole === "admin"
+    );
 
   return {
     clientIp: overrides.clientIp ?? "127.0.0.1",

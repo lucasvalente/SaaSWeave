@@ -1,7 +1,7 @@
-import { and, desc, eq, gte, lte, sql } from "drizzle-orm";
+import { and, asc, desc, eq, exists, gte, ilike, lte, or, sql } from "drizzle-orm";
 
 import { db } from "#@/connection";
-import { organization, usageEvent } from "#@/schema/index";
+import { organization, usageEvent, member, user } from "#@/schema/index";
 import { platformAnalyticsDaily } from "#@/schema/platform-analytics-daily.schema";
 
 export const PLATFORM_ANALYTICS_METRICS = {
@@ -200,17 +200,25 @@ export type AdminWorkspaceCursor = {
 export async function listAdminWorkspacesPage(input: {
   cursor?: AdminWorkspaceCursor | null;
   limit?: number;
+  search?: string;
+  sort?: "createdAt.asc" | "createdAt.desc";
+  status?: "active" | "suspended";
 }): Promise<{
   nextCursor: AdminWorkspaceCursor | null;
   workspaces: Array<{
     createdAt: Date;
     id: string;
     name: string;
+    operationalStatus: string;
     planId: string | null;
     subscriptionStatus: string | null;
+    updatedAt: Date;
   }>;
 }> {
   const limit = input.limit ?? 50;
+  if (!Number.isInteger(limit) || limit < 1 || limit > 100) {
+    throw new RangeError("Invalid page limit");
+  }
   const cursor = input.cursor;
 
   const baseQuery = db
@@ -218,19 +226,45 @@ export async function listAdminWorkspacesPage(input: {
       createdAt: organization.createdAt,
       id: organization.id,
       name: organization.name,
+      operationalStatus: organization.operationalStatus,
       planId: organization.planId,
-      subscriptionStatus: organization.subscriptionStatus
+      subscriptionStatus: organization.subscriptionStatus,
+      updatedAt: organization.updatedAt
     })
     .from(organization);
 
-  const rows = await (
-    cursor
-      ? baseQuery.where(
-          sql`(${organization.createdAt}, ${organization.id}) < (${new Date(cursor.createdAt)}::timestamp, ${cursor.id})`
-        )
-      : baseQuery
-  )
-    .orderBy(desc(organization.createdAt), desc(organization.id))
+  const rows = await baseQuery
+    .where(
+      and(
+        cursor
+          ? sql`(${organization.createdAt}, ${organization.id}) < (${cursor.createdAt}::timestamp, ${cursor.id})`
+          : undefined,
+        input.search
+          ? or(
+              ilike(organization.name, `%${input.search}%`),
+              ilike(organization.id, `%${input.search}%`),
+              exists(
+                db
+                  .select({ id: member.id })
+                  .from(member)
+                  .innerJoin(user, eq(member.userId, user.id))
+                  .where(
+                    and(
+                      eq(member.organizationId, organization.id),
+                      eq(member.role, "owner"),
+                      or(ilike(user.email, `%${input.search}%`))
+                    )
+                  )
+              )
+            )
+          : undefined,
+        input.status ? eq(organization.operationalStatus, input.status) : undefined
+      )
+    )
+    .orderBy(
+      input.sort === "createdAt.asc" ? asc(organization.createdAt) : desc(organization.createdAt),
+      desc(organization.id)
+    )
     .limit(limit + 1);
 
   const hasMore = rows.length > limit;

@@ -5,6 +5,7 @@ import { toast } from "sonner";
 
 import { orpc } from "@saasweave/api/client/tanstack-start/orpc";
 import { authClient } from "@saasweave/auth/react/auth-client";
+import { m } from "@saasweave/i18n/messages";
 import { useNavigate } from "@saasweave/i18n/tanstack-start/hooks/use-navigate";
 import { type NavigateTo } from "@saasweave/i18n/tanstack-start/types";
 import { Button } from "@saasweave/ui/components/button";
@@ -59,7 +60,7 @@ function WorkspaceStep({ onNext }: { onNext: () => void }) {
       }
       onNext();
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Could not save workspace name");
+      toast.error(error instanceof Error ? error.message : m.onboarding__save_failed());
     } finally {
       setSaving(false);
     }
@@ -68,13 +69,13 @@ function WorkspaceStep({ onNext }: { onNext: () => void }) {
   return (
     <div className="space-y-6">
       <div className="space-y-2 text-center">
-        <h1 className="text-xl font-bold">Name your workspace</h1>
-        <p className="text-sm text-muted-foreground">
-          This is what your team will see. You can change it any time from Settings.
-        </p>
+        <h1 className="text-xl font-bold">{m.onboarding__name_workspace()}</h1>
+        <p className="text-sm text-muted-foreground">{m.onboarding__workspace_description()}</p>
       </div>
       <div className="space-y-2">
-        <Label htmlFor="onboarding-workspace-name">Workspace name</Label>
+        <Label htmlFor="onboarding-workspace-name">
+          {m.console_settings__workspace_name_label()}
+        </Label>
         <Input
           id="onboarding-workspace-name"
           onChange={(event) => setName(event.target.value)}
@@ -82,7 +83,7 @@ function WorkspaceStep({ onNext }: { onNext: () => void }) {
         />
       </div>
       <Button className="w-full" disabled={saving} light="skeuomorphic" onClick={save}>
-        {saving ? "Saving…" : "Continue"}
+        {saving ? m.console_common__saving() : m.onboarding__continue()}
       </Button>
     </div>
   );
@@ -99,12 +100,12 @@ function InviteStep({ onFinish }: { onFinish: () => void }) {
         email,
         role: "member"
       });
-      if (result.error) throw new Error(result.error.message ?? "Failed to invite member");
+      if (result.error) throw new Error(result.error.message ?? m.console_team__invite_failed());
     },
     onError: (error: Error) => toast.error(error.message),
     onSuccess: async () => {
       setInvited((prev) => [...prev, email]);
-      toast.success(`Invitation sent to ${email}`);
+      toast.success(m.onboarding__invitation_sent({ email }));
       setEmail("");
       await queryClient.invalidateQueries({ queryKey: orpc.console.team.queryOptions().queryKey });
     }
@@ -113,10 +114,8 @@ function InviteStep({ onFinish }: { onFinish: () => void }) {
   return (
     <div className="space-y-6">
       <div className="space-y-2 text-center">
-        <h1 className="text-xl font-bold">Invite your team</h1>
-        <p className="text-sm text-muted-foreground">
-          Add teammates now, or skip and invite them later from Team settings.
-        </p>
+        <h1 className="text-xl font-bold">{m.onboarding__invite_team()}</h1>
+        <p className="text-sm text-muted-foreground">{m.onboarding__invite_description()}</p>
       </div>
       <form
         className="flex gap-2"
@@ -126,7 +125,7 @@ function InviteStep({ onFinish }: { onFinish: () => void }) {
         }}
       >
         <Input
-          aria-label="Teammate email"
+          aria-label={m.onboarding__teammate_email()}
           onChange={(event) => setEmail(event.target.value)}
           placeholder="teammate@company.com"
           type="email"
@@ -134,7 +133,7 @@ function InviteStep({ onFinish }: { onFinish: () => void }) {
         />
         <Button disabled={!email.trim() || mutation.isPending} type="submit" variant="outline">
           <UserPlus className="size-4" aria-hidden="true" />
-          {mutation.isPending ? "Sending…" : "Invite"}
+          {mutation.isPending ? m.console_team__sending() : m.onboarding__invite()}
         </Button>
       </form>
       {invited.length > 0 ? (
@@ -148,13 +147,13 @@ function InviteStep({ onFinish }: { onFinish: () => void }) {
         </ul>
       ) : null}
       <Button className="w-full" light="skeuomorphic" onClick={onFinish}>
-        {invited.length > 0 ? "Done" : "Skip for now"}
+        {invited.length > 0 ? m.console_common__done() : m.onboarding__skip()}
       </Button>
     </div>
   );
 }
 
-export function OnboardingPage({ redirectTo = "/app" }: { redirectTo?: NavigateTo }) {
+export function OnboardingPage({ redirectTo = "/app/projects" }: { redirectTo?: NavigateTo }) {
   const navigate = useNavigate();
   const [step, setStep] = useState<Step>("workspace");
 

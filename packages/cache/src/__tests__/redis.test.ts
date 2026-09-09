@@ -62,7 +62,7 @@ describe("redis lifecycle", () => {
     expect(health).toEqual({
       configured: true,
       status: "healthy",
-      url: expect.stringContaining("localhost:6379") as string
+      url: expect.stringContaining(new URL(redisUrl!).host) as string
     });
 
     await closeRedis();

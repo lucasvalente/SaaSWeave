@@ -1,9 +1,16 @@
 import { useLocation, useRouter } from "@tanstack/react-router";
 import * as React from "react";
 
-import { baseLocale, locales, localizeUrl, overwriteGetLocale } from "#@/paraglide/runtime";
+import { type SupportedLocale } from "#@/locale-config";
+import { baseLocale, getLocale, localizeUrl, overwriteGetLocale } from "#@/paraglide/runtime";
+import {
+  LOCALE_COOKIE,
+  LOCALE_STORAGE_KEY,
+  normalizeLocale,
+  resolveLocale
+} from "#@/tanstack-start/locale-resolution";
 
-type Locale = (typeof locales)[number];
+type Locale = SupportedLocale;
 
 type LocaleContextValue = {
   locale: Locale;
@@ -13,15 +20,9 @@ type LocaleContextValue = {
 const LocaleContext = React.createContext<LocaleContextValue | null>(null);
 
 let clientLocale: Locale | undefined;
-
-function getLocaleFromPathname(pathname: string): Locale {
+function getLocaleFromPathname(pathname: string): Locale | undefined {
   const segment = pathname.split("/").filter(Boolean)[0];
-
-  if (locales.includes(segment as Locale)) {
-    return segment as Locale;
-  }
-
-  return baseLocale;
+  return normalizeLocale(segment);
 }
 
 function setClientLocale(locale: Locale) {
@@ -29,15 +30,45 @@ function setClientLocale(locale: Locale) {
   overwriteGetLocale(() => clientLocale ?? baseLocale);
 }
 
-export function LocaleProvider({ children }: { children: React.ReactNode }) {
+export function LocaleProvider({
+  children,
+  initialLocale
+}: {
+  children: React.ReactNode;
+  initialLocale?: Locale;
+}) {
   const router = useRouter();
   const pathname = useLocation({ select: (location) => location.pathname });
-  const locale = React.useMemo(() => getLocaleFromPathname(pathname), [pathname]);
+  const [preferredLocale, setPreferredLocale] = React.useState<Locale>(() => {
+    // Keep the server and hydration renders deterministic. Persisted browser
+    // state is applied in the effect below, after the first client render.
+    if (initialLocale) return initialLocale;
+    if (typeof window === "undefined") {
+      try {
+        return normalizeLocale(getLocale()) ?? (baseLocale as Locale);
+      } catch {
+        return baseLocale as Locale;
+      }
+    }
+    return baseLocale as Locale;
+  });
+  const routeLocale = React.useMemo(() => getLocaleFromPathname(pathname), [pathname]);
+  const locale = routeLocale ?? preferredLocale;
 
   React.useEffect(() => {
-    setClientLocale(locale);
-    document.documentElement.lang = locale;
-  }, [locale]);
+    if (typeof window === "undefined") return;
+
+    const persisted = resolveLocale({
+      cookie: document.cookie,
+      stored: window.localStorage.getItem(LOCALE_STORAGE_KEY)
+    });
+    const effectiveLocale = routeLocale ?? persisted;
+    if (!routeLocale && effectiveLocale !== preferredLocale) {
+      setPreferredLocale(effectiveLocale);
+    }
+    setClientLocale(effectiveLocale);
+    document.documentElement.lang = effectiveLocale;
+  }, [preferredLocale, routeLocale]);
 
   const switchLocale = React.useCallback(
     (nextLocale: Locale) => {
@@ -49,8 +80,11 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
         locale: nextLocale
       });
 
+      setPreferredLocale(nextLocale);
       setClientLocale(nextLocale);
       document.documentElement.lang = nextLocale;
+      window.localStorage.setItem(LOCALE_STORAGE_KEY, nextLocale);
+      document.cookie = `${LOCALE_COOKIE}=${encodeURIComponent(nextLocale)}; Path=/; SameSite=Lax; Max-Age=31536000`;
       router.history.push(`${nextUrl.pathname}${nextUrl.search}${nextUrl.hash}`);
     },
     [router]

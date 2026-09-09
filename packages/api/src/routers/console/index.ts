@@ -6,6 +6,7 @@ import { ENV_SERVER } from "@saasweave/env/server/env";
 import { dispatchOrgWebhook } from "@saasweave/jobs/webhook-dispatch";
 
 import { createApiKey, listApiKeys, revokeApiKey } from "#@/lib/api-keys";
+import { listPlans } from "@saasweave/app/billing/plan-catalog";
 import { canManageApiKeys, canManageBilling, canRecordUsage } from "#@/lib/console-access";
 import { listFeaturesForOrg, isFeatureEnabledForOrg } from "#@/lib/features";
 import { getOrgSeatContext } from "#@/lib/organization";
@@ -20,9 +21,13 @@ import { dataExportRouter } from "#@/routers/console/data-export";
 import { ipAllowlistRouter } from "#@/routers/console/ip-allowlist";
 import { notificationsRouter } from "#@/routers/console/notifications";
 import { profileRouter } from "#@/routers/console/profile";
+import { projectsRouter } from "#@/routers/console/projects";
+import { builderRouter } from "#@/routers/console/builder";
 import { ssoRouter } from "#@/routers/console/sso";
 import { getTeam } from "#@/routers/console/team";
 import { webhooksRouter } from "#@/routers/console/webhooks";
+import { sandboxRouter } from "#@/routers/console/sandbox";
+import { projectSupabaseRouter } from "#@/routers/console/project-supabase";
 
 const apiKeysProcedure = requireFeature("api_keys");
 const billingPortalProcedure = requireFeature("billing_portal");
@@ -115,15 +120,18 @@ export const consoleRouter = {
     .handler(async ({ context, input }) => {
       assertCanManageBilling(context.organization.role);
       if (input.interval === "annual") {
-        const annualEnabled = await isFeatureEnabledForOrg(
-          context.organization.id,
-          "annual_billing"
-        );
+        const annualEnabled = await isFeatureEnabledForOrg(context.organization.id, "annual_billing");
         if (!annualEnabled) {
-          throw new ORPCError("FORBIDDEN", {
-            message: "Annual billing is not enabled for this workspace."
-          });
+          throw new ORPCError("FORBIDDEN", { message: "Annual billing is not enabled for this workspace." });
         }
+      }
+      const purchasablePlan = (await listPlans()).find(
+        (candidate) => candidate.id === input.planId && candidate.status === "active"
+      );
+      if (!purchasablePlan) {
+        throw new ORPCError("BAD_REQUEST", { message: "Selected plan is unavailable." });
+      }
+      if (input.interval === "annual") {
         if (!priceFor(input.planId, "annual")) {
           throw new ORPCError("BAD_REQUEST", {
             message: "No annual Stripe price is configured for this plan."
@@ -280,7 +288,15 @@ export const consoleRouter = {
 
   profile: profileRouter,
 
+  projects: projectsRouter,
+
+  projectSupabase: projectSupabaseRouter,
+
+  builder: builderRouter,
+
   sso: ssoRouter,
+
+  sandbox: sandboxRouter,
 
   webhooks: webhooksRouter
 };

@@ -5,6 +5,7 @@
     "#@/*": "./src/*.ts"
   },
   "exports": {
+    "./testing/totp": "./src/__tests__/fixtures/totp.ts",
     "./client/browser/orpc": {
       "default": "./src/client/browser/orpc.ts"
     },
@@ -22,6 +23,9 @@
     },
     "./lib/stripe-dispatch": {
       "default": "./src/lib/stripe-dispatch.ts"
+    },
+    "./sandbox": {
+      "default": "./src/sandbox/index.ts"
     },
     "./lib/data-export/download": {
       "default": "./src/lib/data-export/download.ts"
@@ -47,6 +51,7 @@
     "@saasweave/jobs": "workspace:*",
     "@saasweave/logger": "workspace:*",
     "@saasweave/mailer": "workspace:*",
+    "@saasweave/permissions": "workspace:*",
     "@tanstack/react-start": "catalog:",
     "drizzle-orm": "catalog:",
     "stripe": "catalog:",
@@ -56,6 +61,7 @@
     "@saasweave/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "hono": "catalog:",
+    "otplib": "catalog:",
     "typescript": "catalog:",
     "vite-plus": "catalog:"
   }

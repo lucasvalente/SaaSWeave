@@ -2,6 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
 
+import { m } from "@saasweave/i18n/messages";
 import { Button } from "@saasweave/ui/components/button";
 import { Input } from "@saasweave/ui/components/input";
 import { Label } from "@saasweave/ui/components/label";
@@ -33,7 +34,7 @@ export function AdminSettingsPage() {
   if (query.isError) {
     return (
       <ConsoleErrorState
-        description="Couldn't load platform settings."
+        description={m.admin_settings__permission_error()}
         onRetry={() => query.refetch()}
       />
     );
@@ -58,9 +59,9 @@ function SettingsForm({ settings }: { settings: AdminSettingsQueryResult }) {
   }
 
   const mutation = useUpdateSettingsMutation({
-    onError: (error) => toast.error(error.message || "Failed to update settings"),
+    onError: (error) => toast.error(error.message || m.admin_settings__update_failed()),
     onSuccess: () => {
-      toast.success("Settings saved");
+      toast.success(m.admin_settings__saved());
       invalidateSettingsQueries();
     }
   });
@@ -74,7 +75,7 @@ function SettingsForm({ settings }: { settings: AdminSettingsQueryResult }) {
       { [key]: next },
       {
         onSuccess: () => {
-          toast.success(next ? "Enabled" : "Disabled");
+          toast.success(next ? m.admin_settings__enabled() : m.admin_settings__disabled());
           invalidateSettingsQueries();
         }
       }
@@ -85,27 +86,27 @@ function SettingsForm({ settings }: { settings: AdminSettingsQueryResult }) {
     <div className="space-y-8">
       <SectionHeading
         eyebrow="Platform"
-        title="Platform settings"
-        description="Global configuration for the whole SaaSWeave platform."
+        title={m.admin_settings__title()}
+        description={m.admin_settings__description()}
       />
 
       <Panel>
         <PanelHeader
-          title="General"
-          description="Identity shown to every customer"
+          title={m.admin_settings__general()}
+          description={m.admin_settings__identity_description()}
           action={
             <Button
               disabled={!generalDirty || mutation.isPending}
               onClick={() => mutation.mutate({ platformName, supportEmail })}
               size="sm"
             >
-              {mutation.isPending ? "Saving…" : "Save changes"}
+              {mutation.isPending ? m.plans__saving() : m.plans__save()}
             </Button>
           }
         />
         <div className="grid grid-cols-1 gap-5 p-5 sm:grid-cols-2">
           <div className="space-y-2">
-            <Label htmlFor="platform-name">Platform name</Label>
+            <Label htmlFor="platform-name">{m.admin_settings__platform_name()}</Label>
             <Input
               id="platform-name"
               onChange={(event) => setPlatformName(event.target.value)}
@@ -113,7 +114,7 @@ function SettingsForm({ settings }: { settings: AdminSettingsQueryResult }) {
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="support-email">Support email</Label>
+            <Label htmlFor="support-email">{m.admin_settings__support_email()}</Label>
             <Input
               id="support-email"
               onChange={(event) => setSupportEmail(event.target.value)}
@@ -126,40 +127,42 @@ function SettingsForm({ settings }: { settings: AdminSettingsQueryResult }) {
 
       <Panel>
         <PanelHeader
-          title="Billing"
-          description="How the platform charges customers"
+          title={m.admin_settings__billing()}
+          description={m.admin_settings__billing_description()}
           action={
             <Button
               disabled={!billingDirty || mutation.isPending}
               onClick={() => mutation.mutate({ billingMode, currency })}
               size="sm"
             >
-              {mutation.isPending ? "Saving…" : "Save changes"}
+              {mutation.isPending ? m.plans__saving() : m.plans__save()}
             </Button>
           }
         />
         <div className="space-y-6 p-5">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <p className="text-sm font-medium text-foreground">Billing model</p>
+              <p className="text-sm font-medium text-foreground">
+                {m.admin_settings__billing_model()}
+              </p>
               <p className="text-sm text-muted-foreground">
-                Fixed-price tiers, metered usage, or a hybrid of both.
+                {m.admin_settings__billing_model_description()}
               </p>
             </div>
             <Segmented
-              ariaLabel="Billing model"
+              ariaLabel={m.admin_settings__billing_model()}
               onChange={setBillingMode}
               options={[
-                { label: "Subscription", value: "subscription" },
-                { label: "Usage", value: "usage" },
-                { label: "Hybrid", value: "hybrid" }
+                { label: m.admin_settings__subscription(), value: "subscription" },
+                { label: m.admin_settings__usage(), value: "usage" },
+                { label: m.admin_settings__hybrid(), value: "hybrid" }
               ]}
               value={billingMode}
             />
           </div>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="currency">Currency</Label>
+              <Label htmlFor="currency">{m.admin_settings__currency()}</Label>
               <Input
                 id="currency"
                 onChange={(event) => setCurrency(event.target.value)}
@@ -167,7 +170,7 @@ function SettingsForm({ settings }: { settings: AdminSettingsQueryResult }) {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="provider">Payment provider</Label>
+              <Label htmlFor="provider">{m.admin_settings__payment_provider()}</Label>
               <Input disabled id="provider" value="Stripe" />
             </div>
           </div>
@@ -175,33 +178,40 @@ function SettingsForm({ settings }: { settings: AdminSettingsQueryResult }) {
       </Panel>
 
       <Panel>
-        <PanelHeader title="Access" description="Control who can join the platform" />
+        <PanelHeader
+          title={m.admin_settings__access()}
+          description={m.admin_settings__access_description()}
+        />
         <div className="divide-y divide-border">
           <div className="flex items-center justify-between gap-4 px-5 py-4">
             <div>
-              <p className="text-sm font-medium text-foreground">Open sign-ups</p>
+              <p className="text-sm font-medium text-foreground">
+                {m.admin_settings__open_signups()}
+              </p>
               <p className="text-sm text-muted-foreground">
-                Allow anyone to create a workspace without an invite.
+                {m.admin_settings__open_signups_description()}
               </p>
             </div>
             <Switch
               checked={settings.signupsOpen}
               disabled={mutation.isPending}
-              label="Toggle open sign-ups"
+              label={m.admin_settings__toggle_open_signups()}
               onChange={(next) => toggle("signupsOpen", next)}
             />
           </div>
           <div className="flex items-center justify-between gap-4 px-5 py-4">
             <div>
-              <p className="text-sm font-medium text-foreground">Free trials</p>
+              <p className="text-sm font-medium text-foreground">
+                {m.admin_settings__free_trials()}
+              </p>
               <p className="text-sm text-muted-foreground">
-                Offer a 14-day trial on paid plans at checkout.
+                {m.admin_settings__free_trials_description()}
               </p>
             </div>
             <Switch
               checked={settings.trialsEnabled}
               disabled={mutation.isPending}
-              label="Toggle free trials"
+              label={m.admin_settings__toggle_free_trials()}
               onChange={(next) => toggle("trialsEnabled", next)}
             />
           </div>
@@ -212,8 +222,8 @@ function SettingsForm({ settings }: { settings: AdminSettingsQueryResult }) {
         className={settings.maintenanceMode ? "border-destructive/50" : "border-destructive/30"}
       >
         <PanelHeader
-          title="Danger zone"
-          description="Put the platform into maintenance mode. Every workspace sees a maintenance banner."
+          title={m.admin_settings__danger_zone()}
+          description={m.admin_settings__danger_description()}
         />
         <div className="p-5">
           {settings.maintenanceMode ? (
@@ -222,17 +232,17 @@ function SettingsForm({ settings }: { settings: AdminSettingsQueryResult }) {
               onClick={() => toggle("maintenanceMode", false)}
               variant="outline"
             >
-              Disable maintenance mode
+              {m.admin_settings__disable_maintenance()}
             </Button>
           ) : (
             <ConfirmActionDialog
-              confirmLabel="Enable maintenance mode"
-              description="A maintenance banner appears across every workspace immediately. Turn it off from this same page when you're done."
+              confirmLabel={m.admin_settings__enable_maintenance()}
+              description={m.admin_settings__enable_maintenance_description()}
               onConfirm={() => toggle("maintenanceMode", true)}
-              title="Enable maintenance mode?"
+              title={m.admin_settings__enable_maintenance_title()}
             >
               <Button disabled={mutation.isPending} variant="destructive">
-                Enable maintenance mode
+                {m.admin_settings__enable_maintenance()}
               </Button>
             </ConfirmActionDialog>
           )}

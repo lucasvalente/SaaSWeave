@@ -77,7 +77,7 @@ export function buildWebContentSecurityPolicy(
     "font-src 'self' data:",
     isDevelopment ? developmentConnectSrc(origins) : productionConnectSrc(origins),
     "form-action 'self'",
-    "frame-src 'none'",
+    `frame-src ${uniqueOrigins(["'self'", origins.serverOrigin]).join(" ")}`,
     "frame-ancestors 'none'",
     "object-src 'none'",
     "base-uri 'self'",

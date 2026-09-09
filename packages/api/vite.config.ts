@@ -5,6 +5,8 @@ const allTests = process.env.VITEST_ALL === "1";
 
 export default defineConfig({
   test: {
+    pool: "forks",
+    execArgv: integration || allTests ? ["--expose-gc"] : undefined,
     coverage: {
       exclude: ["src/**/__tests__/**"],
       include: ["src/**/*.ts"]
@@ -13,7 +15,7 @@ export default defineConfig({
       integration || allTests
         ? ["**/node_modules/**"]
         : ["**/node_modules/**", "src/**/__tests__/**/*.integration.test.ts"],
-    fileParallelism: allTests ? false : undefined,
+    fileParallelism: integration || allTests ? false : undefined,
     globalSetup:
       integration || allTests ? ["./src/__tests__/integration/global-setup.ts"] : undefined,
     include: integration

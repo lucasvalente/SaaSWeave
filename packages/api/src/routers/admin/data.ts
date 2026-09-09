@@ -17,6 +17,7 @@ import {
   featureFlag,
   member,
   organizationFeatureFlag,
+  project,
   usageEvent,
   user
 } from "@saasweave/db/schema";
@@ -24,7 +25,6 @@ import {
 import { getPlanCatalog, resolvePlanEntry } from "#@/lib/plans";
 
 const ANALYTICS_CACHE_TTL_SECONDS = 300;
-const ADMIN_ROSTER_PAGE_SIZE = 50;
 
 function round(value: number, decimals = 0): number {
   const factor = 10 ** decimals;
@@ -55,15 +55,22 @@ export type MrrPoint = { label: string; mrr: number; newMrr: number; churnedMrr:
 export type PlanDistribution = { planId: string; name: string; customers: number; mrr: number };
 
 export type AdminWorkspace = {
+  activeProjectCount: number;
+  archivedProjectCount: number;
+  createdAt: string;
   id: string;
   name: string;
+  memberCount: number;
+  operationalStatus: "active" | "suspended";
   owner: string;
   planId: string;
   planName: string;
   seats: number;
   mrr: number;
+  projectCount: number;
   aiTokens30d: number;
   status: "active" | "trialing" | "past_due" | "churned";
+  updatedAt: string;
   createdOn: string;
   lastActive: string;
 };
@@ -119,6 +126,28 @@ async function memberCountsByOrg(organizationIds: string[]): Promise<Map<string,
   return new Map(rows.map((row) => [row.organizationId, Number(row.count)]));
 }
 
+async function projectCountsByOrg(
+  organizationIds: string[]
+): Promise<Map<string, { active: number; archived: number; total: number }>> {
+  if (organizationIds.length === 0) return new Map();
+  const rows = await db
+    .select({
+      active: sql<number>`count(*) filter (where ${project.status} = 'active')::int`,
+      archived: sql<number>`count(*) filter (where ${project.status} = 'archived')::int`,
+      organizationId: project.workspaceId,
+      total: sql<number>`count(*)::int`
+    })
+    .from(project)
+    .where(inArray(project.workspaceId, organizationIds))
+    .groupBy(project.workspaceId);
+  return new Map(
+    rows.map((row) => [
+      row.organizationId,
+      { active: Number(row.active), archived: Number(row.archived), total: Number(row.total) }
+    ])
+  );
+}
+
 async function tokensByOrg(organizationIds: string[], since: Date): Promise<Map<string, number>> {
   if (organizationIds.length === 0) return new Map();
   const rows = await db
@@ -157,8 +186,24 @@ async function lastActiveByOrg(organizationIds: string[]): Promise<Map<string, s
   return map;
 }
 
-const adminWorkspacesInputSchema = z.object({
-  cursor: z.string().optional()
+export const adminWorkspacesInputSchema = z.object({
+  cursor: z
+    .string()
+    .max(1000)
+    .refine((value) => {
+      try {
+        return z
+          .object({ createdAt: z.iso.datetime(), id: z.string().min(1).max(200) })
+          .safeParse(JSON.parse(Buffer.from(value, "base64url").toString("utf8"))).success;
+      } catch {
+        return false;
+      }
+    }, "Invalid workspace cursor")
+    .optional(),
+  limit: z.number().int().min(1).max(100).optional(),
+  search: z.string().trim().max(200).optional(),
+  sort: z.enum(["createdAt.asc", "createdAt.desc"]).default("createdAt.desc"),
+  status: z.enum(["active", "suspended"]).optional()
 });
 
 function decodeCursor(cursor: string | undefined): { createdAt: string; id: string } | null {
@@ -176,41 +221,54 @@ function encodeCursor(cursor: { createdAt: string; id: string } | null): string 
 }
 
 export async function buildAdminWorkspaces(
-  input: z.infer<typeof adminWorkspacesInputSchema> = {}
+  input: z.input<typeof adminWorkspacesInputSchema> = {}
 ): Promise<AdminWorkspacesResponse> {
   const parsed = adminWorkspacesInputSchema.parse(input);
   const since = thirtyDaysAgo();
   const page = await listAdminWorkspacesPage({
     cursor: decodeCursor(parsed.cursor),
-    limit: ADMIN_ROSTER_PAGE_SIZE
+    limit: parsed.limit ?? 50,
+    search: parsed.search,
+    sort: parsed.sort,
+    status: parsed.status
   });
   const organizationIds = page.workspaces.map((org) => org.id);
 
-  const [owners, counts, tokens, lastActive, catalog, totalWorkspaces] = await Promise.all([
-    ownerNamesByOrg(organizationIds),
-    memberCountsByOrg(organizationIds),
-    tokensByOrg(organizationIds, since),
-    lastActiveByOrg(organizationIds),
-    getPlanCatalog(),
-    countOrganizations()
-  ]);
+  const [owners, counts, projects, tokens, lastActive, catalog, totalWorkspaces] =
+    await Promise.all([
+      ownerNamesByOrg(organizationIds),
+      memberCountsByOrg(organizationIds),
+      projectCountsByOrg(organizationIds),
+      tokensByOrg(organizationIds, since),
+      lastActiveByOrg(organizationIds),
+      getPlanCatalog(),
+      countOrganizations()
+    ]);
 
   const workspaces: AdminWorkspace[] = page.workspaces.map((org) => {
     const seats = counts.get(org.id) ?? 1;
+    const projectCounts = projects.get(org.id) ?? { active: 0, archived: 0, total: 0 };
     const status = statusFor(org.subscriptionStatus);
     const resolved = resolvePlanEntry(catalog, org.planId);
     return {
       aiTokens30d: tokens.get(org.id) ?? 0,
+      activeProjectCount: projectCounts.active,
+      archivedProjectCount: projectCounts.archived,
+      createdAt: org.createdAt.toISOString(),
       createdOn: org.createdAt.toISOString().slice(0, 10),
       id: org.id,
       lastActive: lastActive.get(org.id) ?? org.createdAt.toISOString(),
       mrr: status === "churned" ? 0 : resolved.price,
+      memberCount: seats,
       name: org.name,
       owner: owners.get(org.id) ?? "—",
+      operationalStatus: org.operationalStatus === "suspended" ? "suspended" : "active",
       planId: org.planId ?? "free",
       planName: resolved.name,
+      projectCount: projectCounts.total,
       seats,
-      status
+      status,
+      updatedAt: org.updatedAt.toISOString()
     };
   });
 

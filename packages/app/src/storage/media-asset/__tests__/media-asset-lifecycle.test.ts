@@ -1,3 +1,5 @@
+import { resolve } from "node:path";
+
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
 const mocks = vi.hoisted(() => {
@@ -246,7 +248,9 @@ describe("media upload lifecycle", () => {
 
   it("deletes local and object-storage assets and tolerates missing rows", async () => {
     await deleteMediaAssetObject("asset-1", "user-1");
-    expect(mocks.unlink).toHaveBeenCalledWith("/tmp/saasweave-media-unit/avatar/user-1/image.png");
+    expect(mocks.unlink).toHaveBeenCalledWith(
+      resolve("/tmp/saasweave-media-unit", "avatar", "user-1", "image.png")
+    );
     expect(mocks.deleteWhere).toHaveBeenCalledOnce();
 
     vi.clearAllMocks();

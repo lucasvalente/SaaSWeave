@@ -75,7 +75,7 @@ catalog:
   eslint-plugin-fsd-lint: 1.2.1
   eslint-plugin-react-hooks: 7.1.1
   evlog: 2.19.2
-  hono: 4.12.27
+  hono: 4.12.34
   ioredis: 5.11.1
   prom-client: 15.1.3
   localforage: 1.10.0
@@ -101,6 +101,8 @@ catalog:
   vite: npm:@voidzero-dev/vite-plus-core@0.2.4
   vite-plus: 0.2.4
   zod: 4.4.3
+  otplib: 13.5.0
+  '@supabase/supabase-js': 2.49.0
 
 catalogMode: prefer
 
@@ -152,17 +154,26 @@ overrides:
   # Dependabot: fast-xml-parser GHSA-8r6m-32jq-jx6q (DOCTYPE entity limit reset)
   fast-xml-parser: 5.10.1
   # Dependabot: brace-expansion GHSA-3jxr-9vmj-r5cp / CVE-2026-14257
-  brace-expansion: 5.0.8
+  brace-expansion: 5.0.9
   # Dependabot: js-yaml GHSA-52cp-r559-cp3m (merge-key chain DoS); stay on 4.x
-  js-yaml: 4.3.0
+  js-yaml: 4.3.1
   # Dependabot: fast-uri GHSA-4c8g-83qw-93j6 / GHSA-v2hh-gcrm-f6hx; stay on 3.x for ajv
-  fast-uri: 3.1.4
+  fast-uri: 3.1.6
+  # Security pins for patched transitive releases (2026-09-06 audit).
+  ip-address: 10.3.1
+  qs: 6.16.0
+  socket.io-parser: 4.2.7
+  "@xmldom/xmldom": 0.8.15
+  browserslist: 4.28.7
   # Dependabot: postcss GHSA-r28c-9q8g-f849 (sourceMappingURL path traversal)
   postcss: 8.5.23
   # Dependabot: @hono/node-server GHSA-frvp-7c67-39w9 (serve-static Windows %5C).
   # Force MCP SDK's ^1.19.x onto catalog 2.x; serve/getRequestListener APIs match.
   # npm advisory metadata is coarse (<2.0.5) and still flags patched 1.19.15+.
   "@hono/node-server": "catalog:"
+  hono: 4.12.34
+  nanoid: 3.3.18
+  decode-uri-component: 0.5.0
 peerDependencyRules:
   allowAny:
     - vite

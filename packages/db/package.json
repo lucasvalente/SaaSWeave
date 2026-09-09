@@ -25,6 +25,8 @@
     "@saasweave/env": "workspace:*",
     "@saasweave/logger": "workspace:*",
     "@saasweave/observability": "workspace:*",
+    "@saasweave/permissions": "workspace:*",
+    "@saasweave/security": "workspace:*",
     "drizzle-orm": "catalog:",
     "postgres": "catalog:"
   },

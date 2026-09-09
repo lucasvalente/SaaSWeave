@@ -8,7 +8,7 @@ export const ENV_WEB_SERVER = createEnv({
   emptyStringAsUndefined: true,
   runtimeEnv: process.env,
   server: {
-    NODE_ENV: z.enum(["development", "production"]).default("development"),
+    NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
     // Attach CSP, HSTS, and related headers on HTML document responses.
     SECURITY_HEADERS_ENABLED: z.stringbool().default(isProduction),
     SECURITY_CSP_REPORT_ONLY: z.stringbool().default(false),

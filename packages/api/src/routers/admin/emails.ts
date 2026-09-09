@@ -8,7 +8,7 @@ import {
 } from "@saasweave/db";
 import { EMAIL_TEMPLATES, getTemplate, renderTemplate, sendTemplate } from "@saasweave/mailer";
 
-import { adminProcedure } from "#@/lib/procedures/factory";
+import { requirePlatformPermission } from "#@/lib/procedures/factory";
 
 /**
  * Admin email router — lets the platform operator review the transactional
@@ -43,7 +43,7 @@ async function describeTemplate(key: string) {
 }
 
 export const adminEmailsRouter = {
-  list: adminProcedure
+  list: requirePlatformPermission("system_settings.read")
     .route({
       description: "Transactional email templates with editable copy + saved overrides",
       method: "GET"
@@ -52,7 +52,7 @@ export const adminEmailsRouter = {
       Promise.all(EMAIL_TEMPLATES.map((template) => describeTemplate(template.key)))
     ),
 
-  preview: adminProcedure
+  preview: requirePlatformPermission("system_settings.read")
     .route({
       description: "Render a template to HTML with the supplied copy + subject",
       method: "POST"
@@ -70,7 +70,7 @@ export const adminEmailsRouter = {
       return { html: rendered.html, subject: rendered.subject };
     }),
 
-  save: adminProcedure
+  save: requirePlatformPermission("system_settings.write")
     .route({
       description: "Persist copy + subject overrides for a template",
       method: "POST"
@@ -87,7 +87,7 @@ export const adminEmailsRouter = {
       return describeTemplate(input.key);
     }),
 
-  sendTest: adminProcedure
+  sendTest: requirePlatformPermission("system_settings.write")
     .route({
       description: "Send a test render of a template to an email address",
       method: "POST"
@@ -101,7 +101,7 @@ export const adminEmailsRouter = {
       return { ok: true };
     }),
 
-  deliveries: adminProcedure
+  deliveries: requirePlatformPermission("system_settings.read")
     .route({
       description: "Recent transactional email delivery attempts, newest first",
       method: "GET"

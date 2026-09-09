@@ -78,19 +78,27 @@ export async function getOrgBilling(organizationId: string): Promise<OrgBillingR
   return rows[0];
 }
 
-/** Ensure the organization has a Stripe customer, creating one on first use. */
+/** Ensure the organization has one Stripe customer, even under concurrent checkouts. */
 async function ensureCustomer(org: OrgBillingRow): Promise<string> {
   if (org.stripeCustomerId) return org.stripeCustomerId;
   const stripe = getStripe();
-  const customer = await stripe.customers.create({
-    metadata: { organizationId: org.id },
-    name: org.name
+  return db.transaction(async (tx) => {
+    const [current] = await tx
+      .select({ stripeCustomerId: organization.stripeCustomerId })
+      .from(organization)
+      .where(eq(organization.id, org.id))
+      .for("update");
+    if (current?.stripeCustomerId) return current.stripeCustomerId;
+    const customer = await stripe.customers.create({
+      metadata: { organizationId: org.id },
+      name: org.name
+    });
+    await tx
+      .update(organization)
+      .set({ stripeCustomerId: customer.id })
+      .where(eq(organization.id, org.id));
+    return customer.id;
   });
-  await db
-    .update(organization)
-    .set({ stripeCustomerId: customer.id })
-    .where(eq(organization.id, org.id));
-  return customer.id;
 }
 
 export async function createCheckoutSession(input: {

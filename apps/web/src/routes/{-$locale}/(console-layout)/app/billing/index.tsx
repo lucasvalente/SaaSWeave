@@ -9,11 +9,7 @@ import { requireConsoleFeature } from "@/features/console-nav";
 import { BillingPage } from "@/pages/console/billing";
 
 export const Route = createFileRoute("/{-$locale}/(console-layout)/app/billing/")({
-  beforeLoad: async ({ context, preload }) => {
-    if (!preload) {
-      await requireConsoleFeature(context.queryClient, "billing_portal");
-    }
-  },
+  beforeLoad: ({ context }) => requireConsoleFeature(context.queryClient, "billing_portal"),
   loader: ({ context }) => context.queryClient.ensureQueryData(orpc.console.billing.queryOptions()),
   head: ({ params }) =>
     generateAppSeo({

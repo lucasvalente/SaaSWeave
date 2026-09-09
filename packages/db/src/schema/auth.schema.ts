@@ -1,5 +1,5 @@
 import { defineRelationsPart } from "drizzle-orm";
-import { boolean, index, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { boolean, index, integer, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -88,6 +88,8 @@ export const twoFactor = pgTable(
   {
     backupCodes: text("backup_codes").notNull(),
     id: text("id").primaryKey(),
+    failedVerificationCount: integer("failed_verification_count").default(0),
+    lockedUntil: timestamp("locked_until"),
     secret: text("secret").notNull(),
     userId: text("user_id")
       .notNull()
@@ -101,6 +103,7 @@ export const twoFactor = pgTable(
 
 export const organization = pgTable("organization", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
   id: text("id").primaryKey(),
   logo: text("logo"),
   metadata: text("metadata"),
@@ -114,7 +117,11 @@ export const organization = pgTable("organization", {
   currentPeriodEnd: timestamp("current_period_end"),
   cancelAtPeriodEnd: boolean("cancel_at_period_end").default(false),
   /** Stripe event.created of the last webhook applied for this org's customer. */
-  lastStripeEventAt: timestamp("last_stripe_event_at")
+  lastStripeEventAt: timestamp("last_stripe_event_at"),
+  operationalStatus: text("operational_status").notNull().default("active"),
+  suspendedAt: timestamp("suspended_at"),
+  suspendedBy: text("suspended_by").references(() => user.id),
+  suspensionReason: text("suspension_reason")
 });
 
 export const member = pgTable(

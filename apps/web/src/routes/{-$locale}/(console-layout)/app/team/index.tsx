@@ -9,11 +9,7 @@ import { requireConsoleFeature } from "@/features/console-nav";
 import { TeamPage } from "@/pages/console/team";
 
 export const Route = createFileRoute("/{-$locale}/(console-layout)/app/team/")({
-  beforeLoad: async ({ context, preload }) => {
-    if (!preload) {
-      await requireConsoleFeature(context.queryClient, "team_management");
-    }
-  },
+  beforeLoad: ({ context }) => requireConsoleFeature(context.queryClient, "team_management"),
   loader: ({ context }) => context.queryClient.ensureQueryData(orpc.console.team.queryOptions()),
   head: ({ params }) =>
     generateAppSeo({

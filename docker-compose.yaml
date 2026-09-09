@@ -50,6 +50,8 @@ x-server-env: &server-env
   SECURITY_HEADERS_ENABLED: ${SECURITY_HEADERS_ENABLED:-true}
   SECURITY_CSP_REPORT_ONLY: ${SECURITY_CSP_REPORT_ONLY:-false}
   SECURITY_CSP_REPORT_URI: ${SECURITY_CSP_REPORT_URI:-}
+  SANDBOX_RUNTIME_CONTROLLER_URL: ${SANDBOX_RUNTIME_CONTROLLER_URL:-http://sandbox-runtime:8787}
+  RUNTIME_CONTROLLER_TOKEN: ${RUNTIME_CONTROLLER_TOKEN:?Set RUNTIME_CONTROLLER_TOKEN}
 
 services:
   migrate:
@@ -79,19 +81,22 @@ services:
         VITE_WEB_URL: ${VITE_WEB_URL:-http://localhost:3000}
     ports:
       - "${SERVER_PORT:-5000}:5000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
       <<: *server-env
     healthcheck:
       test:
         [
           "CMD-SHELL",
-          "wget -qO- http://127.0.0.1:5000$(echo $VITE_SERVER_URL | sed 's|^http[s]*://[^/]*||' | sed 's|/$||')/health/live || exit 1"
+          "wget -qO- http://127.0.0.1:5000$$(echo $$VITE_SERVER_URL | sed 's|^http[s]*://[^/]*||' | sed 's|/$$||')/health/live || exit 1"
         ]
       interval: 10s
       timeout: 3s
       retries: 5
     networks:
       - saasweave-network
+      - sandbox-control-network
     depends_on:
       migrate:
         condition: service_completed_successfully
@@ -99,6 +104,20 @@ services:
         condition: service_healthy
       minio-init:
         condition: service_completed_successfully
+
+  sandbox-runtime:
+    container_name: saasweave-sandbox-runtime
+    build:
+      context: .
+      dockerfile: apps/sandbox-runtime/Dockerfile
+    environment:
+      PORT: 8787
+      RUNTIME_CONTROLLER_TOKEN: ${RUNTIME_CONTROLLER_TOKEN:?Set RUNTIME_CONTROLLER_TOKEN}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - sandbox-control-network
+    restart: unless-stopped
 
   web:
     container_name: saasweave-web
@@ -117,6 +136,9 @@ services:
       # Web SSR runs the API in-process (in-process oRPC), so it needs the same
       # runtime env as the server — including REDIS_URL (required in production).
       <<: *server-env
+      # SSR must reach the API through the Docker network; the public URL is
+      # kept for browser-side auth requests.
+      INTERNAL_SERVER_URL: ${INTERNAL_SERVER_URL:-http://server:5000/server}
       VITE_IMGPROXY_URL: ${VITE_IMGPROXY_URL:-http://localhost:8080}
       VITE_IMGPROXY_SIGNATURE: ${VITE_IMGPROXY_SIGNATURE:-insecure}
       VITE_IMGPROXY_SOURCE_WEB_URL: ${VITE_IMGPROXY_SOURCE_WEB_URL:-http://web:3000}
@@ -126,7 +148,7 @@ services:
       test:
         [
           "CMD-SHELL",
-          "wget -qO- http://127.0.0.1:3000$(echo $VITE_WEB_URL | sed 's|^http[s]*://[^/]*||' | sed 's|/$||')/_api/health/live || exit 1"
+          "wget -qO- http://127.0.0.1:3000$$(echo $$VITE_WEB_URL | sed 's|^http[s]*://[^/]*||' | sed 's|/$$||')/_api/health/live || exit 1"
         ]
       interval: 10s
       timeout: 3s
@@ -292,3 +314,14 @@ volumes:
 
 networks:
   saasweave-network:
+  sandbox-preview-network:
+    name: sandbox-preview-network
+    internal: true
+  # Controller-created HTTP gateways publish loopback ports and join the
+  # internal preview network. Sandboxes never join this bridge directly.
+  sandbox-preview-gateway-network:
+    name: sandbox-preview-gateway-network
+  # The controller is the sole Docker authority. Keep it and the control-plane
+  # server off the network joined by customer preview containers.
+  sandbox-control-network:
+    internal: true

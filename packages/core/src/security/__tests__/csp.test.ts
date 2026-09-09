@@ -36,7 +36,7 @@ describe("buildWebContentSecurityPolicy", () => {
     expect(csp).not.toMatch(/script-src[^;]*unsafe-inline/);
     expect(csp).toContain("connect-src 'self' http://localhost:3000 http://localhost:5000");
     expect(csp).toContain("form-action 'self'");
-    expect(csp).toContain("frame-src 'none'");
+    expect(csp).toContain("frame-src 'self' http://localhost:5000");
     expect(csp).toContain("worker-src 'self' blob:");
     expect(csp).toContain("upgrade-insecure-requests");
   });

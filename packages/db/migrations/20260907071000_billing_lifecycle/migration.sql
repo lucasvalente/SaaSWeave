@@ -1,0 +1,12 @@
+ALTER TABLE "invoice" ADD COLUMN "subscription_id" text REFERENCES "workspace_subscription"("id") ON DELETE SET NULL;
+ALTER TABLE "invoice" ADD COLUMN "amount_paid_minor" integer NOT NULL DEFAULT 0;
+ALTER TABLE "invoice" ADD COLUMN "amount_due_minor" integer NOT NULL DEFAULT 0;
+ALTER TABLE "invoice" DROP CONSTRAINT IF EXISTS "invoice_status_check";
+ALTER TABLE "invoice" ADD CONSTRAINT "invoice_status_check" CHECK ("status" IN ('draft','open','paid','void'));
+UPDATE "invoice" SET "amount_due_minor" = "total_minor" - "amount_paid_minor";
+ALTER TABLE "manual_payment" ADD COLUMN "status" text NOT NULL DEFAULT 'recorded';
+ALTER TABLE "manual_payment" ADD COLUMN "method" text NOT NULL DEFAULT 'manual';
+ALTER TABLE "manual_payment" ADD COLUMN "provider" text;
+ALTER TABLE "refund" ADD COLUMN "status" text NOT NULL DEFAULT 'recorded';
+ALTER TABLE "refund" ADD COLUMN "method" text NOT NULL DEFAULT 'manual';
+ALTER TABLE "refund" ADD COLUMN "provider" text;

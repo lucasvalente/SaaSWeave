@@ -1,3 +1,5 @@
+import { resolve } from "node:path";
+
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
 const mocks = vi.hoisted(() => {
@@ -128,7 +130,7 @@ describe("saveUploadedMediaObject", () => {
     expect(partialPath).toEqual(expect.stringContaining(".partial."));
     expect(mocks.rename).toHaveBeenCalledWith(
       partialPath,
-      "/tmp/saasweave-media-unit/avatar/user-1/image.png"
+      resolve("/tmp/saasweave-media-unit", "avatar", "user-1", "image.png")
     );
     expect(mocks.unlink).toHaveBeenCalledWith(partialPath);
     expect(mocks.updateWhere).not.toHaveBeenCalled();

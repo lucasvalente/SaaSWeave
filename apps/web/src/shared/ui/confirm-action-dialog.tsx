@@ -1,5 +1,6 @@
 import { type ReactNode } from "react";
 
+import { m } from "@saasweave/i18n/messages";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -36,7 +37,7 @@ export function ConfirmActionDialog({
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel>{m.console_common__cancel()}</AlertDialogCancel>
           <AlertDialogAction onClick={onConfirm}>{confirmLabel}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

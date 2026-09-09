@@ -36,7 +36,11 @@ FROM installer AS migrator
 
 COPY . .
 
-CMD ["vp", "run", "db:migrate"]
+# The migrator lives on the internal data network, which intentionally has no
+# egress. `vp run` enforces the repository's pinned Node patch version and may
+# attempt to download it before executing the script. Run the already-installed
+# Node runtime and tsx loader directly instead so migrations remain offline.
+CMD ["node", "--import", "tsx", "packages/db/src/migrate-cli.ts"]
 
 # =========================================================================== #
 
@@ -51,8 +55,6 @@ ENV NODE_ENV=production \
     VITE_SERVER_URL=${VITE_SERVER_URL} \
     VITE_WEB_URL=${VITE_WEB_URL} \
     MEDIA_PUBLIC_BASE_URL=${MEDIA_PUBLIC_BASE_URL:-http://localhost:5000/server/media}
-
-RUN cp packages/env/.env.example packages/env/.env
 
 RUN vp run -v --filter server build
 

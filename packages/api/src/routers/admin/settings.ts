@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-import { recordAudit } from "@saasweave/db";
+import { getPlatformAuditLog, recordAudit } from "@saasweave/db";
 
-import { adminProcedure } from "#@/lib/procedures/factory";
+import { requirePlatformPermission } from "#@/lib/procedures/factory";
 import { getPlatformSettings, updatePlatformSettings } from "#@/lib/settings";
 
 const settingsPatchSchema = z.object({
@@ -16,11 +16,14 @@ const settingsPatchSchema = z.object({
 });
 
 export const adminSettingsRouter = {
-  get: adminProcedure
+  list: requirePlatformPermission("system_settings.read")
+    .route({ description: "List non-secret platform settings", method: "GET" })
+    .handler(() => getPlatformSettings()),
+  get: requirePlatformPermission("system_settings.read")
     .route({ description: "Read the platform-wide settings singleton", method: "GET" })
     .handler(() => getPlatformSettings()),
 
-  update: adminProcedure
+  update: requirePlatformPermission("system_settings.write")
     .route({ description: "Update one or more platform-wide settings", method: "POST" })
     .input(settingsPatchSchema)
     .handler(async ({ context, input }) => {
@@ -34,5 +37,8 @@ export const adminSettingsRouter = {
         targetType: "platform_settings"
       });
       return updated;
-    })
+    }),
+  history: requirePlatformPermission("system_settings.read")
+    .route({ description: "Platform settings change history", method: "GET" })
+    .handler(() => getPlatformAuditLog({ resource: "platform_settings", limit: 100 }))
 };

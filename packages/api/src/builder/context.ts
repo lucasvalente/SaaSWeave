@@ -1,0 +1,2 @@
+export type ProjectBuildContext = { project: { id: string; name: string; status: string }; files: Array<{ path: string; hash: string; size: number }>; messages: Array<{ role: string; content: string }>; stackPolicy: string[]; entitlements: string[] };
+export function buildProjectContext(input: ProjectBuildContext): ProjectBuildContext { return { ...input, files: input.files.slice(0, 500), messages: input.messages.slice(-20), stackPolicy: input.stackPolicy.slice(0, 50), entitlements: input.entitlements.slice(0, 50) }; }

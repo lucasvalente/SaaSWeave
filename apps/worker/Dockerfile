@@ -44,8 +44,6 @@ ENV NODE_ENV=production \
     VITE_WEB_URL=${VITE_WEB_URL} \
     MEDIA_PUBLIC_BASE_URL=${MEDIA_PUBLIC_BASE_URL:-http://localhost:5000/server/media}
 
-RUN cp packages/env/.env.example packages/env/.env
-
 RUN vp run -v --filter worker build
 
 # =========================================================================== #

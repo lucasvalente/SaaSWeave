@@ -1,6 +1,7 @@
 import { type Context, type Next } from "hono";
 
 import {
+  adminMutationsTotal,
   httpRequestDurationSeconds,
   httpRequestsTotal,
   renderMetrics,
@@ -25,6 +26,15 @@ export function honoMetricsMiddleware() {
     const duration = (performance.now() - started) / 1000;
 
     httpRequestsTotal.inc({ method, route, status_class: statusLabel });
+    if (
+      method !== "GET" &&
+      method !== "HEAD" &&
+      /\/admin\/.+\/(suspend|setRoles|revoke|revokeAll|update|toggleGlobal|updateRollout|setForOrganization|updatePlan|create|remove)$/.test(
+        c.req.path
+      )
+    ) {
+      adminMutationsTotal.inc({ status_class: statusLabel });
+    }
     httpRequestDurationSeconds.observe({ method, route, status_class: statusLabel }, duration);
   };
 }

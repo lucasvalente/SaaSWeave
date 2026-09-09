@@ -8,14 +8,20 @@ export {
   user,
   verification
 } from "#@/schema/auth.schema";
-export { usageEvent } from "#@/schema/usage.schema";
+export { creditAccount, creditLedger, usageAggregate, usageEvent, usageMetric } from "#@/schema/usage.schema";
 export { auditLog } from "#@/schema/audit.schema";
 export { emailDelivery, emailTemplate } from "#@/schema/email.schema";
 export {
   featureFlag,
+  entitlementDefinition,
   organizationFeatureFlag,
+  planEntitlement,
   plan,
-  platformSettings
+  platformSettings,
+  platformRoleAssignment,
+  securityEvent,
+  workspaceSubscription,
+  workspaceSubscriptionHistory
 } from "#@/schema/platform.schema";
 export { apiKey } from "#@/schema/api-key.schema";
 export { organizationIpRule } from "#@/schema/organization-ip-rule.schema";
@@ -28,3 +34,7 @@ export { mrrSnapshot } from "#@/schema/mrr-snapshot.schema";
 export { dataExportRequest } from "#@/schema/data-export-request.schema";
 export { batchJob, batchJobItem } from "#@/schema/batch-job.schema";
 export { platformAnalyticsDaily } from "#@/schema/platform-analytics-daily.schema";
+export { project, projectSupabaseIntegration } from "#@/schema/project.schema";
+export { builderSession, builderMessage, builderPlan, builderSnapshot, builderOperation } from "#@/schema/builder.schema";
+export { sandboxSession, sandboxPreview } from "#@/schema/sandbox.schema";
+export { planPrice, workspaceBillingProfile, invoice, invoiceLineItem, manualPayment, refund } from "#@/schema/billing.schema";

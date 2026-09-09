@@ -51,10 +51,21 @@ describe.sequential("session auth matrix", () => {
   integrationIt("admin.platformStats allows platform-admin sessions", async () => {
     const seed = await seedOrgWithOwner();
     await seedPlatformAdmin(seed.userId);
-    const caller = await createCallerFor({ seed, userRole: "admin" });
+    const caller = await createCallerFor({ mfaEnabled: true, seed, userRole: "admin" });
 
     const stats = await caller.admin.platformStats();
 
     expect(stats.totalWorkspaces).toBeGreaterThanOrEqual(1);
   });
+
+  integrationIt(
+    "admin.platformStats rejects a privileged session without MFA enrollment",
+    async () => {
+      const seed = await seedOrgWithOwner();
+      await seedPlatformAdmin(seed.userId);
+      const caller = await createCallerFor({ mfaEnabled: false, seed, userRole: "admin" });
+
+      await expectOrpcError(() => caller.admin.platformStats(), "FORBIDDEN");
+    }
+  );
 });

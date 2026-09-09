@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "admin-root-routing-regression",
+      "source": "admin layout and Platform admin entry point",
+      "affected": ["/admin/", "/admin/users", "/admin/workspaces", "/admin/projects", "/admin/plans", "/admin/subscriptions", "/admin/usage"],
+      "risk": "high",
+      "verification": ["Playwright admin-navigation.spec.ts", "pnpm typecheck", "pnpm build"],
+      "status": "mitigated"
+    }
+  ]
+}

@@ -10,7 +10,7 @@ export type ProductionGuardEnv = {
   MINIO_ENDPOINT: string;
   MINIO_PUBLIC_BASE_URL: string;
   MINIO_SECRET_ACCESS_KEY: string;
-  NODE_ENV: "development" | "production";
+  NODE_ENV: "development" | "test" | "production";
   PLATFORM_ADMIN_EMAILS: string;
   REQUIRE_EMAIL_VERIFICATION: boolean;
   RESEND_API_KEY: string;

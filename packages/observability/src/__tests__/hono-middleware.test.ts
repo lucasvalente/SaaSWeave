@@ -34,4 +34,19 @@ describe("hono metrics middleware", () => {
     expect(response.headers.get("content-type")).toBe("text/plain; version=0.0.4; charset=utf-8");
     expect(await response.text()).toContain("# HELP");
   });
+  it("counts administrative writes without counting reads", async () => {
+    const middleware = honoMetricsMiddleware();
+    for (const method of ["POST", "GET"]) {
+      await middleware(
+        {
+          req: { method, path: "/server/rpc/admin/sessions/revoke" },
+          res: new Response(null, { status: 200 })
+        } as never,
+        async () => undefined
+      );
+    }
+    expect(await metricsRegistry.metrics()).toContain(
+      'admin_mutations_total{status_class="2xx"} 1'
+    );
+  });
 });

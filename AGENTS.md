@@ -4,6 +4,16 @@ Opinionated full-stack TypeScript monorepo: TanStack Start + Hono + oRPC + Drizz
 
 Use Vite Plus commands in this repo: `vp` for package/scripts, `vpx` for one-off CLIs.
 
+## Platform Security Contract
+
+**SECURITY IS A PLATFORM REQUIREMENT.** This repository is the Control Plane. It must never execute customer-generated code; future execution belongs to an isolated Execution Plane.
+
+Never expose secrets to a browser, bypass authentication or authorization, trust a workspace ID supplied by a client without deriving/verifying tenant context, commit secrets, log credentials, use wildcard production CORS, disable security controls to make a build pass, expose PostgreSQL/Redis publicly, or import customer-code execution into Control Plane processes.
+
+Every privileged mutation requires authentication, backend permission/policy authorization, schema-validated and normalized input, and a secret-free audit record. Every tenant-owned resource requires explicit tenant scoping in service/repository APIs and database queries.
+
+Code changes preserve strict TypeScript, test coverage, security boundaries, versioned migrations and observability. A green build never justifies weakening these controls or deleting tests.
+
 Common commands:
 
 - `vp run dev` - start dev servers

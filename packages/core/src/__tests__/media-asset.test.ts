@@ -92,8 +92,8 @@ describe("resolveSafeMediaPath", () => {
   const uploadDir = join(tmpdir(), "media-safe-path-test");
 
   it("keeps resolved paths inside the upload root", () => {
-    expect(resolveSafeMediaPath(uploadDir, "avatar/user/file.png")).toContain(
-      "avatar/user/file.png"
+    expect(resolveSafeMediaPath(uploadDir, "avatar/user/file.png")).toBe(
+      join(uploadDir, "avatar", "user", "file.png")
     );
     expect(resolveSafeMediaPath(uploadDir, "../outside.txt")).toBeNull();
   });

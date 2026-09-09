@@ -1,5 +1,10 @@
 /* eslint-disable jest/no-standalone-expect, jest/require-to-throw-message -- assertions run inside the integrationIt() wrapper */
+import { randomUUID } from "node:crypto";
+
 import { describe, expect } from "vite-plus/test";
+
+import { db, getPlatformAuditLog } from "@saasweave/db";
+import { platformRoleAssignment } from "@saasweave/db/schema";
 
 import {
   createCallerFor,
@@ -17,6 +22,51 @@ async function seedAdminCaller(seed: Awaited<ReturnType<typeof seedOrgWithOwner>
 }
 
 describe.sequential("admin features and plans", () => {
+  integrationIt("enforces platform RBAC on plan catalog mutations", async () => {
+    const readonlySeed = await seedOrgWithOwner();
+    await db.insert(platformRoleAssignment).values({
+      id: randomUUID(),
+      role: "readonly",
+      userId: readonlySeed.userId
+    });
+    const readonly = await createCallerFor({ seed: readonlySeed, mfaEnabled: true });
+
+    await expectOrpcError(
+      () =>
+        readonly.admin.plans.create({
+          cta: "Start",
+          highlights: ["One"],
+          id: "rbac-plan-denied",
+          name: "Denied",
+          priceMonthly: 100,
+          seatsIncluded: 1,
+          tagline: "Denied"
+        }),
+      "FORBIDDEN"
+    );
+
+    const financeSeed = await seedOrgWithOwner();
+    await db.insert(platformRoleAssignment).values({
+      id: randomUUID(),
+      role: "finance",
+      userId: financeSeed.userId
+    });
+    const finance = await createCallerFor({ seed: financeSeed, mfaEnabled: true });
+    await expectOrpcError(
+      () =>
+        finance.admin.plans.create({
+          cta: "Start",
+          highlights: ["One"],
+          id: "rbac-plan-finance-denied",
+          name: "Denied",
+          priceMonthly: 100,
+          seatsIncluded: 1,
+          tagline: "Denied"
+        }),
+      "FORBIDDEN"
+    );
+  });
+
   integrationIt("features.list returns catalog entries with adoption stats", async () => {
     const seed = await seedOrgWithOwner();
     await seedOrganizationPlan(seed.organizationId, "growth");
@@ -82,6 +132,12 @@ describe.sequential("admin features and plans", () => {
     expect(created.id).toBe("integration-plan");
     const catalog = await caller.platform.plans();
     expect(catalog.some((plan) => plan.id === "integration-plan")).toBe(true);
+    const audit = await getPlatformAuditLog({ limit: 20 });
+    expect(
+      audit.some(
+        (entry) => entry.action === "plan.created" && entry.targetLabel === "Integration Plan"
+      )
+    ).toBe(true);
   });
 
   integrationIt("plans.update edits an existing plan", async () => {

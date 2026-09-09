@@ -6,7 +6,8 @@ import { orpc } from "@saasweave/api/client/tanstack-start/orpc";
 import { getConsoleNav } from "@/features/console-nav/config/console-nav.config";
 import {
   collectEnabledFeatureKeys,
-  filterConsoleNavByFeatures
+  filterConsoleNavByFeatures,
+  isConsoleFeatureEnabled
 } from "@/features/console-nav/lib/filter-console-nav";
 
 export function useConsoleNavGroups() {
@@ -18,4 +19,10 @@ export function useConsoleNavGroups() {
       : new Set<string>();
     return filterConsoleNavByFeatures(getConsoleNav(), enabledKeys);
   }, [featuresQuery.data]);
+}
+
+/** Returns whether a workspace capability is currently available to the user. */
+export function useConsoleFeatureEnabled(featureKey: string): boolean {
+  const featuresQuery = useQuery(orpc.console.features.queryOptions());
+  return isConsoleFeatureEnabled(featuresQuery.data, featureKey);
 }

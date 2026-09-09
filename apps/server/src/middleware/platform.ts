@@ -36,6 +36,24 @@ export const authRateLimitMiddleware: MiddlewareHandler = async (c, next) => {
       windowSeconds: 3_600
     },
     { key: `auth:signin:${ip}`, limit: 30, match: /\/sign-in\/email$/, windowSeconds: 900 },
+    {
+      key: `auth:mfa:${ip}`,
+      limit: 10,
+      match: /\/two-factor\/(verify|verify-totp|verify-backup-code)$/,
+      windowSeconds: 900
+    },
+    {
+      key: `auth:recovery:${ip}`,
+      limit: 10,
+      match: /\/two-factor\/.*backup/,
+      windowSeconds: 3_600
+    },
+    {
+      key: `auth:invite:${ip}`,
+      limit: 20,
+      match: /\/organization\/invite-member$/,
+      windowSeconds: 3_600
+    },
     { key: `auth:magic:${ip}`, limit: 10, match: /\/sign-in\/magic-link$/, windowSeconds: 3_600 }
   ];
 

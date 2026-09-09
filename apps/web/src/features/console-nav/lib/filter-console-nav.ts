@@ -25,4 +25,12 @@ export function collectEnabledFeatureKeys(
   return new Set(features.filter((feature) => feature.enabledForOrg).map((feature) => feature.key));
 }
 
+/** Keep shared feature-gated controls aligned with the navigation fail-closed. */
+export function isConsoleFeatureEnabled(
+  features: Array<{ enabledForOrg: boolean; key: string }> | undefined,
+  featureKey: string
+): boolean {
+  return features ? collectEnabledFeatureKeys(features).has(featureKey) : false;
+}
+
 export type { ConsoleNavItem };

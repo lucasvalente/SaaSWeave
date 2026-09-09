@@ -1,5 +1,6 @@
 import { CreditCard, Download, Lock } from "lucide-react";
 
+import { m } from "@saasweave/i18n/messages";
 import { Button } from "@saasweave/ui/components/button";
 
 import { billingMessages, consoleCommonMessages } from "@/shared/lib/console-messages";
@@ -228,7 +229,7 @@ export function InvoicingTeaser() {
           {billingMessages.invoicingDescription()}
         </p>
       </div>
-      <Badge tone="neutral">Planned</Badge>
+      <Badge tone="neutral">{m.admin__planned()}</Badge>
     </Panel>
   );
 }

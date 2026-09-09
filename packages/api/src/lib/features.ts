@@ -56,11 +56,27 @@ export async function listFeatures(): Promise<PlatformFeatureType[]> {
 }
 
 export async function setFeatureGlobalEnabled(key: string, enabled: boolean): Promise<void> {
-  await db.update(featureFlag).set({ enabled }).where(eq(featureFlag.key, key));
+  const result = await db.update(featureFlag).set({ enabled }).where(eq(featureFlag.key, key)).returning({ key: featureFlag.key });
+  if (result.length === 0) throw new Error("FEATURE_FLAG_NOT_FOUND");
 }
 
 export async function setFeatureRollout(key: string, rollout: number | null): Promise<void> {
-  await db.update(featureFlag).set({ rollout }).where(eq(featureFlag.key, key));
+  if (rollout !== null && (!Number.isInteger(rollout) || rollout < 0 || rollout > 100)) throw new Error("INVALID_ROLLOUT");
+  const result = await db.update(featureFlag).set({ rollout }).where(eq(featureFlag.key, key)).returning({ key: featureFlag.key });
+  if (result.length === 0) throw new Error("FEATURE_FLAG_NOT_FOUND");
+}
+
+/** Canonical server-side resolver. Workspace override wins over global default. */
+export async function resolveFeatureFlag(key: string, organizationId?: string): Promise<boolean> {
+  await ensureFeaturesSeeded();
+  const [global] = await db.select({ enabled: featureFlag.enabled }).from(featureFlag).where(eq(featureFlag.key, key)).limit(1);
+  if (!global) return false;
+  if (organizationId) {
+    const [override] = await db.select({ enabled: organizationFeatureFlag.enabled }).from(organizationFeatureFlag)
+      .where(and(eq(organizationFeatureFlag.organizationId, organizationId), eq(organizationFeatureFlag.featureKey, key))).limit(1);
+    if (override) return override.enabled;
+  }
+  return global.enabled;
 }
 
 export async function setFeatureForOrganization(

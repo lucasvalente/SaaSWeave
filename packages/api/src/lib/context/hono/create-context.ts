@@ -25,6 +25,8 @@ export async function createContext({
   logger,
   socketAddress
 }: CreateContextOptions): Promise<OrpcContext> {
+  const requestId = context.req.header("x-request-id") ?? crypto.randomUUID();
+  const traceId = context.req.header("traceparent")?.split("-")[1] ?? requestId.replaceAll("-", "");
   const clientIp = resolveClientIp(context.req.raw.headers, {
     trustProxyHeaders: ENV_SERVER.TRUST_PROXY_HEADERS,
     socketAddress
@@ -33,7 +35,15 @@ export async function createContext({
   if (bearer) {
     const apiKey = await verifyApiKey(bearer);
     if (apiKey) {
-      return { apiKey, clientIp, headers: context.req.raw.headers, logger, session: null };
+      return {
+        apiKey,
+        clientIp,
+        headers: context.req.raw.headers,
+        logger,
+        requestId,
+        session: null,
+        traceId
+      };
     }
   }
 
@@ -44,6 +54,8 @@ export async function createContext({
     clientIp,
     headers: context.req.raw.headers,
     logger,
-    session
+    requestId,
+    session,
+    traceId
   };
 }

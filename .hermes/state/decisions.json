@@ -1,0 +1,19 @@
+{
+  "decisions": [
+    {
+      "id": "hermes-codex-bridge",
+      "decision": "Use file-based .hermes/tasks and .hermes/results bridge; no native Codex MCP claim.",
+      "date": "2026-09-07"
+    },
+    {
+      "id": "project-skills-format",
+      "decision": "Use official SKILL.md frontmatter; agent directories are role playbooks because Hermes has no separate project-agent manifest.",
+      "date": "2026-09-07"
+    },
+    {
+      "id": "safety",
+      "decision": "No autonomous daemon, deployment, destructive migration or secret storage.",
+      "date": "2026-09-07"
+    }
+  ]
+}

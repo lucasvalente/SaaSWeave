@@ -2,7 +2,7 @@
 
 ## Single Source of Truth
 
-All env vars live in `packages/env/.env` (copy from `.env.example`). Validated by Zod at import time via `@t3-oss/env-core`.
+Environment variables are supplied by the process and validated by Zod via `@t3-oss/env-core`. A local `packages/env/.env` is optional for development commands; production builds and SSR must not require that file.
 
 ## Three Scoped Objects
 

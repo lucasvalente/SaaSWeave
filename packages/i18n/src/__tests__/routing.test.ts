@@ -41,26 +41,38 @@ describe("localized route tree", () => {
       {
         fullPath: "/app/",
         id: "/{-$locale}/app/",
-        locale: "en",
+        locale: "pt-BR",
         path: "/app"
       },
       {
-        fullPath: "/de/app/",
+        fullPath: "/en/app/",
         id: "/{-$locale}/app/",
-        locale: "de",
-        path: "/de/app"
+        locale: "en",
+        path: "/en/app"
+      },
+      {
+        fullPath: "/es/app/",
+        id: "/{-$locale}/app/",
+        locale: "es",
+        path: "/es/app"
       },
       {
         fullPath: "/app/settings/",
         id: "/{-$locale}/app/settings/",
-        locale: "en",
+        locale: "pt-BR",
         path: "/app/settings"
       },
       {
-        fullPath: "/de/app/settings/",
+        fullPath: "/en/app/settings/",
         id: "/{-$locale}/app/settings/",
-        locale: "de",
-        path: "/de/app/settings"
+        locale: "en",
+        path: "/en/app/settings"
+      },
+      {
+        fullPath: "/es/app/settings/",
+        id: "/{-$locale}/app/settings/",
+        locale: "es",
+        path: "/es/app/settings"
       }
     ]);
   });
@@ -75,10 +87,10 @@ describe("localized route tree", () => {
 describe("stripLocalePrefix", () => {
   it.each([
     ["/", "/"],
-    ["/de/app", "/app"],
+    ["/es/app", "/app"],
     ["/en/en/app", "/app"],
     ["/{-$locale}/{-$locale}/app", "/app"],
-    ["/de", "/"],
+    ["/pt-BR", "/"],
     ["/denmark/app", "/denmark/app"],
     ["/application", "/application"]
   ])("normalizes %s to %s", (input, expected) => {
@@ -94,9 +106,9 @@ describe("validateNavigateTo", () => {
       validateNavigateTo({
         routeTree,
         shouldIncludeRoute: includeAll,
-        to: "/de/app/settings/?tab=profile#password"
+        to: "/es/app/settings/?tab=profile#password"
       })
-    ).toBe("/de/app/settings/?tab=profile#password");
+    ).toBe("/es/app/settings/?tab=profile#password");
   });
 
   it("converts an absolute URL to an internal route destination", () => {
@@ -104,9 +116,9 @@ describe("validateNavigateTo", () => {
       validateNavigateTo({
         routeTree,
         shouldIncludeRoute: includeAll,
-        to: "https://untrusted.example/de/app?tab=usage"
+        to: "https://untrusted.example/es/app?tab=usage"
       })
-    ).toBe("/de/app?tab=usage");
+    ).toBe("/es/app?tab=usage");
   });
 
   it("falls back for missing and filtered routes", () => {

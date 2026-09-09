@@ -120,10 +120,18 @@ describe("Stripe webhook claim and customer extraction", () => {
     });
   });
 
-  it("audits failed payments using organization metadata without a lookup", async () => {
-    const executor = { select: vi.fn() };
+  it("audits failed payments only when metadata matches the Stripe customer", async () => {
+    const executor = {
+      select: () => ({
+        from: () => ({
+          where: () => ({
+            limit: async () => [{ id: "org-2", stripeCustomerId: "cus_failed" }]
+          })
+        })
+      })
+    };
     const invoice = {
-      customer: null,
+      customer: "cus_failed",
       id: "in_failed",
       metadata: { organizationId: "org-2" }
     };
@@ -131,7 +139,6 @@ describe("Stripe webhook claim and customer extraction", () => {
     await expect(
       applyStripeWebhookEvent(stripeEvent("invoice.payment_failed", invoice), executor as never)
     ).resolves.toEqual({});
-    expect(executor.select).not.toHaveBeenCalled();
     expect(mocks.recordAudit).toHaveBeenCalledWith({
       action: "billing.payment_failed",
       organizationId: "org-2",

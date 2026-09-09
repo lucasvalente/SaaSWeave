@@ -8,13 +8,13 @@ import { AdminAnalyticsPage } from "@/pages/admin/analytics";
 
 export const Route = createFileRoute("/{-$locale}/(admin-layout)/admin/")({
   loader: ({ context }) =>
-    context.queryClient.ensureQueryData(orpc.admin.platformStats.queryOptions()),
+    context.queryClient.ensureQueryData(orpc.admin.system.overview.queryOptions()),
   head: ({ params }) =>
     generateAppSeo({
       alternates: { canonicalPath: "/admin", locale: params.locale },
-      description: "Platform-wide revenue, retention, and plan analytics.",
+      description: "Live platform counts and infrastructure status.",
       robots: { follow: false, index: false },
-      title: "Platform analytics"
+      title: "Platform dashboard"
     }),
   component: AdminAnalyticsPage
 });

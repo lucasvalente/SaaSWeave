@@ -1,5 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
+import { m } from "@saasweave/i18n/messages";
+
 import { Badge, SectionHeading } from "@/shared/ui/console-kit";
 
 import { getStatusQueryOptions } from "@/pages/status/api/get-status.query";
@@ -14,33 +16,33 @@ export function StatusPage() {
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 py-16">
       <SectionHeading
-        eyebrow="Platform"
-        title="System status"
-        description="Live readiness checks for the API and its dependencies."
+        eyebrow={m.status__platform()}
+        title={m.status__title()}
+        description={m.status__description()}
       />
 
       <div className="rounded-xl border border-border bg-card p-6">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <p className="text-sm font-medium text-foreground">API readiness</p>
+            <p className="text-sm font-medium text-foreground">{m.status__api_readiness()}</p>
             <p className="mt-1 text-sm text-muted-foreground">
               {status.isLoading
-                ? "Checking…"
+                ? m.status__checking()
                 : unreachable
                   ? "Could not reach the status endpoint."
                   : healthy
-                    ? "All dependencies are healthy."
-                    : "One or more checks are failing."}
+                    ? m.status__all_healthy()
+                    : m.status__degraded_description()}
             </p>
           </div>
           <Badge tone={status.isLoading ? "neutral" : healthy ? "success" : "destructive"}>
             {status.isLoading
-              ? "Checking"
+              ? m.status__checking_short()
               : unreachable
-                ? "Unreachable"
+                ? m.status__unreachable()
                 : healthy
-                  ? "Healthy"
-                  : "Degraded"}
+                  ? m.status__healthy()
+                  : m.status__degraded()}
           </Badge>
         </div>
 

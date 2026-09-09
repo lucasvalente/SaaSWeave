@@ -1,0 +1,6 @@
+{
+  "name": "@saasweave/sandbox-runtime",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node src/index.mjs" }
+}

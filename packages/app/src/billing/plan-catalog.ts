@@ -26,6 +26,8 @@ export async function ensurePlansSeeded(): Promise<void> {
       DEFAULT_PLANS.map((entry, index) => {
         return {
           cta: entry.cta,
+          code: entry.id,
+          description: entry.description ?? null,
           highlights: entry.highlights,
           id: entry.id,
           name: entry.name,
@@ -44,14 +46,19 @@ export async function ensurePlansSeeded(): Promise<void> {
 export function toPlanTier(row: typeof plan.$inferSelect): PlanTierType {
   return {
     cta: row.cta,
+    code: row.code,
+    description: row.description,
     highlights: row.highlights,
     id: row.id,
+    isDefault: row.isDefault,
+    isPublic: row.isPublic,
     name: row.name,
     popular: row.popular,
     priceMonthly: row.priceMonthly,
     seatPrice: row.seatPrice ?? undefined,
     seatsIncluded: row.seatsIncluded,
     sortOrder: row.sortOrder,
+    status: row.status as "draft" | "active" | "archived",
     tagline: row.tagline
   };
 }

@@ -1,5 +1,6 @@
 import {
   CreditCard,
+  FolderKanban,
   KeyRound,
   LayoutDashboard,
   type LucideIcon,
@@ -38,6 +39,7 @@ export function getConsoleNav(): ConsoleNavGroup[] {
       heading: m.console_nav__workspace_heading(),
       items: [
         { exact: true, icon: LayoutDashboard, label: m.console_nav__overview(), to: "/app" },
+        { icon: FolderKanban, label: m.admin_nav__projects(), to: "/app/projects" },
         {
           featureKey: "ai_assistant",
           icon: Sparkles,

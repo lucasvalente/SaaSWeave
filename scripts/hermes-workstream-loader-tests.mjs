@@ -1,0 +1,10 @@
+import assert from "node:assert/strict";
+import { loadPersistedWorkstream } from "./hermes-workstream-loader.mjs";
+const loaded = await loadPersistedWorkstream("sandbox-preview-v1");
+assert.equal(loaded.id, "sandbox-preview-v1");
+assert.equal(loaded.metadata.fixture_used, false);
+assert.equal(loaded.acceptance_loaded, true);
+assert.ok(loaded.pending_criteria.length > 0);
+await assert.rejects(() => loadPersistedWorkstream("nao-existe"), /WORKSTREAM_NOT_FOUND/);
+await assert.rejects(() => loadPersistedWorkstream("hermes-v3-runtime-fixture"), /WORKSTREAM_REQUIRED/);
+console.log("Hermes persisted workstream loader: PASS");

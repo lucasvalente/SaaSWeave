@@ -1,7 +1,11 @@
 import { z } from "zod";
 
 export const PlanTierSchema = z.object({
+  code: z.string().min(1).optional(),
+  description: z.string().nullable().optional(),
   id: z.string().min(1),
+  isDefault: z.boolean().optional(),
+  isPublic: z.boolean().optional(),
   name: z.string().min(1),
   tagline: z.string().min(1),
   /** Monthly price in whole currency units. `null` renders as "Custom". */
@@ -12,8 +16,14 @@ export const PlanTierSchema = z.object({
   highlights: z.array(z.string()),
   popular: z.boolean().optional(),
   cta: z.string().min(1),
-  sortOrder: z.number().int().optional()
+  sortOrder: z.number().int().optional(),
+  status: z.enum(["draft", "active", "archived"]).optional()
 });
+
+export const PlanStatusSchema = z.enum(["draft", "active", "archived"]);
+export const EntitlementValueTypeSchema = z.enum(["boolean", "integer", "decimal", "string"]);
+export type PlanStatus = z.infer<typeof PlanStatusSchema>;
+export type EntitlementValueType = z.infer<typeof EntitlementValueTypeSchema>;
 
 export type PlanTierType = z.infer<typeof PlanTierSchema>;
 

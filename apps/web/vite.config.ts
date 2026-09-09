@@ -84,12 +84,11 @@ export default defineConfig({
   run: {
     tasks: {
       build: {
-        command:
-          "cross-env NODE_ENV=production IS_BUILD=true pnpm dotenvx run -f ../../packages/env/.env -- vp build",
+        command: "cross-env NODE_ENV=production IS_BUILD=true vp build",
         dependsOn: ["@saasweave/i18n#build"],
         // These environment variables are dependencies of the build process and need to be passed here to be picked up by the Vite Task runner.
-        // CAUTION: These are hardcoded into the image. You should consider Build Secrets for sensitive values.
-        //          In Coolify, you need to check "Use Docker Build Secrets" in the Environment Variables tab.
+        // Build inputs are client-safe values only. Runtime server secrets are
+        // deliberately not required by the web bundle or static prerendering.
         env: [
           "NODE_ENV",
           "VITE_SERVER_URL",
@@ -97,9 +96,7 @@ export default defineConfig({
           "VITE_IMGPROXY_URL",
           "VITE_IMGPROXY_SIGNATURE",
           "VITE_IMGPROXY_SOURCE_WEB_URL",
-          "SOURCE_COMMIT",
-          "BETTER_AUTH_SECRET",
-          "DATABASE_URL"
+          "SOURCE_COMMIT"
         ]
       }
     }
@@ -116,6 +113,22 @@ export default defineConfig({
   // Restart the dev server when env files in this directory change
   envDir: resolve(import.meta.dirname, "../../packages/env"),
   resolve: {
+    alias:
+      process.env.IS_BUILD === "true"
+        ? {
+            // Static prerendering must not initialize the in-process API
+            // client: it requires runtime DB/auth configuration that a web
+            // asset build neither has nor should receive.
+            "#@/client/server/orpc": resolve(
+              import.meta.dirname,
+              "../../packages/api/src/client/server/build-stub.ts"
+            ),
+            "@saasweave/auth/index": resolve(
+              import.meta.dirname,
+              "../../packages/auth/src/build-stub.ts"
+            )
+          }
+        : undefined,
     tsconfigPaths: true
   },
   define: {

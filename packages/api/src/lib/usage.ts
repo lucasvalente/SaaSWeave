@@ -1,9 +1,8 @@
 import { randomUUID } from "node:crypto";
-
 import { and, eq, gte, sql } from "drizzle-orm";
 
 import { cacheInvalidateTag } from "@saasweave/cache";
-import { db } from "@saasweave/db";
+import { db, recordUsageEvent } from "@saasweave/db";
 import { usageEvent } from "@saasweave/db/schema";
 import { ENV_SERVER } from "@saasweave/env/server/env";
 
@@ -41,16 +40,13 @@ export async function recordUsage(
   quantity: number,
   attribution?: UsageAttribution
 ): Promise<void> {
-  await db.insert(usageEvent).values({
-    createdAt: new Date(),
+  await recordUsageEvent({
     feature: attribution?.feature,
-    id: randomUUID(),
+    idempotencyKey: `legacy:${randomUUID()}`,
     inputTokens: attribution?.inputTokens,
     metric,
-    model: attribution?.model,
     organizationId,
     outputTokens: attribution?.outputTokens,
-    provider: attribution?.provider,
     quantity
   });
   await cacheInvalidateTag(`organization:${organizationId}:usage`);

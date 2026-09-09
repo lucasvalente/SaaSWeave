@@ -1,0 +1,32 @@
+{
+  "workstreams": {
+    "global-i18n": "complete",
+    "global-i18n-runtime-default-regression": "complete",
+    "plans-entitlements-v1": "complete",
+    "subscriptions-v1": "complete",
+    "admin-control-plane": "complete",
+    "admin-dashboard-final-v1": "complete",
+    "billing": "complete",
+    "admin-navigation-consolidation": "complete",
+    "admin-root-routing-regression": "complete",
+    "hermes-engineering-system-v2-5": "complete",
+    "hermes-engineering-system-v3": "complete",
+    "usage-metering": "complete",
+    "system-operations": "complete",
+    "feature-flags": "complete",
+    "builder-engine": "in_progress",
+    "builder-engine-v1": "complete",
+    "model-router-ai-generation-v1": "complete",
+    "sandbox": "in_progress",
+    "sandbox-preview-v1": "complete",
+    "production-readiness-v1": "paused_external_deployment",
+    "customer-projects": "complete",
+    "feature-gates-shell-consistency-v1": "complete",
+    "preview": "complete",
+    "supabase-integration": "pending",
+    "deploy": "pending",
+    "observability": "pending",
+    "m2-product-platform": "complete",
+    "m3-release-hardening": "complete"
+  }
+}

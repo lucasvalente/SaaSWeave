@@ -1,6 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 import type React from "react";
 
+import { m } from "@saasweave/i18n/messages";
 import { Link } from "@saasweave/i18n/tanstack-start/components/link";
 import { type LinkProps } from "@saasweave/i18n/tanstack-start/components/link";
 
@@ -22,7 +23,9 @@ export function SidebarPlanCard() {
     >
       <div className="flex items-center justify-between">
         <span className="text-sm font-semibold text-foreground">
-          {plan ? `${plan.name} plan` : "Plan"}
+          {plan
+            ? `${plan.name} ${m.console_billing__plan_label().toLowerCase()}`
+            : m.console_billing__plan_label()}
         </span>
         <ArrowUpRight className="size-4 text-muted-foreground" aria-hidden="true" />
       </div>
@@ -30,13 +33,13 @@ export function SidebarPlanCard() {
         <div className="mt-2">
           <Meter
             fraction={plan.seatsIncluded > 0 ? plan.seatsUsed / plan.seatsIncluded : 0}
-            includedLabel={`${formatNumber(plan.seatsIncluded)} seats`}
-            label="Usage"
+            includedLabel={m.console_nav__seats({ count: formatNumber(plan.seatsIncluded) })}
+            label={m.console_nav__usage()}
             usedLabel={formatNumber(plan.seatsUsed)}
           />
         </div>
       ) : (
-        <p className="mt-1 text-xs text-muted-foreground">Manage plan and usage-based billing.</p>
+        <p className="mt-1 text-xs text-muted-foreground">{m.console_nav__manage_billing()}</p>
       )}
     </Link>
   );

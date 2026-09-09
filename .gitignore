@@ -8,12 +8,21 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+.hermes/tasks/
+.hermes/results/
+.hermes/runtime/
+.hermes/tmp/
+.hermes/**/*.log
+.hermes/**/*.env
+.hermes/**/secrets*
+work/
 dist
 dist-ssr
 **/project.inlang/cache
 **/project.inlang/project_id
 .env
 .env.docker
+.env.production
 *.local
 tmp
 .uploads
