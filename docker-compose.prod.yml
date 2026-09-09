@@ -87,14 +87,6 @@ services:
       - saasweave-caddy-config:/config
     networks:
       - app
-    read_only: true
-    tmpfs:
-      - /tmp:size=32M,mode=1777,noexec,nosuid
-    security_opt:
-      - no-new-privileges:true
-    cap_drop:
-      - ALL
-    user: "1000:1000"
 
   migrate:
     build:
@@ -292,8 +284,7 @@ volumes:
   saasweave-minio-data:
 
 networks:
-  app:
-    internal: true
+  app: {}
   data:
     internal: true
   sandbox-control:
