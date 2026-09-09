@@ -64,7 +64,7 @@ export function ConsoleTopbar({
         <LogoWordmark className="text-base" />
       </Link>
 
-      {badge ? <div className="hidden lg:flex">{badge}</div> : null}
+      {badge ? <div className="flex items-center gap-1.5">{badge}</div> : null}
 
       <div className="ml-auto flex items-center gap-1.5">
         {actions}

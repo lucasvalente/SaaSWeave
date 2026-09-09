@@ -48,19 +48,25 @@ export const Route = createFileRoute("/{-$locale}/(admin-layout)")({
       throw redirect({ to: "/app" });
     }
 
-    return { user, adminPermissions: access.permissions };
+    return { user, adminPermissions: access.permissions, adminRoles: access.roles };
   },
   component: AdminLayoutRoute
 });
 
 function AdminLayoutRoute() {
-  const { adminPermissions } = Route.useRouteContext();
+  const { adminPermissions, adminRoles } = Route.useRouteContext();
+  const isSuperAdmin = adminRoles?.includes("super_admin");
   return (
     <ConsoleLayout
       groups={getAllowedAdminNav(adminPermissions ?? [])}
       homeTo="/admin/"
       ariaLabel={m.admin_layout__platform_admin()}
-      badge={<Badge tone="brand">{m.admin_layout__platform_admin()}</Badge>}
+      badge={
+        <div className="flex items-center gap-1.5">
+          <Badge tone="brand">{m.admin_layout__platform_admin()}</Badge>
+          {isSuperAdmin ? <Badge tone="neutral">Super Admin</Badge> : null}
+        </div>
+      }
       footer={
         <Link
           to="/app"
