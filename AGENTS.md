@@ -72,3 +72,25 @@ Consulte os diretórios especializados em `.agents/`:
 - [`.agents/workflows/`](file:///.agents/workflows/): Procedimentos padronizados para desenvolvimento, bugs, banco e segurança.
 - [`.agents/knowledge/`](file:///.agents/knowledge/): Base de conhecimento do produto, domínio e regras técnicas.
 - [`.agents/templates/`](file:///.agents/templates/): Templates estruturados para planos e revisões.
+
+---
+
+## 6. Diretrizes de Engenharia Avançada Hermes (Maximum Engineering Utilization)
+
+1. **Available != Loaded (Context Minimization Inteligente)**:
+   Todos os agentes e skills do registry estão disponíveis; contudo, somente o subconjunto estritamente relevante é carregado em cada etapa para evitar degradação de contexto.
+2. **Specialist First**:
+   Cada domínio é avaliado primeiramente pelo agente especialista dedicado antes da consolidação pelo Orchestrator.
+3. **Multi-Agent Cross-Review**:
+   Decisões HIGH ou CRITICAL exigem revisão cruzada (Database, Tenancy, Security, Architecture, Performance, Testing, Code Review).
+4. **Adversarial Review**:
+   Análise sistemática contra falhas: *"Como esta implementação pode falhar em produção?"* (race conditions, bypasses, tenant leaks, rollback risks).
+5. **Alternatives Before Implementation**:
+   Decisões estruturais avaliam opções concretas (Option A vs. Option B vs. Option C) com critérios de corretude, segurança, manutenibilidade e custo operacional.
+6. **Skill Composition**:
+   Combinação sinérgica de skills complementares em fluxos coesos.
+7. **Knowledge & Failure Memory**:
+   Consulta obrigatória à base `.agents/knowledge/` e histórico de incidentes para evitar repetição de falhas já remediadas.
+8. **Single Codex Handoff**:
+   Especialistas debatem e o Hermes Orchestrator consolida **um único plano claro e sem conflitos** para o Codex executar.
+
