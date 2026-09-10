@@ -15,6 +15,7 @@
       "**/.hermes/**",
       "**/scripts/**",
       "**/coverage/**",
+      "**/migrations/**",
       "bun.lock"
     ]
   },
