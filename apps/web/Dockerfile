@@ -1,6 +1,7 @@
-# Multi-stage production build for TanStack Start SSR runtime
-FROM oven/bun:1-alpine AS builder
+FROM oven/bun:1-alpine AS production
 WORKDIR /app
+
+RUN apk add --no-cache curl
 
 # Copy workspace configuration and dependency lockfile
 COPY package.json bun.lock turbo.json tsconfig.base.json ./
@@ -14,39 +15,25 @@ COPY apps/api/package.json ./apps/api/
 COPY apps/web/package.json ./apps/web/
 COPY apps/worker/package.json ./apps/worker/
 
-# Install full workspace dependencies
+# Install workspace dependencies
 RUN bun install --frozen-lockfile
 
-# Copy required package sources and web source files
+# Copy sources required for frontend build and execution
 COPY packages/ ./packages/
 COPY apps/web/ ./apps/web/
 
-# Build TanStack Start SSR bundle (generates dist/client and dist/server)
+# Build TanStack Start SSR bundle
 WORKDIR /app/apps/web
 RUN bun run build
 
-# Stage 2: Minimal production runtime using Bun
-FROM oven/bun:1-alpine AS production
-WORKDIR /app/apps/web
+WORKDIR /app
 
 ENV NODE_ENV=production
 ENV PORT=3000
-
-# Install curl for reliable container healthchecks
-RUN apk add --no-cache curl
-
-# Copy build artifacts and server entrypoint
-COPY --from=builder /app/apps/web/dist ./dist
-COPY --from=builder /app/apps/web/server.mjs ./server.mjs
-COPY --from=builder /app/apps/web/package.json ./package.json
-COPY --from=builder /app/node_modules /app/node_modules
-
-# Run as non-root user
-USER bun
 
 EXPOSE 3000
 
 HEALTHCHECK --interval=10s --timeout=3s --retries=3 \
   CMD curl -f http://127.0.0.1:3000/_health || exit 1
 
-CMD ["bun", "run", "server.mjs"]
+CMD ["bun", "apps/web/server.mjs"]
