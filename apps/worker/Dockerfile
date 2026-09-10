@@ -1,97 +1,25 @@
-# syntax=docker/dockerfile:1.7-labs
-FROM node:24-bookworm-slim AS base
-
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends wget git ca-certificates \
-  && update-ca-certificates \
-  && rm -rf /var/lib/apt/lists/*
-
+FROM oven/bun:1-alpine AS base
 WORKDIR /app
 
-# =========================================================================== #
+# Copy workspace manifests
+COPY package.json bun.lock turbo.json tsconfig.base.json ./
+COPY packages/config/package.json ./packages/config/
+COPY packages/shared/package.json ./packages/shared/
+COPY packages/contracts/package.json ./packages/contracts/
+COPY packages/database/package.json ./packages/database/
+COPY packages/observability/package.json ./packages/observability/
+COPY packages/ui/package.json ./packages/ui/
+COPY apps/api/package.json ./apps/api/
+COPY apps/web/package.json ./apps/web/
+COPY apps/worker/package.json ./apps/worker/
 
-FROM base AS installer
+# Install dependencies with frozen lockfile
+RUN bun install --frozen-lockfile
 
-# Use `npm view vite-plus version` to get the latest version of vite-plus for reproducible builds
-# FIXME: Use the documented manual method when it's available
-# @see {@link https://github.com/voidzero-dev/vite-plus/issues/896}
-ARG VITE_PLUS_VERSION=0.2.4
-RUN npm pack "@voidzero-dev/vite-plus-cli-linux-x64-gnu@${VITE_PLUS_VERSION}" \
-        --pack-destination /tmp && \
-    mkdir -p /root/.vite-plus/bin && \
-    tar xzf /tmp/voidzero-dev-vite-plus-cli-linux-x64-gnu-*.tgz -C /root/.vite-plus/bin \
-        --strip-components=1 package/vp && \
-    chmod +x /root/.vite-plus/bin/vp
-ENV PATH="/root/.vite-plus/bin:$PATH"
-
-# This layer only invalidates when dependencies change, not on source changes.
-# --parents preserves directory structure, picking up all workspace packages automatically.
-COPY --parents **/package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-
-RUN vp install --frozen-lockfile --ignore-scripts
-
-# =========================================================================== #
-
-FROM installer AS builder
-
-COPY . .
-
-ARG SOURCE_COMMIT VITE_SERVER_URL VITE_WEB_URL MEDIA_PUBLIC_BASE_URL
-ENV NODE_ENV=production \
-    IS_BUILD=true \
-    SOURCE_COMMIT=${SOURCE_COMMIT} \
-    VITE_SERVER_URL=${VITE_SERVER_URL} \
-    VITE_WEB_URL=${VITE_WEB_URL} \
-    MEDIA_PUBLIC_BASE_URL=${MEDIA_PUBLIC_BASE_URL:-http://localhost:5000/server/media}
-
-RUN vp run -v --filter worker build
-
-# =========================================================================== #
-
-FROM installer AS dev
-
-COPY . .
-
-RUN npm install -g tsx@4.22.4
-
-RUN addgroup --gid 1001 nodejs \
-    && adduser --uid 1001 --ingroup nodejs --disabled-password --gecos "" worker
-
-USER worker
-WORKDIR /app
+# Copy sources required for worker daemon
+COPY packages/ ./packages/
+COPY apps/worker/ ./apps/worker/
 
 ENV NODE_ENV=production
 
-HEALTHCHECK --interval=15s --timeout=5s --retries=5 --start-period=45s \
-  CMD wget -qO- http://127.0.0.1:9100/health/ready || exit 1
-
-EXPOSE 9100
-
-CMD ["tsx", "apps/worker/src/index.ts"]
-
-# =========================================================================== #
-
-FROM node:24-bookworm-slim AS production
-
-# Runtime-only image: wget for healthchecks, no git/npm from the build base.
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends wget ca-certificates \
-  && update-ca-certificates \
-  && rm -rf /var/lib/apt/lists/* \
-  && rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack \
-  && addgroup --gid 1001 nodejs \
-  && adduser --uid 1001 --ingroup nodejs --disabled-password --gecos "" worker
-
-COPY --from=builder --chown=worker:nodejs /app/apps/worker/.output /app/.output
-
-USER worker
-WORKDIR /app
-
-ENV NODE_ENV=production
-
-HEALTHCHECK --interval=15s --timeout=5s --retries=5 --start-period=45s \
-  CMD wget -qO- http://127.0.0.1:9100/health/ready || exit 1
-
-EXPOSE 9100
-
-CMD ["node", "/app/.output/index.mjs"]
+CMD ["bun", "apps/worker/src/index.ts"]

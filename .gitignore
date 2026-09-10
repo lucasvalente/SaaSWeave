@@ -40,6 +40,8 @@ docs/plans/
 docs/capacity/*REPORT*.md
 **/.output/
 **/.nitro/
+**/.turbo/
+.turbo
 
 # Editor directories and files
 .vscode/*

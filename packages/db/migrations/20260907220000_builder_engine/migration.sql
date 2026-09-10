@@ -1,9 +1,0 @@
-CREATE TABLE "builder_session" ("id" text PRIMARY KEY NOT NULL,"project_id" text NOT NULL REFERENCES "project"("id") ON DELETE CASCADE,"workspace_id" text NOT NULL REFERENCES "organization"("id") ON DELETE CASCADE,"created_by" text NOT NULL REFERENCES "user"("id"),"status" text NOT NULL DEFAULT 'idle',"created_at" timestamp NOT NULL DEFAULT now(),"updated_at" timestamp NOT NULL DEFAULT now());
-CREATE INDEX "builder_session_project_idx" ON "builder_session" ("project_id");
-CREATE INDEX "builder_session_workspace_idx" ON "builder_session" ("workspace_id");
-CREATE TABLE "builder_message" ("id" text PRIMARY KEY NOT NULL,"session_id" text NOT NULL REFERENCES "builder_session"("id") ON DELETE CASCADE,"role" text NOT NULL,"content" text NOT NULL,"status" text NOT NULL DEFAULT 'completed',"metadata" jsonb,"created_at" timestamp NOT NULL DEFAULT now());
-CREATE INDEX "builder_message_session_idx" ON "builder_message" ("session_id","created_at");
-CREATE TABLE "builder_plan" ("id" text PRIMARY KEY NOT NULL,"session_id" text NOT NULL REFERENCES "builder_session"("id") ON DELETE CASCADE,"intent" text NOT NULL,"summary" text NOT NULL,"steps" jsonb NOT NULL,"created_at" timestamp NOT NULL DEFAULT now());
-CREATE TABLE "builder_snapshot" ("id" text PRIMARY KEY NOT NULL,"project_id" text NOT NULL REFERENCES "project"("id") ON DELETE CASCADE,"parent_id" text,"created_by" text NOT NULL REFERENCES "user"("id"),"source" text NOT NULL,"summary" text,"manifest" jsonb NOT NULL,"created_at" timestamp NOT NULL DEFAULT now());
-CREATE INDEX "builder_snapshot_project_idx" ON "builder_snapshot" ("project_id","created_at");
-CREATE TABLE "builder_operation" ("id" text PRIMARY KEY NOT NULL,"session_id" text NOT NULL REFERENCES "builder_session"("id") ON DELETE CASCADE,"type" text NOT NULL,"path" text NOT NULL,"content" text,"order" integer NOT NULL,"status" text NOT NULL DEFAULT 'pending',"error" text,"created_at" timestamp NOT NULL DEFAULT now());

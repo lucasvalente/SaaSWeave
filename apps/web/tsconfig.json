@@ -1,20 +1,9 @@
 {
-  "extends": "@saasweave/tsconfig/tsconfig.base.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "paths": {
-      "@/*": ["./src/*"],
-
-      // for shadcn CLI to resolve @saasweave/ui paths to the /packages/ui directory
-      "@saasweave/ui/*": ["../../packages/ui/*"]
-    },
-    "types": ["node", "vite-plus/client", "mdx"],
-
-    /* Because paraglide.js breaks types during rebuilds on dev */
-    "allowJs": true
+    "rootDir": "src",
+    "outDir": "dist",
+    "jsx": "react-jsx"
   },
-  "mdx": {
-    "checkMdx": true
-  },
-  "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*"]
 }

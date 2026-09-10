@@ -1,1 +1,0 @@
-ALTER TABLE "organization" ADD COLUMN "last_stripe_event_at" timestamp;

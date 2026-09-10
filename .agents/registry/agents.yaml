@@ -1,0 +1,104 @@
+# AUTUAX Agents Registry
+agents:
+  - id: "hermes-orchestrator"
+    name: "Hermes Orchestrator"
+    purpose: "Agente mestre de análise, decomposição de tarefas, seleção de agentes/skills, verificação de guardrails e geração de planos operacionais para o Codex."
+    domains: ["all", "orchestration", "governance"]
+    default_skills: ["context-router", "risk-classification", "codex-task-planner", "review-codex-result"]
+    mandatory_guardrails: ["architecture", "security", "production"]
+  - id: "architecture-agent"
+    name: "Architecture Agent"
+    purpose: "Proteger as fronteiras arquiteturais do monorepo AUTUAX, impedindo vazamento de regras para o frontend ou acoplamento indevido entre apps e packages."
+    domains: ["architecture", "monorepo", "boundaries"]
+    default_skills: ["typescript-strict", "typed-api-client", "openapi"]
+    mandatory_guardrails: ["architecture", "production"]
+  - id: "frontend-agent"
+    name: "Frontend Agent"
+    purpose: "Especialista em TanStack Start, React, TanStack Router, TanStack Query, TailwindCSS, Zustand e Design System em packages/ui."
+    domains: ["frontend", "ui", "web"]
+    default_skills: ["tanstack-start", "tanstack-router", "tanstack-query", "zustand", "tanstack-store", "react-ui", "tailwind-design-system"]
+    mandatory_guardrails: ["architecture"]
+  - id: "backend-agent"
+    name: "Backend Agent"
+    purpose: "Especialista em runtime Bun, framework Hono, Zod, OpenAPI 3.1 e arquitetura em camadas de serviços e repositórios."
+    domains: ["backend", "api", "services"]
+    default_skills: ["hono-api", "bun-runtime", "zod-validation", "openapi"]
+    mandatory_guardrails: ["architecture", "security"]
+  - id: "database-agent"
+    name: "Database Agent"
+    purpose: "Especialista em PostgreSQL 16, Drizzle ORM, Drizzle Kit, modelagem de dados, índices, constraints e ciclo de migrações."
+    domains: ["database", "postgres", "drizzle"]
+    default_skills: ["postgresql", "drizzle", "schema-design", "database-indexing", "database-transactions", "database-migrations", "postgres-rls"]
+    mandatory_guardrails: ["database", "migrations", "security"]
+  - id: "security-agent"
+    name: "Security Agent"
+    purpose: "Garantir a segurança ofensiva e defensiva, autenticação, autorização granular, RBAC, RLS, proteção contra OWASP e sanitização de logs."
+    domains: ["security", "auth", "rbac", "rls"]
+    default_skills: ["authentication", "opaque-sessions", "mfa", "rbac", "authorization", "rls-security", "csrf", "rate-limiting", "secret-management"]
+    mandatory_guardrails: ["security", "privacy", "production"]
+  - id: "tenancy-agent"
+    name: "Tenancy Agent"
+    purpose: "Especialista em isolamento estrito multi-tenant em nível de banco de dados, cache Redis, filas e sistema de arquivos."
+    domains: ["tenancy", "multi-tenant", "isolation"]
+    default_skills: ["multi-tenant-isolation", "postgres-rls", "tenant-isolation-testing"]
+    mandatory_guardrails: ["multi-tenancy", "security"]
+  - id: "domain-traffic-agent"
+    name: "Domain Traffic Agent"
+    purpose: "Especialista nas regras de negócio e conceitos do ecossistema de trânsito brasileiro (CTB, RENAINF, AIT, órgãos autuadores, defesas e recursos)."
+    domains: ["domain", "traffic", "legal"]
+    default_skills: ["customer-model", "driver-model", "vehicle-model", "traffic-fine-model", "traffic-authority-model", "case-management", "deadline-engine"]
+    mandatory_guardrails: ["architecture"]
+  - id: "integrations-agent"
+    name: "Integrations Agent"
+    purpose: "Especialista na arquitetura de integração externa resiliente (INMETRO, PSIE, SENATRAN, DETRANs, DNIT, DER e Prefeituras)."
+    domains: ["integrations", "external-apis", "providers"]
+    default_skills: ["integration-provider-pattern", "external-query-audit", "inmetro-integration", "senatran-integration", "retry-backoff"]
+    mandatory_guardrails: ["integrations", "security"]
+  - id: "intelligence-engine-agent"
+    name: "Intelligence Engine Agent"
+    purpose: "Especialista no motor determinístico de análise de consistência de infrações, fatos, regras e geração de evidências probatórias."
+    domains: ["intelligence", "rules-engine", "analysis"]
+    default_skills: ["fact-model", "rule-engine", "rule-versioning", "analysis-runs", "finding-generation", "evidence-engine"]
+    mandatory_guardrails: ["ai", "architecture"]
+  - id: "legal-engine-agent"
+    name: "Legal Engine Agent"
+    purpose: "Especialista em legislação de trânsito (CTB, Resoluções CONTRAN, Manuais Brasileiros de Fiscalização de Trânsito - MBFT e Portarias SENATRAN)."
+    domains: ["legal", "ctb", "contran"]
+    default_skills: ["legal-source-versioning", "ctb-rules", "contran-rules", "mbft-rules", "defense-template", "defense-versioning"]
+    mandatory_guardrails: ["ai", "security"]
+  - id: "testing-agent"
+    name: "Testing Agent"
+    purpose: "Especialista na qualidade de software, cobertura com Vitest, testes unitários, testes de integração, simulações de carga e testes negativos."
+    domains: ["testing", "qa", "vitest"]
+    default_skills: ["unit-testing", "integration-testing", "api-testing", "e2e-testing", "tenant-isolation-testing", "regression-testing"]
+    mandatory_guardrails: ["architecture", "security"]
+  - id: "observability-agent"
+    name: "Observability Agent"
+    purpose: "Especialista em telemetria distribuída, OpenTelemetry, Prometheus, Grafana, Loki e correlação de requisições por requestId."
+    domains: ["observability", "metrics", "logging"]
+    default_skills: ["structured-logging", "request-correlation", "opentelemetry", "prometheus", "grafana", "loki", "healthchecks"]
+    mandatory_guardrails: ["security", "privacy"]
+  - id: "performance-agent"
+    name: "Performance Agent"
+    purpose: "Especialista em otimização de consultas SQL, índices compostos, uso eficiente de Redis, latência de API e consumo de memória."
+    domains: ["performance", "optimization", "caching"]
+    default_skills: ["query-performance", "database-indexing", "redis-cache", "performance-review"]
+    mandatory_guardrails: ["database", "architecture"]
+  - id: "code-review-agent"
+    name: "Code Review Agent"
+    purpose: "Responsável pelo checklist rigoroso de revisão técnica antes de declarar qualquer entrega como concluída."
+    domains: ["review", "qa", "governance"]
+    default_skills: ["code-review", "security-review", "performance-review"]
+    mandatory_guardrails: ["architecture", "security", "database", "production"]
+  - id: "release-agent"
+    name: "Release Agent"
+    purpose: "Especialista em hardening de releases, compatibilidade retroativa de migrações, scripts de rollback e readiness de deploy."
+    domains: ["release", "devops", "ci-cd"]
+    default_skills: ["release-readiness", "ci-pipeline", "database-migrations"]
+    mandatory_guardrails: ["production", "migrations"]
+  - id: "documentation-agent"
+    name: "Documentation Agent"
+    purpose: "Especialista na manutenção contínua de documentação técnica, OpenAPI 3.1, ADRs, runbooks e dicionários de dados."
+    domains: ["documentation", "adr", "openapi"]
+    default_skills: ["openapi", "documentation-update"]
+    mandatory_guardrails: ["architecture"]

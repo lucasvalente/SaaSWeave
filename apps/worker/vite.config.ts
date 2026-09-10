@@ -7,15 +7,15 @@ export default defineConfig({
       DATABASE_URL: "postgresql://postgres:changeme@localhost:5432/saasweave",
       NODE_ENV: "development",
       VITE_SERVER_URL: "http://localhost:5000/server",
-      VITE_WEB_URL: "http://localhost:3000"
+      VITE_WEB_URL: "http://localhost:3000",
     },
-    include: ["**/*.test.ts"]
+    include: ["**/*.test.ts"],
   },
   pack: {
     clean: true,
     deps: {
       alwaysBundle: [/./],
-      onlyBundle: false
+      onlyBundle: false,
     },
     // The worker is a deployable executable, not a published library. Generating
     // declarations here traverses every bundled dependency and exhausts the heap.
@@ -24,6 +24,6 @@ export default defineConfig({
     format: "esm",
     minify: true,
     outDir: "./.output",
-    sourcemap: true
-  }
+    sourcemap: true,
+  },
 });

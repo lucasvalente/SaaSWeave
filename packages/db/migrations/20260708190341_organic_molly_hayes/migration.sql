@@ -1,1 +1,0 @@
-CREATE INDEX "audit_log_action_createdAt_idx" ON "audit_log" ("action","created_at");

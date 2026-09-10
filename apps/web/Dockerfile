@@ -1,75 +1,39 @@
-# syntax=docker/dockerfile:1.7-labs
-FROM node:24-bookworm-slim AS base
-
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends wget git ca-certificates \
-  && update-ca-certificates \
-  && rm -rf /var/lib/apt/lists/*
-
+# Stage 1: Build static bundle
+FROM oven/bun:1-alpine AS builder
 WORKDIR /app
 
-# =========================================================================== #
+# Copy workspace manifests
+COPY package.json bun.lock turbo.json tsconfig.base.json ./
+COPY packages/config/package.json ./packages/config/
+COPY packages/shared/package.json ./packages/shared/
+COPY packages/contracts/package.json ./packages/contracts/
+COPY packages/database/package.json ./packages/database/
+COPY packages/observability/package.json ./packages/observability/
+COPY packages/ui/package.json ./packages/ui/
+COPY apps/api/package.json ./apps/api/
+COPY apps/web/package.json ./apps/web/
+COPY apps/worker/package.json ./apps/worker/
 
-FROM base AS installer
+# Install dependencies
+RUN bun install --frozen-lockfile
 
-# Use `npm view vite-plus version` to get the latest version of vite-plus for reproducible builds
-# FIXME: Use the documented manual method when it's available
-# @see {@link https://github.com/voidzero-dev/vite-plus/issues/896}
-ARG VITE_PLUS_VERSION=0.2.4
-RUN npm pack "@voidzero-dev/vite-plus-cli-linux-x64-gnu@${VITE_PLUS_VERSION}" \
-        --pack-destination /tmp && \
-    mkdir -p /root/.vite-plus/bin && \
-    tar xzf /tmp/voidzero-dev-vite-plus-cli-linux-x64-gnu-*.tgz -C /root/.vite-plus/bin \
-        --strip-components=1 package/vp && \
-    chmod +x /root/.vite-plus/bin/vp
-ENV PATH="/root/.vite-plus/bin:$PATH"
+# Copy sources required for frontend build
+COPY packages/ ./packages/
+COPY apps/web/ ./apps/web/
 
-# This layer only invalidates when dependencies change, not on source changes.
-# --parents preserves directory structure, picking up all workspace packages automatically.
-COPY --parents **/package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+# Build production bundle
+WORKDIR /app/apps/web
+RUN bun run build
 
-RUN vp install --frozen-lockfile --ignore-scripts
+# Stage 2: Serve via high-performance Nginx Alpine
+FROM nginx:alpine AS production
 
-# =========================================================================== #
+COPY --from=builder /app/apps/web/dist /usr/share/nginx/html
+COPY apps/web/nginx.conf /etc/nginx/conf.d/default.conf
 
-FROM installer AS builder
-
-COPY . .
-
-ARG SOURCE_COMMIT VITE_SERVER_URL VITE_WEB_URL VITE_IMGPROXY_URL VITE_IMGPROXY_SIGNATURE VITE_IMGPROXY_SOURCE_WEB_URL MEDIA_PUBLIC_BASE_URL
-ENV NODE_ENV=production \
-    IS_BUILD=true \
-    SOURCE_COMMIT=${SOURCE_COMMIT} \
-    VITE_SERVER_URL=${VITE_SERVER_URL} \
-    VITE_WEB_URL=${VITE_WEB_URL} \
-    VITE_IMGPROXY_URL=${VITE_IMGPROXY_URL:-} \
-    VITE_IMGPROXY_SIGNATURE=${VITE_IMGPROXY_SIGNATURE:-_} \
-    VITE_IMGPROXY_SOURCE_WEB_URL=${VITE_IMGPROXY_SOURCE_WEB_URL:-} \
-    MEDIA_PUBLIC_BASE_URL=${MEDIA_PUBLIC_BASE_URL:-http://localhost:5000/server/media}
-
-RUN vp run -v --filter web build
-
-# =========================================================================== #
-
-FROM node:24-bookworm-slim AS production
-
-# Runtime-only image: wget for healthchecks, no git/npm from the build base.
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends wget ca-certificates \
-  && update-ca-certificates \
-  && rm -rf /var/lib/apt/lists/* \
-  && rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack \
-  && addgroup --gid 1001 nodejs \
-  && adduser --uid 1001 --ingroup nodejs --disabled-password --gecos "" web
-
-COPY --from=builder --chown=web:nodejs /app/apps/web/.output /app/.output
-
-USER web
-
-ENV NODE_ENV=production
-ENV PORT=3000
+EXPOSE 80
 
 HEALTHCHECK --interval=10s --timeout=3s --retries=3 \
-  CMD wget -qO- http://127.0.0.1:${PORT}$(echo ${VITE_WEB_URL} | sed 's|^http[s]*://[^/]*||' | sed 's|/$||')/_api/health/live || exit 1
+  CMD wget -qO- http://localhost:80/ || exit 1
 
-CMD ["node", "/app/.output/server/index.mjs", "--hostname", "0.0.0.0"]
+CMD ["nginx", "-g", "daemon off;"]

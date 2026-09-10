@@ -1,68 +1,74 @@
-# saasweave
+# AUTUAX Engineering Governance (AGENTS.md)
 
-Opinionated full-stack TypeScript monorepo: TanStack Start + Hono + oRPC + Drizzle + Better Auth + Paraglide.js, powered by Vite Plus.
+Este repositório adota o **AUTUAX Hermes Agent System** para orquestração de desenvolvimento assistido por agentes de IA.
 
-Use Vite Plus commands in this repo: `vp` for package/scripts, `vpx` for one-off CLIs.
+---
 
-## Platform Security Contract
+## 1. Princípio Fundamental de Separação de Papéis
 
-**SECURITY IS A PLATFORM REQUIREMENT.** This repository is the Control Plane. It must never execute customer-generated code; future execution belongs to an isolated Execution Plane.
+```
+HERMES  = ANALYZE / PLAN / REVIEW
+CODEX   = EXECUTE / TEST / FIX
+```
 
-Never expose secrets to a browser, bypass authentication or authorization, trust a workspace ID supplied by a client without deriving/verifying tenant context, commit secrets, log credentials, use wildcard production CORS, disable security controls to make a build pass, expose PostgreSQL/Redis publicly, or import customer-code execution into Control Plane processes.
+- **Hermes** é o agente de planejamento, decomposição arquitetural, seleção de skills, verificação de guardrails e auditoria de qualidade.
+- **Codex** é o executor exclusivo: escreve arquivos, executa comandos, roda testes e corrige defeitos com base em evidências verificáveis.
+- Nunca colocar dois agentes competindo pela execução da mesma tarefa.
 
-Every privileged mutation requires authentication, backend permission/policy authorization, schema-validated and normalized input, and a secret-free audit record. Every tenant-owned resource requires explicit tenant scoping in service/repository APIs and database queries.
+---
 
-Code changes preserve strict TypeScript, test coverage, security boundaries, versioned migrations and observability. A green build never justifies weakening these controls or deleting tests.
+## 2. Fluxo de Trabalho Obrigatório do Codex (10 Passos)
 
-Common commands:
+Todo ciclo de alteração no projeto deve seguir estritamente os 10 passos:
+1. **Ler o AGENTS.md** antes de efetuar qualquer alteração no repositório.
+2. **Inventariar os arquivos relevantes** para a tarefa delimitada.
+3. **Explicar internamente o plano da tarefa** respeitando o escopo autorizado.
+4. **Executar a menor mudança segura** necessária para atingir o objetivo.
+5. **Criar ou atualizar testes automatizados** cobrindo os caminhos afetados.
+6. **Rodar typecheck estrito** (`tsc --noEmit`).
+7. **Rodar lint** com o Biome linter.
+8. **Rodar a suíte de testes** relevante com Vitest.
+9. **Rodar build** de validação.
+10. **Informar formalmente os arquivos alterados, evidências, riscos e pendências**.
 
-- `vp run dev` - start dev servers
-- `vp check --fix` - package-local format, lint fixes, and typecheck
-- `vp run -w fix` - workspace fix after cross-package/root changes
-- `vp run build` - build all packages
+---
 
-Before substantial work, run `vpx @tanstack/intent@latest list`; load a matching local skill only when it directly fits the task.
+## 3. Proibições Absolutas (Codex NÃO Deve)
 
-Use the smallest relevant doc set below. Open the most specific file first, then follow links from that file only when the task crosses into another concern.
+- **Nunca acessar ou commitar segredos**, chaves de API, credenciais ou certificados no código.
+- **Nunca enfraquecer testes** ou remover assertions apenas para obter status de `PASS`.
+- **Nunca ignorar erros TypeScript** recorrendo a `any`, `@ts-ignore` ou casts forçados.
+- **Nunca executar migração destrutiva** de banco de dados automaticamente.
+- **Nunca alterar produção** ou infraestrutura externa sem solicitação explícita.
+- **Nunca deletar dados persistentes** ou tabelas de produção.
+- **Nunca fazer force push** na branch principal (`main`).
+- **Nunca efetuar deploy** sem instrução direta e revisão concluída.
 
-## Cross-Cutting
+---
 
-- [Workflow](.agents/workflow.md): fix cadence, validation scope, build checks, migrations, commits.
-- [Vite+ toolchain](.agents/vite-plus.md): `vp`/`vpx`, workspace scripts, package management.
-- [Testing](.agents/testing.md): focused unit/e2e coverage and test command scope.
-- [Choice flows](.agents/choice-flows.md): native approvals, structured input, human decision points.
-- [Logging](.agents/logging.md): durable logs, request logging, redaction, client/server logging.
-- [Redis workers cache skill](.agents/skills/redis-workers-cache/SKILL.md): Redis cache, BullMQ queues, worker processors, Docker/Coolify runtime checks.
-- [Feature plan skill](.agents/skills/feature-plan/SKILL.md): End-to-end planning for new toggleable features (cache, i18n, flags, API, UI, jobs).
+## 4. Definição de Concluído (Definition of Done - DoD)
 
-## Backend Ownership
+Uma tarefa AUTUAX somente é considerada **DONE** quando:
+- [x] Implementação do escopo autorizada completa.
+- [x] Typecheck estrito aprovado (`tsc PASS`).
+- [x] Linter Biome aprovado (`lint PASS`).
+- [x] Testes automatizados obrigatórios aprovados (`tests PASS`).
+- [x] Build aprovado (`build PASS`).
+- [x] Revisão de segurança concluída quando aplicável.
+- [x] Revisão de isolamento multi-tenant concluída quando aplicável.
+- [x] Revisão de migração concluída quando aplicável.
+- [x] Documentação técnica correspondente atualizada.
+- [x] Parecer de aprovação final do Hermes (`Hermes review approved`).
 
-- `packages/core`: pure shared contracts and security limits; no DB, env, network, or framework state.
-- `packages/db`: Drizzle schema, migrations, and persistence helpers.
-- `packages/app`: worker-safe application services for Stripe application, streaming exports, batch processing, billing math, and storage lifecycle.
-- `packages/jobs`: BullMQ queues, dispatch, processors, schedules, retention orchestration, and worker readiness.
-- `apps/server`: Hono transport, bounded HTTP bodies, auth/RPC routing, media upload/delivery, and authenticated export downloads.
-- `apps/worker`: process lifecycle, signals, health/metrics HTTP, and composition of processors from `packages/jobs`; keep domain logic out.
-- `packages/observability`: Prometheus instruments and Hono metrics middleware. Distributed tracing is not configured.
+---
 
-## Task Entry Points
+## 5. Estrutura de Governança
 
-- **Docs index**: [docs/README.md](docs/README.md) — per-package READMEs, [LOCAL-STACK.md](docs/LOCAL-STACK.md), [AUDIT.md](docs/AUDIT.md), [PACKAGE-DEPENDENCY-GRAPH.md](docs/PACKAGE-DEPENDENCY-GRAPH.md).
-- UI work: [UI guidelines](.agents/ui.md). Add [TanStack patterns](.agents/tanstack-patterns.md) for routes/loaders/page composition, and [Zustand state management](.agents/zustand.md) for shared client-owned state.
-- Shared client state: [Zustand state management](.agents/zustand.md).
-- Bugfix: start with the owning domain doc, then [Workflow](.agents/workflow.md). Add [Testing](.agents/testing.md) for regression coverage and [Core package patterns](.agents/core.md) when shared contracts change.
-- Uploads or object storage: [Media storage and uploads](.agents/media-storage.md), plus [Core](.agents/core.md), [oRPC](.agents/orpc.md), and [Environment variables](.agents/environment-variables.md) as needed.
-- End-to-end feature: [End-to-end feature workflow](.agents/end-to-end-features.md), then the domain docs it links.
-- Background processing, caching, retention, or worker/Docker changes: [Redis workers cache skill](.agents/skills/redis-workers-cache/SKILL.md).
-
-## Domain Docs
-
-- [TanStack patterns](.agents/tanstack-patterns.md): route structure, `beforeLoad`, layouts, route-level preloading, TanStack docs lookup.
-- [API fetching patterns](.agents/api-fetching-patterns.md): slice-local TanStack Query and oRPC client wrappers in `apps/web`.
-- [oRPC patterns](.agents/orpc.md): server procedures, router shape, typed errors, request-scoped handler logging.
-- [Auth patterns](.agents/auth.md): Better Auth architecture, auth query behavior, protected/guest route rules.
-- [i18n guidelines](.agents/i18n.md): copy keys, locale file policy, Paraglide codegen.
-- [SEO patterns](.agents/seo.md): route `head()` usage and `@saasweave/seo`.
-- [Core package patterns](.agents/core.md): shared domain contracts in `packages/core`.
-- [TypeScript conventions](.agents/typescript.md): schema placement, import boundaries, `lib/` vs `utils/`.
-- [Environment variables](.agents/environment-variables.md): env scoping, validation, Docker propagation.
+Consulte os diretórios especializados em `.agents/`:
+- [`.agents/registry/`](file:///.agents/registry/): Registro centralizado de agentes e skills.
+- [`.agents/agents/`](file:///.agents/agents/): Playbooks e mandatos dos 17 agentes especialistas.
+- [`.agents/skills/`](file:///.agents/skills/): 123 skills com guias de procedimento e guardrails.
+- [`.agents/guardrails/`](file:///.agents/guardrails/): Diretrizes inegociáveis de arquitetura, segurança, multi-tenancy e produção.
+- [`.agents/workflows/`](file:///.agents/workflows/): Procedimentos padronizados para desenvolvimento, bugs, banco e segurança.
+- [`.agents/knowledge/`](file:///.agents/knowledge/): Base de conhecimento do produto, domínio e regras técnicas.
+- [`.agents/templates/`](file:///.agents/templates/): Templates estruturados para planos e revisões.

@@ -1,1 +1,0 @@
-CREATE INDEX "processed_event_processed_at_idx" ON "processed_event" ("processed_at");
