@@ -20,10 +20,27 @@ const SENSITIVE_KEYS = new Set([
   "api_key",
   "authorization",
   "cookie",
+  "set-cookie",
   "cpf",
   "cnh",
   "rg",
+  "redis_url",
+  "database_url",
+  "privatekey",
+  "private_key",
+  "secret_key",
+  "access_token",
+  "refresh_token",
+  "cert",
+  "certificate",
 ]);
+
+// Regex to redact credentials embedded inside URLs like redis://:password@host or postgresql://user:pass@host
+const CONNECTION_STRING_REGEX =
+  /((?:redis|rediss|postgres|postgresql):\/\/(?:[^\/@\s]+:)?)(.+?)(@(?:\[[a-f0-9:]+\]|[^/@\s:]+)(?::\d+)?(?:\/|\?|\s|$))/gi;
+// Regex to redact PEM private keys
+const PEM_PRIVATE_KEY_REGEX =
+  /-----BEGIN [A-Z ]*PRIVATE KEY-----[\s\S]*?-----END [A-Z ]*PRIVATE KEY-----/g;
 
 export function redactSensitiveData(obj: unknown): unknown {
   if (typeof obj !== "object" || obj === null) {
@@ -32,7 +49,11 @@ export function redactSensitiveData(obj: unknown): unknown {
       const cpfRegex = /\b\d{3}\.?\d{3}\.?\d{3}-?\d{2}\b/g;
       // Redact standard Brazilian CNH: 11 digits
       const cnhRegex = /\b\d{11}\b/g;
-      return obj.replace(cpfRegex, "[REDACTED_CPF]").replace(cnhRegex, "[REDACTED_CNH]");
+      return obj
+        .replace(PEM_PRIVATE_KEY_REGEX, "[REDACTED_PRIVATE_KEY]")
+        .replace(CONNECTION_STRING_REGEX, "$1[REDACTED]$3")
+        .replace(cpfRegex, "[REDACTED_CPF]")
+        .replace(cnhRegex, "[REDACTED_CNH]");
     }
     return obj;
   }
