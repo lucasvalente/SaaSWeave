@@ -18,10 +18,12 @@ export const readinessDependencySchema = z.object({
 
 export const readinessDataSchema = z.object({
   status: z.enum(["ready", "unhealthy"]),
-  dependencies: z.object({
-    postgres: readinessDependencySchema,
-    redis: readinessDependencySchema,
-  }),
+  dependencies: z
+    .object({
+      postgres: readinessDependencySchema,
+      redis: readinessDependencySchema,
+    })
+    .optional(),
   timestamp: z.string(),
 });
 

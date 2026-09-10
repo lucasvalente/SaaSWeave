@@ -11,6 +11,13 @@ describe("apps/web foundation", () => {
     expect(router.routeTree).toBeDefined();
   });
 
+  it("should export getRouter for TanStack Start SSR hydration integration", async () => {
+    const { getRouter } = await import("./router");
+    expect(typeof getRouter).toBe("function");
+    const router = getRouter();
+    expect(router).toBeDefined();
+  });
+
   it("should initialize TanStack QueryClient with production-safe defaults", () => {
     const qc = getQueryClient();
     expect(qc).toBeDefined();

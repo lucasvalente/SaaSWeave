@@ -28,13 +28,19 @@ healthRoute.get("/ready", async (c) => {
   const [dbResult, redisResult] = await Promise.all([checkDatabaseHealth(), checkRedisHealth()]);
 
   const isReady = dbResult.status === "up" && redisResult.status === "up";
+  const isInternal =
+    c.req.query("internal") === "true" && c.req.header("x-internal-probe") === "true";
 
   const data: ReadinessData = {
     status: isReady ? "ready" : "unhealthy",
-    dependencies: {
-      postgres: dbResult,
-      redis: redisResult,
-    },
+    ...(isInternal
+      ? {
+          dependencies: {
+            postgres: dbResult,
+            redis: redisResult,
+          },
+        }
+      : {}),
     timestamp: new Date().toISOString(),
   };
 

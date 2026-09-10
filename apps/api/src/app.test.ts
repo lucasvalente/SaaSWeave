@@ -20,9 +20,19 @@ describe("apps/api integration", () => {
     expect(typeof body.data.uptimeSeconds).toBe("number");
   });
 
-  it("GET /health/ready returns status and dependency checks", async () => {
+  it("GET /health/ready returns status without leaking internal dependencies to public callers", async () => {
     const res = await app.request("/health/ready");
     // Depending on whether local postgres is running, status is either 200 (ready) or 503 (unhealthy)
+    expect([200, 503]).toContain(res.status);
+    const body = await res.json();
+    expect(body.data).toHaveProperty("status");
+    expect(body.data.dependencies).toBeUndefined();
+  });
+
+  it("GET /health/ready?internal=true with internal probe header includes internal dependency details", async () => {
+    const res = await app.request("/health/ready?internal=true", {
+      headers: { "x-internal-probe": "true" },
+    });
     expect([200, 503]).toContain(res.status);
     const body = await res.json();
     expect(body.data).toHaveProperty("status");

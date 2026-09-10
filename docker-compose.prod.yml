@@ -17,6 +17,11 @@ services:
       timeout: 5s
       retries: 5
       start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 1024M
     networks:
       - autuax_network
 
@@ -35,6 +40,11 @@ services:
       timeout: 5s
       retries: 5
       start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
     networks:
       - autuax_network
 
@@ -54,16 +64,22 @@ services:
       API_PORT: 3333
       DATABASE_URL: postgresql://${POSTGRES_USER:-autuax}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-autuax}
       REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379/0
+      CORS_ORIGIN: https://${APP_DOMAIN:-app.zapdisparo.com}
       LOG_LEVEL: ${LOG_LEVEL:-info}
       APP_VERSION: ${APP_VERSION:-0.1.0}
-    ports:
-      - "${API_PORT:-3333}:3333"
+    expose:
+      - "3333"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3333/health/live"]
       interval: 10s
       timeout: 5s
       retries: 3
       start_period: 15s
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
     networks:
       - autuax_network
 
@@ -84,6 +100,11 @@ services:
       REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379/0
       LOG_LEVEL: ${LOG_LEVEL:-info}
       APP_VERSION: ${APP_VERSION:-0.1.0}
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
     networks:
       - autuax_network
 
@@ -97,12 +118,17 @@ services:
       api:
         condition: service_healthy
     expose:
-      - "80"
+      - "3000"
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:80/"]
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:3000/_health"]
       interval: 10s
       timeout: 3s
       retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
     networks:
       - autuax_network
 
@@ -126,6 +152,11 @@ services:
         condition: service_healthy
       api:
         condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
     networks:
       - autuax_network
 
@@ -138,4 +169,3 @@ volumes:
   redis_prod_data:
   caddy_prod_data:
   caddy_prod_config:
-

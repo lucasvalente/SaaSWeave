@@ -2,32 +2,53 @@
 	email {$ACME_EMAIL:admin@zapdisparo.com}
 }
 
-# Produção com certificado HTTPS automático (Let's Encrypt / ZeroSSL)
+# Produção Segura com HTTPS Automático (Let's Encrypt / ZeroSSL)
 {$APP_DOMAIN:app.zapdisparo.com} {
 	encode zstd gzip
 
+	# Edge Security Headers
+	header {
+		Strict-Transport-Security "max-age=31536000;"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none';"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		-Server
+	}
+
+	# API Reverse Proxy (Hono Backend - Rede interna Docker)
 	@api path /api /api/*
 	handle @api {
 		uri strip_prefix /api
-		reverse_proxy api:3333
+		reverse_proxy api:3333 {
+			header_up Host {host}
+			header_up X-Real-IP {remote_host}
+			header_up X-Forwarded-For {remote_host}
+			header_up X-Forwarded-Proto {scheme}
+		}
 	}
 
+	# Frontend Reverse Proxy (TanStack Start SSR - Porta 3000 interna)
 	handle {
-		reverse_proxy web:80
+		reverse_proxy web:3000 {
+			header_up Host {host}
+			header_up X-Real-IP {remote_host}
+			header_up X-Forwarded-For {remote_host}
+			header_up X-Forwarded-Proto {scheme}
+		}
 	}
 }
 
-# Acesso direto pelo IP com fallback HTTP
+# Redirecionamento estrito de acesso direto por IP para HTTPS canônico
 http://37.60.237.117 {
-	encode zstd gzip
+	redir https://{$APP_DOMAIN:app.zapdisparo.com}{uri} permanent
+}
 
-	@api path /api /api/*
-	handle @api {
-		uri strip_prefix /api
-		reverse_proxy api:3333
-	}
-
-	handle {
-		reverse_proxy web:80
+# Catch-all HTTP para mitigar Host Header abuse
+:80 {
+	@notCanonical not header Host {$APP_DOMAIN:app.zapdisparo.com}
+	handle @notCanonical {
+		redir https://{$APP_DOMAIN:app.zapdisparo.com}{uri} permanent
 	}
 }

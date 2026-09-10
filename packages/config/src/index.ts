@@ -13,6 +13,7 @@ export const envSchema = z.object({
   LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace"]).default("info"),
   APP_VERSION: z.string().default("0.1.0"),
   OTEL_SERVICE_NAME: z.string().default("autuax-platform"),
+  CORS_ORIGIN: z.string().default("https://app.zapdisparo.com"),
 });
 
 export type Env = z.infer<typeof envSchema>;
