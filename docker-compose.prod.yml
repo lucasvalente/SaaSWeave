@@ -95,14 +95,37 @@ services:
     restart: unless-stopped
     depends_on:
       api:
-        condition: service_started
-    ports:
-      - "${WEB_PORT:-80}:80"
+        condition: service_healthy
+    expose:
+      - "80"
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:80/"]
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:80/"]
       interval: 10s
       timeout: 3s
       retries: 3
+    networks:
+      - autuax_network
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: autuax-prod-caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      APP_DOMAIN: ${APP_DOMAIN:-app.zapdisparo.com}
+      ACME_EMAIL: ${ACME_EMAIL:-admin@zapdisparo.com}
+    volumes:
+      - ./ops/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_prod_data:/data
+      - caddy_prod_config:/config
+    depends_on:
+      web:
+        condition: service_healthy
+      api:
+        condition: service_healthy
     networks:
       - autuax_network
 
@@ -113,3 +136,6 @@ networks:
 volumes:
   postgres_prod_data:
   redis_prod_data:
+  caddy_prod_data:
+  caddy_prod_config:
+

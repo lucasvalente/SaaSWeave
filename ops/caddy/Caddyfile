@@ -1,20 +1,33 @@
 {
-	# Caddy listens on unprivileged container ports. Compose maps host 80/443
-	# to them, retaining automatic HTTP-to-HTTPS redirect and ACME TLS.
-	http_port 8080
-	https_port 8443
-	email {$ACME_EMAIL}
+	email {$ACME_EMAIL:admin@zapdisparo.com}
 }
 
-{$APP_DOMAIN} {
+# Produção com certificado HTTPS automático (Let's Encrypt / ZeroSSL)
+{$APP_DOMAIN:app.zapdisparo.com} {
 	encode zstd gzip
 
-	@api path /server /server/*
-	reverse_proxy @api server:5000
+	@api path /api /api/*
+	handle @api {
+		uri strip_prefix /api
+		reverse_proxy api:3333
+	}
 
-	# MinIO stays private; public media is proxied through the same TLS edge.
-	@uploads path /uploads /uploads/*
-	reverse_proxy @uploads minio:9000
+	handle {
+		reverse_proxy web:80
+	}
+}
 
-	reverse_proxy web:3000
+# Acesso direto pelo IP com fallback HTTP
+http://37.60.237.117 {
+	encode zstd gzip
+
+	@api path /api /api/*
+	handle @api {
+		uri strip_prefix /api
+		reverse_proxy api:3333
+	}
+
+	handle {
+		reverse_proxy web:80
+	}
 }
