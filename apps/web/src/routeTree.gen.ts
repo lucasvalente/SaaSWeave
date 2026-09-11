@@ -9,87 +9,93 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route'
-import { Route as Char123LocaleChar125rootLayoutRouteRouteImport } from './routes/{-$locale}/(root-layout)/route'
-import { Route as Char123LocaleChar125consoleLayoutRouteRouteImport } from './routes/{-$locale}/(console-layout)/route'
-import { Route as Char123LocaleChar125centeredLayoutRouteRouteImport } from './routes/{-$locale}/(centered-layout)/route'
 import { Route as Char123LocaleChar125adminLayoutRouteRouteImport } from './routes/{-$locale}/(admin-layout)/route'
-import { Route as Char123LocaleChar125rootLayoutIndexRouteImport } from './routes/{-$locale}/(root-layout)/index'
+import { Route as Char123LocaleChar125centeredLayoutRouteRouteImport } from './routes/{-$locale}/(centered-layout)/route'
+import { Route as Char123LocaleChar125consoleLayoutRouteRouteImport } from './routes/{-$locale}/(console-layout)/route'
+import { Route as Char123LocaleChar125rootLayoutRouteRouteImport } from './routes/{-$locale}/(root-layout)/route'
 import { Route as ApiHealthLiveRouteImport } from './routes/[_]api/health/live'
-import { Route as Char123LocaleChar125rootLayoutauthRouteRouteImport } from './routes/{-$locale}/(root-layout)/(auth)/route'
 import { Route as Char123LocaleChar125centeredLayoutguestRouteRouteImport } from './routes/{-$locale}/(centered-layout)/(guest)/route'
-import { Route as Char123LocaleChar125rootLayoutTermsOfServiceIndexRouteImport } from './routes/{-$locale}/(root-layout)/terms-of-service/index'
-import { Route as Char123LocaleChar125rootLayoutStatusIndexRouteImport } from './routes/{-$locale}/(root-layout)/status/index'
-import { Route as Char123LocaleChar125rootLayoutPrivacyPolicyIndexRouteImport } from './routes/{-$locale}/(root-layout)/privacy-policy/index'
-import { Route as Char123LocaleChar125rootLayoutPricingIndexRouteImport } from './routes/{-$locale}/(root-layout)/pricing/index'
-import { Route as Char123LocaleChar125rootLayoutPlaygroundIndexRouteImport } from './routes/{-$locale}/(root-layout)/playground/index'
-import { Route as Char123LocaleChar125rootLayoutErrorIndexRouteImport } from './routes/{-$locale}/(root-layout)/error/index'
-import { Route as Char123LocaleChar125rootLayoutChangelogIndexRouteImport } from './routes/{-$locale}/(root-layout)/changelog/index'
-import { Route as Char123LocaleChar125rootLayoutAboutIndexRouteImport } from './routes/{-$locale}/(root-layout)/about/index'
-import { Route as Char123LocaleChar125consoleLayoutAppIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/index'
+import { Route as Char123LocaleChar125rootLayoutIndexRouteImport } from './routes/{-$locale}/(root-layout)/index'
+import { Route as Char123LocaleChar125rootLayoutauthRouteRouteImport } from './routes/{-$locale}/(root-layout)/(auth)/route'
 import { Route as Char123LocaleChar125adminLayoutAdminIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/index'
-import { Route as Char123LocaleChar125rootLayoutauthOnboardingIndexRouteImport } from './routes/{-$locale}/(root-layout)/(auth)/onboarding/index'
-import { Route as Char123LocaleChar125rootLayoutauthDashboardIndexRouteImport } from './routes/{-$locale}/(root-layout)/(auth)/dashboard/index'
-import { Route as Char123LocaleChar125consoleLayoutAppWebhooksIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/webhooks/index'
-import { Route as Char123LocaleChar125consoleLayoutAppTeamIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/team/index'
-import { Route as Char123LocaleChar125consoleLayoutAppSettingsIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/settings/index'
-import { Route as Char123LocaleChar125consoleLayoutAppSecurityIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/security/index'
-import { Route as Char123LocaleChar125consoleLayoutAppProjectsIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/projects/index'
-import { Route as Char123LocaleChar125consoleLayoutAppProfileIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/profile/index'
-import { Route as Char123LocaleChar125consoleLayoutAppNotificationsIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/notifications/index'
-import { Route as Char123LocaleChar125consoleLayoutAppFeaturesIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/features/index'
-import { Route as Char123LocaleChar125consoleLayoutAppBillingIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/billing/index'
-import { Route as Char123LocaleChar125consoleLayoutAppBatchJobsIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/batch-jobs/index'
-import { Route as Char123LocaleChar125consoleLayoutAppAuditIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/audit/index'
-import { Route as Char123LocaleChar125consoleLayoutAppApiKeysIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/api-keys/index'
-import { Route as Char123LocaleChar125consoleLayoutAppAiUsageIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/ai-usage/index'
-import { Route as Char123LocaleChar125centeredLayoutguestSignInIndexRouteImport } from './routes/{-$locale}/(centered-layout)/(guest)/sign-in/index'
-import { Route as Char123LocaleChar125centeredLayoutguestResetPasswordIndexRouteImport } from './routes/{-$locale}/(centered-layout)/(guest)/reset-password/index'
-import { Route as Char123LocaleChar125centeredLayoutguestForgotPasswordIndexRouteImport } from './routes/{-$locale}/(centered-layout)/(guest)/forgot-password/index'
-import { Route as Char123LocaleChar125centeredLayoutguestCreateAnAccountIndexRouteImport } from './routes/{-$locale}/(centered-layout)/(guest)/create-an-account/index'
-import { Route as Char123LocaleChar125centeredLayoutguestAcceptInviteIndexRouteImport } from './routes/{-$locale}/(centered-layout)/(guest)/accept-invite/index'
-import { Route as Char123LocaleChar125adminLayoutAdminWorkspacesIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/workspaces/index'
-import { Route as Char123LocaleChar125adminLayoutAdminUsersIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/users/index'
-import { Route as Char123LocaleChar125adminLayoutAdminUsageIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/usage/index'
-import { Route as Char123LocaleChar125adminLayoutAdminSubscriptionsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/subscriptions/index'
-import { Route as Char123LocaleChar125adminLayoutAdminSettingsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/settings/index'
-import { Route as Char123LocaleChar125adminLayoutAdminSessionsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/sessions/index'
-import { Route as Char123LocaleChar125adminLayoutAdminProjectsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/projects/index'
-import { Route as Char123LocaleChar125adminLayoutAdminPlansIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/plans/index'
-import { Route as Char123LocaleChar125adminLayoutAdminFeaturesIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/features/index'
-import { Route as Char123LocaleChar125adminLayoutAdminFeatureFlagsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/feature-flags/index'
-import { Route as Char123LocaleChar125adminLayoutAdminEmailsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/emails/index'
-import { Route as Char123LocaleChar125adminLayoutAdminBillingIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/billing/index'
+import { Route as Char123LocaleChar125consoleLayoutAppIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/index'
+import { Route as Char123LocaleChar125rootLayoutAboutIndexRouteImport } from './routes/{-$locale}/(root-layout)/about/index'
+import { Route as Char123LocaleChar125rootLayoutChangelogIndexRouteImport } from './routes/{-$locale}/(root-layout)/changelog/index'
+import { Route as Char123LocaleChar125rootLayoutErrorIndexRouteImport } from './routes/{-$locale}/(root-layout)/error/index'
+import { Route as Char123LocaleChar125rootLayoutPlaygroundIndexRouteImport } from './routes/{-$locale}/(root-layout)/playground/index'
+import { Route as Char123LocaleChar125rootLayoutPricingIndexRouteImport } from './routes/{-$locale}/(root-layout)/pricing/index'
+import { Route as Char123LocaleChar125rootLayoutPrivacyPolicyIndexRouteImport } from './routes/{-$locale}/(root-layout)/privacy-policy/index'
+import { Route as Char123LocaleChar125rootLayoutStatusIndexRouteImport } from './routes/{-$locale}/(root-layout)/status/index'
+import { Route as Char123LocaleChar125rootLayoutTermsOfServiceIndexRouteImport } from './routes/{-$locale}/(root-layout)/terms-of-service/index'
 import { Route as Char123LocaleChar125adminLayoutAdminAuditIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/audit/index'
-import { Route as Char123LocaleChar125consoleLayoutAppProjectsProjectIdIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/projects/$projectId/index'
-import { Route as Char123LocaleChar125adminLayoutAdminWorkspacesIdIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/workspaces/$id/index'
-import { Route as Char123LocaleChar125adminLayoutAdminUsersIdIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/users/$id/index'
-import { Route as Char123LocaleChar125adminLayoutAdminSystemWorkersIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/system/workers/index'
-import { Route as Char123LocaleChar125adminLayoutAdminSystemJobsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/system/jobs/index'
-import { Route as Char123LocaleChar125adminLayoutAdminSystemIncidentsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/system/incidents/index'
-import { Route as Char123LocaleChar125adminLayoutAdminSystemHealthIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/system/health/index'
-import { Route as Char123LocaleChar125adminLayoutAdminSubscriptionsIdIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/subscriptions/$id/index'
-import { Route as Char123LocaleChar125adminLayoutAdminSecurityEventsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/security/events/index'
-import { Route as Char123LocaleChar125adminLayoutAdminProjectsProjectIdIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/projects/$projectId/index'
-import { Route as Char123LocaleChar125adminLayoutAdminPlansIdIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/plans/$id/index'
-import { Route as Char123LocaleChar125adminLayoutAdminBillingProfileIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/billing/profile/index'
-import { Route as Char123LocaleChar125adminLayoutAdminBillingInvoicesIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/billing/invoices/index'
+import { Route as Char123LocaleChar125adminLayoutAdminBillingIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/billing/index'
+import { Route as Char123LocaleChar125adminLayoutAdminEmailsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/emails/index'
+import { Route as Char123LocaleChar125adminLayoutAdminFeatureFlagsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/feature-flags/index'
+import { Route as Char123LocaleChar125adminLayoutAdminFeaturesIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/features/index'
+import { Route as Char123LocaleChar125adminLayoutAdminPlansIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/plans/index'
+import { Route as Char123LocaleChar125adminLayoutAdminProjectsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/projects/index'
+import { Route as Char123LocaleChar125adminLayoutAdminSessionsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/sessions/index'
+import { Route as Char123LocaleChar125adminLayoutAdminSettingsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/settings/index'
+import { Route as Char123LocaleChar125adminLayoutAdminSubscriptionsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/subscriptions/index'
+import { Route as Char123LocaleChar125adminLayoutAdminUsageIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/usage/index'
+import { Route as Char123LocaleChar125adminLayoutAdminUsersIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/users/index'
+import { Route as Char123LocaleChar125adminLayoutAdminWorkspacesIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/workspaces/index'
+import { Route as Char123LocaleChar125centeredLayoutguestAcceptInviteIndexRouteImport } from './routes/{-$locale}/(centered-layout)/(guest)/accept-invite/index'
+import { Route as Char123LocaleChar125centeredLayoutguestCreateAnAccountIndexRouteImport } from './routes/{-$locale}/(centered-layout)/(guest)/create-an-account/index'
+import { Route as Char123LocaleChar125centeredLayoutguestForgotPasswordIndexRouteImport } from './routes/{-$locale}/(centered-layout)/(guest)/forgot-password/index'
+import { Route as Char123LocaleChar125centeredLayoutguestResetPasswordIndexRouteImport } from './routes/{-$locale}/(centered-layout)/(guest)/reset-password/index'
+import { Route as Char123LocaleChar125centeredLayoutguestSignInIndexRouteImport } from './routes/{-$locale}/(centered-layout)/(guest)/sign-in/index'
+import { Route as Char123LocaleChar125consoleLayoutAppAiUsageIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/ai-usage/index'
+import { Route as Char123LocaleChar125consoleLayoutAppAnalysisIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/analysis/index'
+import { Route as Char123LocaleChar125consoleLayoutAppApiKeysIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/api-keys/index'
+import { Route as Char123LocaleChar125consoleLayoutAppAuditIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/audit/index'
+import { Route as Char123LocaleChar125consoleLayoutAppBatchJobsIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/batch-jobs/index'
+import { Route as Char123LocaleChar125consoleLayoutAppBillingIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/billing/index'
+import { Route as Char123LocaleChar125consoleLayoutAppCasesIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/cases/index'
+import { Route as Char123LocaleChar125consoleLayoutAppDriversIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/drivers/index'
+import { Route as Char123LocaleChar125consoleLayoutAppFeaturesIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/features/index'
+import { Route as Char123LocaleChar125consoleLayoutAppFinesIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/fines/index'
+import { Route as Char123LocaleChar125consoleLayoutAppNotificationsIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/notifications/index'
+import { Route as Char123LocaleChar125consoleLayoutAppProfileIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/profile/index'
+import { Route as Char123LocaleChar125consoleLayoutAppProjectsIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/projects/index'
+import { Route as Char123LocaleChar125consoleLayoutAppProtocolsIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/protocols/index'
+import { Route as Char123LocaleChar125consoleLayoutAppSecurityIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/security/index'
+import { Route as Char123LocaleChar125consoleLayoutAppSettingsIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/settings/index'
+import { Route as Char123LocaleChar125consoleLayoutAppTeamIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/team/index'
+import { Route as Char123LocaleChar125consoleLayoutAppVehiclesIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/vehicles/index'
+import { Route as Char123LocaleChar125consoleLayoutAppWebhooksIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/webhooks/index'
+import { Route as Char123LocaleChar125rootLayoutauthDashboardIndexRouteImport } from './routes/{-$locale}/(root-layout)/(auth)/dashboard/index'
+import { Route as Char123LocaleChar125rootLayoutauthOnboardingIndexRouteImport } from './routes/{-$locale}/(root-layout)/(auth)/onboarding/index'
 import { Route as Char123LocaleChar125adminLayoutAdminAccessRolesIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/access/roles/index'
-import { Route as Char123LocaleChar125consoleLayoutAppProjectsProjectIdSettingsRouteImport } from './routes/{-$locale}/(console-layout)/app/projects/$projectId/settings'
+import { Route as Char123LocaleChar125adminLayoutAdminBillingInvoicesIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/billing/invoices/index'
+import { Route as Char123LocaleChar125adminLayoutAdminBillingProfileIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/billing/profile/index'
+import { Route as Char123LocaleChar125adminLayoutAdminPlansIdIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/plans/$id/index'
+import { Route as Char123LocaleChar125adminLayoutAdminProjectsProjectIdIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/projects/$projectId/index'
+import { Route as Char123LocaleChar125adminLayoutAdminSecurityEventsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/security/events/index'
+import { Route as Char123LocaleChar125adminLayoutAdminSubscriptionsIdIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/subscriptions/$id/index'
+import { Route as Char123LocaleChar125adminLayoutAdminSystemHealthIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/system/health/index'
+import { Route as Char123LocaleChar125adminLayoutAdminSystemIncidentsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/system/incidents/index'
+import { Route as Char123LocaleChar125adminLayoutAdminSystemJobsIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/system/jobs/index'
+import { Route as Char123LocaleChar125adminLayoutAdminSystemWorkersIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/system/workers/index'
+import { Route as Char123LocaleChar125adminLayoutAdminUsersIdIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/users/$id/index'
+import { Route as Char123LocaleChar125adminLayoutAdminWorkspacesIdIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/workspaces/$id/index'
+import { Route as Char123LocaleChar125consoleLayoutAppProjectsProjectIdIndexRouteImport } from './routes/{-$locale}/(console-layout)/app/projects/$projectId/index'
 import { Route as Char123LocaleChar125consoleLayoutAppProjectsProjectIdBuildRouteImport } from './routes/{-$locale}/(console-layout)/app/projects/$projectId/build'
-import { Route as Char123LocaleChar125adminLayoutAdminSystemJobsJobIdIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/system/jobs/$jobId/index'
+import { Route as Char123LocaleChar125consoleLayoutAppProjectsProjectIdSettingsRouteImport } from './routes/{-$locale}/(console-layout)/app/projects/$projectId/settings'
 import { Route as Char123LocaleChar125adminLayoutAdminBillingInvoicesIdIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/billing/invoices/$id/index'
+import { Route as Char123LocaleChar125adminLayoutAdminSystemJobsJobIdIndexRouteImport } from './routes/{-$locale}/(admin-layout)/admin/system/jobs/$jobId/index'
 
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
   id: '/robots.txt',
   path: '/robots.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Char123LocaleChar125RouteRoute =
@@ -98,14 +104,9 @@ const Char123LocaleChar125RouteRoute =
     path: '/{-$locale}',
     getParentRoute: () => rootRouteImport,
   } as any)
-const Char123LocaleChar125rootLayoutRouteRoute =
-  Char123LocaleChar125rootLayoutRouteRouteImport.update({
-    id: '/(root-layout)',
-    getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any)
-const Char123LocaleChar125consoleLayoutRouteRoute =
-  Char123LocaleChar125consoleLayoutRouteRouteImport.update({
-    id: '/(console-layout)',
+const Char123LocaleChar125adminLayoutRouteRoute =
+  Char123LocaleChar125adminLayoutRouteRouteImport.update({
+    id: '/(admin-layout)',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
 const Char123LocaleChar125centeredLayoutRouteRoute =
@@ -113,10 +114,25 @@ const Char123LocaleChar125centeredLayoutRouteRoute =
     id: '/(centered-layout)',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
-const Char123LocaleChar125adminLayoutRouteRoute =
-  Char123LocaleChar125adminLayoutRouteRouteImport.update({
-    id: '/(admin-layout)',
+const Char123LocaleChar125consoleLayoutRouteRoute =
+  Char123LocaleChar125consoleLayoutRouteRouteImport.update({
+    id: '/(console-layout)',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125rootLayoutRouteRoute =
+  Char123LocaleChar125rootLayoutRouteRouteImport.update({
+    id: '/(root-layout)',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const ApiHealthLiveRoute = ApiHealthLiveRouteImport.update({
+  id: '/_api/health/live',
+  path: '/_api/health/live',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Char123LocaleChar125centeredLayoutguestRouteRoute =
+  Char123LocaleChar125centeredLayoutguestRouteRouteImport.update({
+    id: '/(guest)',
+    getParentRoute: () => Char123LocaleChar125centeredLayoutRouteRoute,
   } as any)
 const Char123LocaleChar125rootLayoutIndexRoute =
   Char123LocaleChar125rootLayoutIndexRouteImport.update({
@@ -124,55 +140,27 @@ const Char123LocaleChar125rootLayoutIndexRoute =
     path: '/',
     getParentRoute: () => Char123LocaleChar125rootLayoutRouteRoute,
   } as any)
-const ApiHealthLiveRoute = ApiHealthLiveRouteImport.update({
-  id: '/_api/health/live',
-  path: '/_api/health/live',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const Char123LocaleChar125rootLayoutauthRouteRoute =
   Char123LocaleChar125rootLayoutauthRouteRouteImport.update({
     id: '/(auth)',
     getParentRoute: () => Char123LocaleChar125rootLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125centeredLayoutguestRouteRoute =
-  Char123LocaleChar125centeredLayoutguestRouteRouteImport.update({
-    id: '/(guest)',
-    getParentRoute: () => Char123LocaleChar125centeredLayoutRouteRoute,
+const Char123LocaleChar125adminLayoutAdminIndexRoute =
+  Char123LocaleChar125adminLayoutAdminIndexRouteImport.update({
+    id: '/admin/',
+    path: '/admin/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125rootLayoutTermsOfServiceIndexRoute =
-  Char123LocaleChar125rootLayoutTermsOfServiceIndexRouteImport.update({
-    id: '/terms-of-service/',
-    path: '/terms-of-service/',
-    getParentRoute: () => Char123LocaleChar125rootLayoutRouteRoute,
+const Char123LocaleChar125consoleLayoutAppIndexRoute =
+  Char123LocaleChar125consoleLayoutAppIndexRouteImport.update({
+    id: '/app/',
+    path: '/app/',
+    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125rootLayoutStatusIndexRoute =
-  Char123LocaleChar125rootLayoutStatusIndexRouteImport.update({
-    id: '/status/',
-    path: '/status/',
-    getParentRoute: () => Char123LocaleChar125rootLayoutRouteRoute,
-  } as any)
-const Char123LocaleChar125rootLayoutPrivacyPolicyIndexRoute =
-  Char123LocaleChar125rootLayoutPrivacyPolicyIndexRouteImport.update({
-    id: '/privacy-policy/',
-    path: '/privacy-policy/',
-    getParentRoute: () => Char123LocaleChar125rootLayoutRouteRoute,
-  } as any)
-const Char123LocaleChar125rootLayoutPricingIndexRoute =
-  Char123LocaleChar125rootLayoutPricingIndexRouteImport.update({
-    id: '/pricing/',
-    path: '/pricing/',
-    getParentRoute: () => Char123LocaleChar125rootLayoutRouteRoute,
-  } as any)
-const Char123LocaleChar125rootLayoutPlaygroundIndexRoute =
-  Char123LocaleChar125rootLayoutPlaygroundIndexRouteImport.update({
-    id: '/playground/',
-    path: '/playground/',
-    getParentRoute: () => Char123LocaleChar125rootLayoutRouteRoute,
-  } as any)
-const Char123LocaleChar125rootLayoutErrorIndexRoute =
-  Char123LocaleChar125rootLayoutErrorIndexRouteImport.update({
-    id: '/error/',
-    path: '/error/',
+const Char123LocaleChar125rootLayoutAboutIndexRoute =
+  Char123LocaleChar125rootLayoutAboutIndexRouteImport.update({
+    id: '/about/',
+    path: '/about/',
     getParentRoute: () => Char123LocaleChar125rootLayoutRouteRoute,
   } as any)
 const Char123LocaleChar125rootLayoutChangelogIndexRoute =
@@ -181,130 +169,124 @@ const Char123LocaleChar125rootLayoutChangelogIndexRoute =
     path: '/changelog/',
     getParentRoute: () => Char123LocaleChar125rootLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125rootLayoutAboutIndexRoute =
-  Char123LocaleChar125rootLayoutAboutIndexRouteImport.update({
-    id: '/about/',
-    path: '/about/',
+const Char123LocaleChar125rootLayoutErrorIndexRoute =
+  Char123LocaleChar125rootLayoutErrorIndexRouteImport.update({
+    id: '/error/',
+    path: '/error/',
     getParentRoute: () => Char123LocaleChar125rootLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125consoleLayoutAppIndexRoute =
-  Char123LocaleChar125consoleLayoutAppIndexRouteImport.update({
-    id: '/app/',
-    path: '/app/',
-    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
+const Char123LocaleChar125rootLayoutPlaygroundIndexRoute =
+  Char123LocaleChar125rootLayoutPlaygroundIndexRouteImport.update({
+    id: '/playground/',
+    path: '/playground/',
+    getParentRoute: () => Char123LocaleChar125rootLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125adminLayoutAdminIndexRoute =
-  Char123LocaleChar125adminLayoutAdminIndexRouteImport.update({
-    id: '/admin/',
-    path: '/admin/',
+const Char123LocaleChar125rootLayoutPricingIndexRoute =
+  Char123LocaleChar125rootLayoutPricingIndexRouteImport.update({
+    id: '/pricing/',
+    path: '/pricing/',
+    getParentRoute: () => Char123LocaleChar125rootLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125rootLayoutPrivacyPolicyIndexRoute =
+  Char123LocaleChar125rootLayoutPrivacyPolicyIndexRouteImport.update({
+    id: '/privacy-policy/',
+    path: '/privacy-policy/',
+    getParentRoute: () => Char123LocaleChar125rootLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125rootLayoutStatusIndexRoute =
+  Char123LocaleChar125rootLayoutStatusIndexRouteImport.update({
+    id: '/status/',
+    path: '/status/',
+    getParentRoute: () => Char123LocaleChar125rootLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125rootLayoutTermsOfServiceIndexRoute =
+  Char123LocaleChar125rootLayoutTermsOfServiceIndexRouteImport.update({
+    id: '/terms-of-service/',
+    path: '/terms-of-service/',
+    getParentRoute: () => Char123LocaleChar125rootLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminAuditIndexRoute =
+  Char123LocaleChar125adminLayoutAdminAuditIndexRouteImport.update({
+    id: '/admin/audit/',
+    path: '/admin/audit/',
     getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125rootLayoutauthOnboardingIndexRoute =
-  Char123LocaleChar125rootLayoutauthOnboardingIndexRouteImport.update({
-    id: '/onboarding/',
-    path: '/onboarding/',
-    getParentRoute: () => Char123LocaleChar125rootLayoutauthRouteRoute,
+const Char123LocaleChar125adminLayoutAdminBillingIndexRoute =
+  Char123LocaleChar125adminLayoutAdminBillingIndexRouteImport.update({
+    id: '/admin/billing/',
+    path: '/admin/billing/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125rootLayoutauthDashboardIndexRoute =
-  Char123LocaleChar125rootLayoutauthDashboardIndexRouteImport.update({
-    id: '/dashboard/',
-    path: '/dashboard/',
-    getParentRoute: () => Char123LocaleChar125rootLayoutauthRouteRoute,
+const Char123LocaleChar125adminLayoutAdminEmailsIndexRoute =
+  Char123LocaleChar125adminLayoutAdminEmailsIndexRouteImport.update({
+    id: '/admin/emails/',
+    path: '/admin/emails/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125consoleLayoutAppWebhooksIndexRoute =
-  Char123LocaleChar125consoleLayoutAppWebhooksIndexRouteImport.update({
-    id: '/app/webhooks/',
-    path: '/app/webhooks/',
-    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
+const Char123LocaleChar125adminLayoutAdminFeatureFlagsIndexRoute =
+  Char123LocaleChar125adminLayoutAdminFeatureFlagsIndexRouteImport.update({
+    id: '/admin/feature-flags/',
+    path: '/admin/feature-flags/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125consoleLayoutAppTeamIndexRoute =
-  Char123LocaleChar125consoleLayoutAppTeamIndexRouteImport.update({
-    id: '/app/team/',
-    path: '/app/team/',
-    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
+const Char123LocaleChar125adminLayoutAdminFeaturesIndexRoute =
+  Char123LocaleChar125adminLayoutAdminFeaturesIndexRouteImport.update({
+    id: '/admin/features/',
+    path: '/admin/features/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125consoleLayoutAppSettingsIndexRoute =
-  Char123LocaleChar125consoleLayoutAppSettingsIndexRouteImport.update({
-    id: '/app/settings/',
-    path: '/app/settings/',
-    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
+const Char123LocaleChar125adminLayoutAdminPlansIndexRoute =
+  Char123LocaleChar125adminLayoutAdminPlansIndexRouteImport.update({
+    id: '/admin/plans/',
+    path: '/admin/plans/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125consoleLayoutAppSecurityIndexRoute =
-  Char123LocaleChar125consoleLayoutAppSecurityIndexRouteImport.update({
-    id: '/app/security/',
-    path: '/app/security/',
-    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
+const Char123LocaleChar125adminLayoutAdminProjectsIndexRoute =
+  Char123LocaleChar125adminLayoutAdminProjectsIndexRouteImport.update({
+    id: '/admin/projects/',
+    path: '/admin/projects/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125consoleLayoutAppProjectsIndexRoute =
-  Char123LocaleChar125consoleLayoutAppProjectsIndexRouteImport.update({
-    id: '/app/projects/',
-    path: '/app/projects/',
-    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
+const Char123LocaleChar125adminLayoutAdminSessionsIndexRoute =
+  Char123LocaleChar125adminLayoutAdminSessionsIndexRouteImport.update({
+    id: '/admin/sessions/',
+    path: '/admin/sessions/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125consoleLayoutAppProfileIndexRoute =
-  Char123LocaleChar125consoleLayoutAppProfileIndexRouteImport.update({
-    id: '/app/profile/',
-    path: '/app/profile/',
-    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
+const Char123LocaleChar125adminLayoutAdminSettingsIndexRoute =
+  Char123LocaleChar125adminLayoutAdminSettingsIndexRouteImport.update({
+    id: '/admin/settings/',
+    path: '/admin/settings/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125consoleLayoutAppNotificationsIndexRoute =
-  Char123LocaleChar125consoleLayoutAppNotificationsIndexRouteImport.update({
-    id: '/app/notifications/',
-    path: '/app/notifications/',
-    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
+const Char123LocaleChar125adminLayoutAdminSubscriptionsIndexRoute =
+  Char123LocaleChar125adminLayoutAdminSubscriptionsIndexRouteImport.update({
+    id: '/admin/subscriptions/',
+    path: '/admin/subscriptions/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125consoleLayoutAppFeaturesIndexRoute =
-  Char123LocaleChar125consoleLayoutAppFeaturesIndexRouteImport.update({
-    id: '/app/features/',
-    path: '/app/features/',
-    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
+const Char123LocaleChar125adminLayoutAdminUsageIndexRoute =
+  Char123LocaleChar125adminLayoutAdminUsageIndexRouteImport.update({
+    id: '/admin/usage/',
+    path: '/admin/usage/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125consoleLayoutAppBillingIndexRoute =
-  Char123LocaleChar125consoleLayoutAppBillingIndexRouteImport.update({
-    id: '/app/billing/',
-    path: '/app/billing/',
-    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
+const Char123LocaleChar125adminLayoutAdminUsersIndexRoute =
+  Char123LocaleChar125adminLayoutAdminUsersIndexRouteImport.update({
+    id: '/admin/users/',
+    path: '/admin/users/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125consoleLayoutAppBatchJobsIndexRoute =
-  Char123LocaleChar125consoleLayoutAppBatchJobsIndexRouteImport.update({
-    id: '/app/batch-jobs/',
-    path: '/app/batch-jobs/',
-    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
+const Char123LocaleChar125adminLayoutAdminWorkspacesIndexRoute =
+  Char123LocaleChar125adminLayoutAdminWorkspacesIndexRouteImport.update({
+    id: '/admin/workspaces/',
+    path: '/admin/workspaces/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125consoleLayoutAppAuditIndexRoute =
-  Char123LocaleChar125consoleLayoutAppAuditIndexRouteImport.update({
-    id: '/app/audit/',
-    path: '/app/audit/',
-    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
-  } as any)
-const Char123LocaleChar125consoleLayoutAppApiKeysIndexRoute =
-  Char123LocaleChar125consoleLayoutAppApiKeysIndexRouteImport.update({
-    id: '/app/api-keys/',
-    path: '/app/api-keys/',
-    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
-  } as any)
-const Char123LocaleChar125consoleLayoutAppAiUsageIndexRoute =
-  Char123LocaleChar125consoleLayoutAppAiUsageIndexRouteImport.update({
-    id: '/app/ai-usage/',
-    path: '/app/ai-usage/',
-    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
-  } as any)
-const Char123LocaleChar125centeredLayoutguestSignInIndexRoute =
-  Char123LocaleChar125centeredLayoutguestSignInIndexRouteImport.update({
-    id: '/sign-in/',
-    path: '/sign-in/',
-    getParentRoute: () => Char123LocaleChar125centeredLayoutguestRouteRoute,
-  } as any)
-const Char123LocaleChar125centeredLayoutguestResetPasswordIndexRoute =
-  Char123LocaleChar125centeredLayoutguestResetPasswordIndexRouteImport.update({
-    id: '/reset-password/',
-    path: '/reset-password/',
-    getParentRoute: () => Char123LocaleChar125centeredLayoutguestRouteRoute,
-  } as any)
-const Char123LocaleChar125centeredLayoutguestForgotPasswordIndexRoute =
-  Char123LocaleChar125centeredLayoutguestForgotPasswordIndexRouteImport.update({
-    id: '/forgot-password/',
-    path: '/forgot-password/',
+const Char123LocaleChar125centeredLayoutguestAcceptInviteIndexRoute =
+  Char123LocaleChar125centeredLayoutguestAcceptInviteIndexRouteImport.update({
+    id: '/accept-invite/',
+    path: '/accept-invite/',
     getParentRoute: () => Char123LocaleChar125centeredLayoutguestRouteRoute,
   } as any)
 const Char123LocaleChar125centeredLayoutguestCreateAnAccountIndexRoute =
@@ -315,160 +297,154 @@ const Char123LocaleChar125centeredLayoutguestCreateAnAccountIndexRoute =
       getParentRoute: () => Char123LocaleChar125centeredLayoutguestRouteRoute,
     } as any,
   )
-const Char123LocaleChar125centeredLayoutguestAcceptInviteIndexRoute =
-  Char123LocaleChar125centeredLayoutguestAcceptInviteIndexRouteImport.update({
-    id: '/accept-invite/',
-    path: '/accept-invite/',
+const Char123LocaleChar125centeredLayoutguestForgotPasswordIndexRoute =
+  Char123LocaleChar125centeredLayoutguestForgotPasswordIndexRouteImport.update({
+    id: '/forgot-password/',
+    path: '/forgot-password/',
     getParentRoute: () => Char123LocaleChar125centeredLayoutguestRouteRoute,
   } as any)
-const Char123LocaleChar125adminLayoutAdminWorkspacesIndexRoute =
-  Char123LocaleChar125adminLayoutAdminWorkspacesIndexRouteImport.update({
-    id: '/admin/workspaces/',
-    path: '/admin/workspaces/',
-    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+const Char123LocaleChar125centeredLayoutguestResetPasswordIndexRoute =
+  Char123LocaleChar125centeredLayoutguestResetPasswordIndexRouteImport.update({
+    id: '/reset-password/',
+    path: '/reset-password/',
+    getParentRoute: () => Char123LocaleChar125centeredLayoutguestRouteRoute,
   } as any)
-const Char123LocaleChar125adminLayoutAdminUsersIndexRoute =
-  Char123LocaleChar125adminLayoutAdminUsersIndexRouteImport.update({
-    id: '/admin/users/',
-    path: '/admin/users/',
-    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+const Char123LocaleChar125centeredLayoutguestSignInIndexRoute =
+  Char123LocaleChar125centeredLayoutguestSignInIndexRouteImport.update({
+    id: '/sign-in/',
+    path: '/sign-in/',
+    getParentRoute: () => Char123LocaleChar125centeredLayoutguestRouteRoute,
   } as any)
-const Char123LocaleChar125adminLayoutAdminUsageIndexRoute =
-  Char123LocaleChar125adminLayoutAdminUsageIndexRouteImport.update({
-    id: '/admin/usage/',
-    path: '/admin/usage/',
-    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
-  } as any)
-const Char123LocaleChar125adminLayoutAdminSubscriptionsIndexRoute =
-  Char123LocaleChar125adminLayoutAdminSubscriptionsIndexRouteImport.update({
-    id: '/admin/subscriptions/',
-    path: '/admin/subscriptions/',
-    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
-  } as any)
-const Char123LocaleChar125adminLayoutAdminSettingsIndexRoute =
-  Char123LocaleChar125adminLayoutAdminSettingsIndexRouteImport.update({
-    id: '/admin/settings/',
-    path: '/admin/settings/',
-    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
-  } as any)
-const Char123LocaleChar125adminLayoutAdminSessionsIndexRoute =
-  Char123LocaleChar125adminLayoutAdminSessionsIndexRouteImport.update({
-    id: '/admin/sessions/',
-    path: '/admin/sessions/',
-    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
-  } as any)
-const Char123LocaleChar125adminLayoutAdminProjectsIndexRoute =
-  Char123LocaleChar125adminLayoutAdminProjectsIndexRouteImport.update({
-    id: '/admin/projects/',
-    path: '/admin/projects/',
-    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
-  } as any)
-const Char123LocaleChar125adminLayoutAdminPlansIndexRoute =
-  Char123LocaleChar125adminLayoutAdminPlansIndexRouteImport.update({
-    id: '/admin/plans/',
-    path: '/admin/plans/',
-    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
-  } as any)
-const Char123LocaleChar125adminLayoutAdminFeaturesIndexRoute =
-  Char123LocaleChar125adminLayoutAdminFeaturesIndexRouteImport.update({
-    id: '/admin/features/',
-    path: '/admin/features/',
-    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
-  } as any)
-const Char123LocaleChar125adminLayoutAdminFeatureFlagsIndexRoute =
-  Char123LocaleChar125adminLayoutAdminFeatureFlagsIndexRouteImport.update({
-    id: '/admin/feature-flags/',
-    path: '/admin/feature-flags/',
-    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
-  } as any)
-const Char123LocaleChar125adminLayoutAdminEmailsIndexRoute =
-  Char123LocaleChar125adminLayoutAdminEmailsIndexRouteImport.update({
-    id: '/admin/emails/',
-    path: '/admin/emails/',
-    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
-  } as any)
-const Char123LocaleChar125adminLayoutAdminBillingIndexRoute =
-  Char123LocaleChar125adminLayoutAdminBillingIndexRouteImport.update({
-    id: '/admin/billing/',
-    path: '/admin/billing/',
-    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
-  } as any)
-const Char123LocaleChar125adminLayoutAdminAuditIndexRoute =
-  Char123LocaleChar125adminLayoutAdminAuditIndexRouteImport.update({
-    id: '/admin/audit/',
-    path: '/admin/audit/',
-    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
-  } as any)
-const Char123LocaleChar125consoleLayoutAppProjectsProjectIdIndexRoute =
-  Char123LocaleChar125consoleLayoutAppProjectsProjectIdIndexRouteImport.update({
-    id: '/app/projects/$projectId/',
-    path: '/app/projects/$projectId/',
+const Char123LocaleChar125consoleLayoutAppAiUsageIndexRoute =
+  Char123LocaleChar125consoleLayoutAppAiUsageIndexRouteImport.update({
+    id: '/app/ai-usage/',
+    path: '/app/ai-usage/',
     getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125adminLayoutAdminWorkspacesIdIndexRoute =
-  Char123LocaleChar125adminLayoutAdminWorkspacesIdIndexRouteImport.update({
-    id: '/admin/workspaces/$id/',
-    path: '/admin/workspaces/$id/',
-    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+const Char123LocaleChar125consoleLayoutAppAnalysisIndexRoute =
+  Char123LocaleChar125consoleLayoutAppAnalysisIndexRouteImport.update({
+    id: '/app/analysis/',
+    path: '/app/analysis/',
+    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125adminLayoutAdminUsersIdIndexRoute =
-  Char123LocaleChar125adminLayoutAdminUsersIdIndexRouteImport.update({
-    id: '/admin/users/$id/',
-    path: '/admin/users/$id/',
-    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+const Char123LocaleChar125consoleLayoutAppApiKeysIndexRoute =
+  Char123LocaleChar125consoleLayoutAppApiKeysIndexRouteImport.update({
+    id: '/app/api-keys/',
+    path: '/app/api-keys/',
+    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125adminLayoutAdminSystemWorkersIndexRoute =
-  Char123LocaleChar125adminLayoutAdminSystemWorkersIndexRouteImport.update({
-    id: '/admin/system/workers/',
-    path: '/admin/system/workers/',
-    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+const Char123LocaleChar125consoleLayoutAppAuditIndexRoute =
+  Char123LocaleChar125consoleLayoutAppAuditIndexRouteImport.update({
+    id: '/app/audit/',
+    path: '/app/audit/',
+    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125adminLayoutAdminSystemJobsIndexRoute =
-  Char123LocaleChar125adminLayoutAdminSystemJobsIndexRouteImport.update({
-    id: '/admin/system/jobs/',
-    path: '/admin/system/jobs/',
-    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+const Char123LocaleChar125consoleLayoutAppBatchJobsIndexRoute =
+  Char123LocaleChar125consoleLayoutAppBatchJobsIndexRouteImport.update({
+    id: '/app/batch-jobs/',
+    path: '/app/batch-jobs/',
+    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125adminLayoutAdminSystemIncidentsIndexRoute =
-  Char123LocaleChar125adminLayoutAdminSystemIncidentsIndexRouteImport.update({
-    id: '/admin/system/incidents/',
-    path: '/admin/system/incidents/',
-    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+const Char123LocaleChar125consoleLayoutAppBillingIndexRoute =
+  Char123LocaleChar125consoleLayoutAppBillingIndexRouteImport.update({
+    id: '/app/billing/',
+    path: '/app/billing/',
+    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125adminLayoutAdminSystemHealthIndexRoute =
-  Char123LocaleChar125adminLayoutAdminSystemHealthIndexRouteImport.update({
-    id: '/admin/system/health/',
-    path: '/admin/system/health/',
-    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+const Char123LocaleChar125consoleLayoutAppCasesIndexRoute =
+  Char123LocaleChar125consoleLayoutAppCasesIndexRouteImport.update({
+    id: '/app/cases/',
+    path: '/app/cases/',
+    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125adminLayoutAdminSubscriptionsIdIndexRoute =
-  Char123LocaleChar125adminLayoutAdminSubscriptionsIdIndexRouteImport.update({
-    id: '/admin/subscriptions/$id/',
-    path: '/admin/subscriptions/$id/',
-    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+const Char123LocaleChar125consoleLayoutAppDriversIndexRoute =
+  Char123LocaleChar125consoleLayoutAppDriversIndexRouteImport.update({
+    id: '/app/drivers/',
+    path: '/app/drivers/',
+    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125adminLayoutAdminSecurityEventsIndexRoute =
-  Char123LocaleChar125adminLayoutAdminSecurityEventsIndexRouteImport.update({
-    id: '/admin/security/events/',
-    path: '/admin/security/events/',
-    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+const Char123LocaleChar125consoleLayoutAppFeaturesIndexRoute =
+  Char123LocaleChar125consoleLayoutAppFeaturesIndexRouteImport.update({
+    id: '/app/features/',
+    path: '/app/features/',
+    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125adminLayoutAdminProjectsProjectIdIndexRoute =
-  Char123LocaleChar125adminLayoutAdminProjectsProjectIdIndexRouteImport.update({
-    id: '/admin/projects/$projectId/',
-    path: '/admin/projects/$projectId/',
-    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+const Char123LocaleChar125consoleLayoutAppFinesIndexRoute =
+  Char123LocaleChar125consoleLayoutAppFinesIndexRouteImport.update({
+    id: '/app/fines/',
+    path: '/app/fines/',
+    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125adminLayoutAdminPlansIdIndexRoute =
-  Char123LocaleChar125adminLayoutAdminPlansIdIndexRouteImport.update({
-    id: '/admin/plans/$id/',
-    path: '/admin/plans/$id/',
-    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+const Char123LocaleChar125consoleLayoutAppNotificationsIndexRoute =
+  Char123LocaleChar125consoleLayoutAppNotificationsIndexRouteImport.update({
+    id: '/app/notifications/',
+    path: '/app/notifications/',
+    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125adminLayoutAdminBillingProfileIndexRoute =
-  Char123LocaleChar125adminLayoutAdminBillingProfileIndexRouteImport.update({
-    id: '/admin/billing/profile/',
-    path: '/admin/billing/profile/',
+const Char123LocaleChar125consoleLayoutAppProfileIndexRoute =
+  Char123LocaleChar125consoleLayoutAppProfileIndexRouteImport.update({
+    id: '/app/profile/',
+    path: '/app/profile/',
+    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125consoleLayoutAppProjectsIndexRoute =
+  Char123LocaleChar125consoleLayoutAppProjectsIndexRouteImport.update({
+    id: '/app/projects/',
+    path: '/app/projects/',
+    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125consoleLayoutAppProtocolsIndexRoute =
+  Char123LocaleChar125consoleLayoutAppProtocolsIndexRouteImport.update({
+    id: '/app/protocols/',
+    path: '/app/protocols/',
+    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125consoleLayoutAppSecurityIndexRoute =
+  Char123LocaleChar125consoleLayoutAppSecurityIndexRouteImport.update({
+    id: '/app/security/',
+    path: '/app/security/',
+    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125consoleLayoutAppSettingsIndexRoute =
+  Char123LocaleChar125consoleLayoutAppSettingsIndexRouteImport.update({
+    id: '/app/settings/',
+    path: '/app/settings/',
+    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125consoleLayoutAppTeamIndexRoute =
+  Char123LocaleChar125consoleLayoutAppTeamIndexRouteImport.update({
+    id: '/app/team/',
+    path: '/app/team/',
+    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125consoleLayoutAppVehiclesIndexRoute =
+  Char123LocaleChar125consoleLayoutAppVehiclesIndexRouteImport.update({
+    id: '/app/vehicles/',
+    path: '/app/vehicles/',
+    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125consoleLayoutAppWebhooksIndexRoute =
+  Char123LocaleChar125consoleLayoutAppWebhooksIndexRouteImport.update({
+    id: '/app/webhooks/',
+    path: '/app/webhooks/',
+    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125rootLayoutauthDashboardIndexRoute =
+  Char123LocaleChar125rootLayoutauthDashboardIndexRouteImport.update({
+    id: '/dashboard/',
+    path: '/dashboard/',
+    getParentRoute: () => Char123LocaleChar125rootLayoutauthRouteRoute,
+  } as any)
+const Char123LocaleChar125rootLayoutauthOnboardingIndexRoute =
+  Char123LocaleChar125rootLayoutauthOnboardingIndexRouteImport.update({
+    id: '/onboarding/',
+    path: '/onboarding/',
+    getParentRoute: () => Char123LocaleChar125rootLayoutauthRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminAccessRolesIndexRoute =
+  Char123LocaleChar125adminLayoutAdminAccessRolesIndexRouteImport.update({
+    id: '/admin/access/roles/',
+    path: '/admin/access/roles/',
     getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
   } as any)
 const Char123LocaleChar125adminLayoutAdminBillingInvoicesIndexRoute =
@@ -477,11 +453,83 @@ const Char123LocaleChar125adminLayoutAdminBillingInvoicesIndexRoute =
     path: '/admin/billing/invoices/',
     getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
   } as any)
-const Char123LocaleChar125adminLayoutAdminAccessRolesIndexRoute =
-  Char123LocaleChar125adminLayoutAdminAccessRolesIndexRouteImport.update({
-    id: '/admin/access/roles/',
-    path: '/admin/access/roles/',
+const Char123LocaleChar125adminLayoutAdminBillingProfileIndexRoute =
+  Char123LocaleChar125adminLayoutAdminBillingProfileIndexRouteImport.update({
+    id: '/admin/billing/profile/',
+    path: '/admin/billing/profile/',
     getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminPlansIdIndexRoute =
+  Char123LocaleChar125adminLayoutAdminPlansIdIndexRouteImport.update({
+    id: '/admin/plans/$id/',
+    path: '/admin/plans/$id/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminProjectsProjectIdIndexRoute =
+  Char123LocaleChar125adminLayoutAdminProjectsProjectIdIndexRouteImport.update({
+    id: '/admin/projects/$projectId/',
+    path: '/admin/projects/$projectId/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminSecurityEventsIndexRoute =
+  Char123LocaleChar125adminLayoutAdminSecurityEventsIndexRouteImport.update({
+    id: '/admin/security/events/',
+    path: '/admin/security/events/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminSubscriptionsIdIndexRoute =
+  Char123LocaleChar125adminLayoutAdminSubscriptionsIdIndexRouteImport.update({
+    id: '/admin/subscriptions/$id/',
+    path: '/admin/subscriptions/$id/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminSystemHealthIndexRoute =
+  Char123LocaleChar125adminLayoutAdminSystemHealthIndexRouteImport.update({
+    id: '/admin/system/health/',
+    path: '/admin/system/health/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminSystemIncidentsIndexRoute =
+  Char123LocaleChar125adminLayoutAdminSystemIncidentsIndexRouteImport.update({
+    id: '/admin/system/incidents/',
+    path: '/admin/system/incidents/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminSystemJobsIndexRoute =
+  Char123LocaleChar125adminLayoutAdminSystemJobsIndexRouteImport.update({
+    id: '/admin/system/jobs/',
+    path: '/admin/system/jobs/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminSystemWorkersIndexRoute =
+  Char123LocaleChar125adminLayoutAdminSystemWorkersIndexRouteImport.update({
+    id: '/admin/system/workers/',
+    path: '/admin/system/workers/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminUsersIdIndexRoute =
+  Char123LocaleChar125adminLayoutAdminUsersIdIndexRouteImport.update({
+    id: '/admin/users/$id/',
+    path: '/admin/users/$id/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125adminLayoutAdminWorkspacesIdIndexRoute =
+  Char123LocaleChar125adminLayoutAdminWorkspacesIdIndexRouteImport.update({
+    id: '/admin/workspaces/$id/',
+    path: '/admin/workspaces/$id/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125consoleLayoutAppProjectsProjectIdIndexRoute =
+  Char123LocaleChar125consoleLayoutAppProjectsProjectIdIndexRouteImport.update({
+    id: '/app/projects/$projectId/',
+    path: '/app/projects/$projectId/',
+    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
+  } as any)
+const Char123LocaleChar125consoleLayoutAppProjectsProjectIdBuildRoute =
+  Char123LocaleChar125consoleLayoutAppProjectsProjectIdBuildRouteImport.update({
+    id: '/app/projects/$projectId/build',
+    path: '/app/projects/$projectId/build',
+    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
   } as any)
 const Char123LocaleChar125consoleLayoutAppProjectsProjectIdSettingsRoute =
   Char123LocaleChar125consoleLayoutAppProjectsProjectIdSettingsRouteImport.update(
@@ -491,22 +539,16 @@ const Char123LocaleChar125consoleLayoutAppProjectsProjectIdSettingsRoute =
       getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
     } as any,
   )
-const Char123LocaleChar125consoleLayoutAppProjectsProjectIdBuildRoute =
-  Char123LocaleChar125consoleLayoutAppProjectsProjectIdBuildRouteImport.update({
-    id: '/app/projects/$projectId/build',
-    path: '/app/projects/$projectId/build',
-    getParentRoute: () => Char123LocaleChar125consoleLayoutRouteRoute,
+const Char123LocaleChar125adminLayoutAdminBillingInvoicesIdIndexRoute =
+  Char123LocaleChar125adminLayoutAdminBillingInvoicesIdIndexRouteImport.update({
+    id: '/admin/billing/invoices/$id/',
+    path: '/admin/billing/invoices/$id/',
+    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
   } as any)
 const Char123LocaleChar125adminLayoutAdminSystemJobsJobIdIndexRoute =
   Char123LocaleChar125adminLayoutAdminSystemJobsJobIdIndexRouteImport.update({
     id: '/admin/system/jobs/$jobId/',
     path: '/admin/system/jobs/$jobId/',
-    getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
-  } as any)
-const Char123LocaleChar125adminLayoutAdminBillingInvoicesIdIndexRoute =
-  Char123LocaleChar125adminLayoutAdminBillingInvoicesIdIndexRouteImport.update({
-    id: '/admin/billing/invoices/$id/',
-    path: '/admin/billing/invoices/$id/',
     getParentRoute: () => Char123LocaleChar125adminLayoutRouteRoute,
   } as any)
 
@@ -545,17 +587,23 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/reset-password/': typeof Char123LocaleChar125centeredLayoutguestResetPasswordIndexRoute
   '/{-$locale}/sign-in/': typeof Char123LocaleChar125centeredLayoutguestSignInIndexRoute
   '/{-$locale}/app/ai-usage/': typeof Char123LocaleChar125consoleLayoutAppAiUsageIndexRoute
+  '/{-$locale}/app/analysis/': typeof Char123LocaleChar125consoleLayoutAppAnalysisIndexRoute
   '/{-$locale}/app/api-keys/': typeof Char123LocaleChar125consoleLayoutAppApiKeysIndexRoute
   '/{-$locale}/app/audit/': typeof Char123LocaleChar125consoleLayoutAppAuditIndexRoute
   '/{-$locale}/app/batch-jobs/': typeof Char123LocaleChar125consoleLayoutAppBatchJobsIndexRoute
   '/{-$locale}/app/billing/': typeof Char123LocaleChar125consoleLayoutAppBillingIndexRoute
+  '/{-$locale}/app/cases/': typeof Char123LocaleChar125consoleLayoutAppCasesIndexRoute
+  '/{-$locale}/app/drivers/': typeof Char123LocaleChar125consoleLayoutAppDriversIndexRoute
   '/{-$locale}/app/features/': typeof Char123LocaleChar125consoleLayoutAppFeaturesIndexRoute
+  '/{-$locale}/app/fines/': typeof Char123LocaleChar125consoleLayoutAppFinesIndexRoute
   '/{-$locale}/app/notifications/': typeof Char123LocaleChar125consoleLayoutAppNotificationsIndexRoute
   '/{-$locale}/app/profile/': typeof Char123LocaleChar125consoleLayoutAppProfileIndexRoute
   '/{-$locale}/app/projects/': typeof Char123LocaleChar125consoleLayoutAppProjectsIndexRoute
+  '/{-$locale}/app/protocols/': typeof Char123LocaleChar125consoleLayoutAppProtocolsIndexRoute
   '/{-$locale}/app/security/': typeof Char123LocaleChar125consoleLayoutAppSecurityIndexRoute
   '/{-$locale}/app/settings/': typeof Char123LocaleChar125consoleLayoutAppSettingsIndexRoute
   '/{-$locale}/app/team/': typeof Char123LocaleChar125consoleLayoutAppTeamIndexRoute
+  '/{-$locale}/app/vehicles/': typeof Char123LocaleChar125consoleLayoutAppVehiclesIndexRoute
   '/{-$locale}/app/webhooks/': typeof Char123LocaleChar125consoleLayoutAppWebhooksIndexRoute
   '/{-$locale}/dashboard/': typeof Char123LocaleChar125rootLayoutauthDashboardIndexRoute
   '/{-$locale}/onboarding/': typeof Char123LocaleChar125rootLayoutauthOnboardingIndexRoute
@@ -612,17 +660,23 @@ export interface FileRoutesByTo {
   '/{-$locale}/reset-password': typeof Char123LocaleChar125centeredLayoutguestResetPasswordIndexRoute
   '/{-$locale}/sign-in': typeof Char123LocaleChar125centeredLayoutguestSignInIndexRoute
   '/{-$locale}/app/ai-usage': typeof Char123LocaleChar125consoleLayoutAppAiUsageIndexRoute
+  '/{-$locale}/app/analysis': typeof Char123LocaleChar125consoleLayoutAppAnalysisIndexRoute
   '/{-$locale}/app/api-keys': typeof Char123LocaleChar125consoleLayoutAppApiKeysIndexRoute
   '/{-$locale}/app/audit': typeof Char123LocaleChar125consoleLayoutAppAuditIndexRoute
   '/{-$locale}/app/batch-jobs': typeof Char123LocaleChar125consoleLayoutAppBatchJobsIndexRoute
   '/{-$locale}/app/billing': typeof Char123LocaleChar125consoleLayoutAppBillingIndexRoute
+  '/{-$locale}/app/cases': typeof Char123LocaleChar125consoleLayoutAppCasesIndexRoute
+  '/{-$locale}/app/drivers': typeof Char123LocaleChar125consoleLayoutAppDriversIndexRoute
   '/{-$locale}/app/features': typeof Char123LocaleChar125consoleLayoutAppFeaturesIndexRoute
+  '/{-$locale}/app/fines': typeof Char123LocaleChar125consoleLayoutAppFinesIndexRoute
   '/{-$locale}/app/notifications': typeof Char123LocaleChar125consoleLayoutAppNotificationsIndexRoute
   '/{-$locale}/app/profile': typeof Char123LocaleChar125consoleLayoutAppProfileIndexRoute
   '/{-$locale}/app/projects': typeof Char123LocaleChar125consoleLayoutAppProjectsIndexRoute
+  '/{-$locale}/app/protocols': typeof Char123LocaleChar125consoleLayoutAppProtocolsIndexRoute
   '/{-$locale}/app/security': typeof Char123LocaleChar125consoleLayoutAppSecurityIndexRoute
   '/{-$locale}/app/settings': typeof Char123LocaleChar125consoleLayoutAppSettingsIndexRoute
   '/{-$locale}/app/team': typeof Char123LocaleChar125consoleLayoutAppTeamIndexRoute
+  '/{-$locale}/app/vehicles': typeof Char123LocaleChar125consoleLayoutAppVehiclesIndexRoute
   '/{-$locale}/app/webhooks': typeof Char123LocaleChar125consoleLayoutAppWebhooksIndexRoute
   '/{-$locale}/dashboard': typeof Char123LocaleChar125rootLayoutauthDashboardIndexRoute
   '/{-$locale}/onboarding': typeof Char123LocaleChar125rootLayoutauthOnboardingIndexRoute
@@ -687,17 +741,23 @@ export interface FileRoutesById {
   '/{-$locale}/(centered-layout)/(guest)/reset-password/': typeof Char123LocaleChar125centeredLayoutguestResetPasswordIndexRoute
   '/{-$locale}/(centered-layout)/(guest)/sign-in/': typeof Char123LocaleChar125centeredLayoutguestSignInIndexRoute
   '/{-$locale}/(console-layout)/app/ai-usage/': typeof Char123LocaleChar125consoleLayoutAppAiUsageIndexRoute
+  '/{-$locale}/(console-layout)/app/analysis/': typeof Char123LocaleChar125consoleLayoutAppAnalysisIndexRoute
   '/{-$locale}/(console-layout)/app/api-keys/': typeof Char123LocaleChar125consoleLayoutAppApiKeysIndexRoute
   '/{-$locale}/(console-layout)/app/audit/': typeof Char123LocaleChar125consoleLayoutAppAuditIndexRoute
   '/{-$locale}/(console-layout)/app/batch-jobs/': typeof Char123LocaleChar125consoleLayoutAppBatchJobsIndexRoute
   '/{-$locale}/(console-layout)/app/billing/': typeof Char123LocaleChar125consoleLayoutAppBillingIndexRoute
+  '/{-$locale}/(console-layout)/app/cases/': typeof Char123LocaleChar125consoleLayoutAppCasesIndexRoute
+  '/{-$locale}/(console-layout)/app/drivers/': typeof Char123LocaleChar125consoleLayoutAppDriversIndexRoute
   '/{-$locale}/(console-layout)/app/features/': typeof Char123LocaleChar125consoleLayoutAppFeaturesIndexRoute
+  '/{-$locale}/(console-layout)/app/fines/': typeof Char123LocaleChar125consoleLayoutAppFinesIndexRoute
   '/{-$locale}/(console-layout)/app/notifications/': typeof Char123LocaleChar125consoleLayoutAppNotificationsIndexRoute
   '/{-$locale}/(console-layout)/app/profile/': typeof Char123LocaleChar125consoleLayoutAppProfileIndexRoute
   '/{-$locale}/(console-layout)/app/projects/': typeof Char123LocaleChar125consoleLayoutAppProjectsIndexRoute
+  '/{-$locale}/(console-layout)/app/protocols/': typeof Char123LocaleChar125consoleLayoutAppProtocolsIndexRoute
   '/{-$locale}/(console-layout)/app/security/': typeof Char123LocaleChar125consoleLayoutAppSecurityIndexRoute
   '/{-$locale}/(console-layout)/app/settings/': typeof Char123LocaleChar125consoleLayoutAppSettingsIndexRoute
   '/{-$locale}/(console-layout)/app/team/': typeof Char123LocaleChar125consoleLayoutAppTeamIndexRoute
+  '/{-$locale}/(console-layout)/app/vehicles/': typeof Char123LocaleChar125consoleLayoutAppVehiclesIndexRoute
   '/{-$locale}/(console-layout)/app/webhooks/': typeof Char123LocaleChar125consoleLayoutAppWebhooksIndexRoute
   '/{-$locale}/(root-layout)/(auth)/dashboard/': typeof Char123LocaleChar125rootLayoutauthDashboardIndexRoute
   '/{-$locale}/(root-layout)/(auth)/onboarding/': typeof Char123LocaleChar125rootLayoutauthOnboardingIndexRoute
@@ -757,17 +817,23 @@ export interface FileRouteTypes {
     | '/{-$locale}/reset-password/'
     | '/{-$locale}/sign-in/'
     | '/{-$locale}/app/ai-usage/'
+    | '/{-$locale}/app/analysis/'
     | '/{-$locale}/app/api-keys/'
     | '/{-$locale}/app/audit/'
     | '/{-$locale}/app/batch-jobs/'
     | '/{-$locale}/app/billing/'
+    | '/{-$locale}/app/cases/'
+    | '/{-$locale}/app/drivers/'
     | '/{-$locale}/app/features/'
+    | '/{-$locale}/app/fines/'
     | '/{-$locale}/app/notifications/'
     | '/{-$locale}/app/profile/'
     | '/{-$locale}/app/projects/'
+    | '/{-$locale}/app/protocols/'
     | '/{-$locale}/app/security/'
     | '/{-$locale}/app/settings/'
     | '/{-$locale}/app/team/'
+    | '/{-$locale}/app/vehicles/'
     | '/{-$locale}/app/webhooks/'
     | '/{-$locale}/dashboard/'
     | '/{-$locale}/onboarding/'
@@ -824,17 +890,23 @@ export interface FileRouteTypes {
     | '/{-$locale}/reset-password'
     | '/{-$locale}/sign-in'
     | '/{-$locale}/app/ai-usage'
+    | '/{-$locale}/app/analysis'
     | '/{-$locale}/app/api-keys'
     | '/{-$locale}/app/audit'
     | '/{-$locale}/app/batch-jobs'
     | '/{-$locale}/app/billing'
+    | '/{-$locale}/app/cases'
+    | '/{-$locale}/app/drivers'
     | '/{-$locale}/app/features'
+    | '/{-$locale}/app/fines'
     | '/{-$locale}/app/notifications'
     | '/{-$locale}/app/profile'
     | '/{-$locale}/app/projects'
+    | '/{-$locale}/app/protocols'
     | '/{-$locale}/app/security'
     | '/{-$locale}/app/settings'
     | '/{-$locale}/app/team'
+    | '/{-$locale}/app/vehicles'
     | '/{-$locale}/app/webhooks'
     | '/{-$locale}/dashboard'
     | '/{-$locale}/onboarding'
@@ -898,17 +970,23 @@ export interface FileRouteTypes {
     | '/{-$locale}/(centered-layout)/(guest)/reset-password/'
     | '/{-$locale}/(centered-layout)/(guest)/sign-in/'
     | '/{-$locale}/(console-layout)/app/ai-usage/'
+    | '/{-$locale}/(console-layout)/app/analysis/'
     | '/{-$locale}/(console-layout)/app/api-keys/'
     | '/{-$locale}/(console-layout)/app/audit/'
     | '/{-$locale}/(console-layout)/app/batch-jobs/'
     | '/{-$locale}/(console-layout)/app/billing/'
+    | '/{-$locale}/(console-layout)/app/cases/'
+    | '/{-$locale}/(console-layout)/app/drivers/'
     | '/{-$locale}/(console-layout)/app/features/'
+    | '/{-$locale}/(console-layout)/app/fines/'
     | '/{-$locale}/(console-layout)/app/notifications/'
     | '/{-$locale}/(console-layout)/app/profile/'
     | '/{-$locale}/(console-layout)/app/projects/'
+    | '/{-$locale}/(console-layout)/app/protocols/'
     | '/{-$locale}/(console-layout)/app/security/'
     | '/{-$locale}/(console-layout)/app/settings/'
     | '/{-$locale}/(console-layout)/app/team/'
+    | '/{-$locale}/(console-layout)/app/vehicles/'
     | '/{-$locale}/(console-layout)/app/webhooks/'
     | '/{-$locale}/(root-layout)/(auth)/dashboard/'
     | '/{-$locale}/(root-layout)/(auth)/onboarding/'
@@ -941,18 +1019,18 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/robots.txt': {
       id: '/robots.txt'
       path: '/robots.txt'
       fullPath: '/robots.txt'
       preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/{-$locale}': {
@@ -962,18 +1040,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125RouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/{-$locale}/(root-layout)': {
-      id: '/{-$locale}/(root-layout)'
+    '/{-$locale}/(admin-layout)': {
+      id: '/{-$locale}/(admin-layout)'
       path: ''
       fullPath: '/{-$locale}'
-      preLoaderRoute: typeof Char123LocaleChar125rootLayoutRouteRouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
-    '/{-$locale}/(console-layout)': {
-      id: '/{-$locale}/(console-layout)'
-      path: ''
-      fullPath: '/{-$locale}'
-      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutRouteRouteImport
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutRouteRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
     '/{-$locale}/(centered-layout)': {
@@ -983,19 +1054,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125centeredLayoutRouteRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
-    '/{-$locale}/(admin-layout)': {
-      id: '/{-$locale}/(admin-layout)'
+    '/{-$locale}/(console-layout)': {
+      id: '/{-$locale}/(console-layout)'
       path: ''
       fullPath: '/{-$locale}'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutRouteRouteImport
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutRouteRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
-    '/{-$locale}/(root-layout)/': {
-      id: '/{-$locale}/(root-layout)/'
-      path: '/'
-      fullPath: '/{-$locale}/'
-      preLoaderRoute: typeof Char123LocaleChar125rootLayoutIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125rootLayoutRouteRoute
+    '/{-$locale}/(root-layout)': {
+      id: '/{-$locale}/(root-layout)'
+      path: ''
+      fullPath: '/{-$locale}'
+      preLoaderRoute: typeof Char123LocaleChar125rootLayoutRouteRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
     }
     '/_api/health/live': {
       id: '/_api/health/live'
@@ -1004,13 +1075,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiHealthLiveRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/{-$locale}/(root-layout)/(auth)': {
-      id: '/{-$locale}/(root-layout)/(auth)'
-      path: ''
-      fullPath: '/{-$locale}'
-      preLoaderRoute: typeof Char123LocaleChar125rootLayoutauthRouteRouteImport
-      parentRoute: typeof Char123LocaleChar125rootLayoutRouteRoute
-    }
     '/{-$locale}/(centered-layout)/(guest)': {
       id: '/{-$locale}/(centered-layout)/(guest)'
       path: ''
@@ -1018,46 +1082,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125centeredLayoutguestRouteRouteImport
       parentRoute: typeof Char123LocaleChar125centeredLayoutRouteRoute
     }
-    '/{-$locale}/(root-layout)/terms-of-service/': {
-      id: '/{-$locale}/(root-layout)/terms-of-service/'
-      path: '/terms-of-service'
-      fullPath: '/{-$locale}/terms-of-service/'
-      preLoaderRoute: typeof Char123LocaleChar125rootLayoutTermsOfServiceIndexRouteImport
+    '/{-$locale}/(root-layout)/': {
+      id: '/{-$locale}/(root-layout)/'
+      path: '/'
+      fullPath: '/{-$locale}/'
+      preLoaderRoute: typeof Char123LocaleChar125rootLayoutIndexRouteImport
       parentRoute: typeof Char123LocaleChar125rootLayoutRouteRoute
     }
-    '/{-$locale}/(root-layout)/status/': {
-      id: '/{-$locale}/(root-layout)/status/'
-      path: '/status'
-      fullPath: '/{-$locale}/status/'
-      preLoaderRoute: typeof Char123LocaleChar125rootLayoutStatusIndexRouteImport
+    '/{-$locale}/(root-layout)/(auth)': {
+      id: '/{-$locale}/(root-layout)/(auth)'
+      path: ''
+      fullPath: '/{-$locale}'
+      preLoaderRoute: typeof Char123LocaleChar125rootLayoutauthRouteRouteImport
       parentRoute: typeof Char123LocaleChar125rootLayoutRouteRoute
     }
-    '/{-$locale}/(root-layout)/privacy-policy/': {
-      id: '/{-$locale}/(root-layout)/privacy-policy/'
-      path: '/privacy-policy'
-      fullPath: '/{-$locale}/privacy-policy/'
-      preLoaderRoute: typeof Char123LocaleChar125rootLayoutPrivacyPolicyIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125rootLayoutRouteRoute
+    '/{-$locale}/(admin-layout)/admin/': {
+      id: '/{-$locale}/(admin-layout)/admin/'
+      path: '/admin'
+      fullPath: '/{-$locale}/admin/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
     }
-    '/{-$locale}/(root-layout)/pricing/': {
-      id: '/{-$locale}/(root-layout)/pricing/'
-      path: '/pricing'
-      fullPath: '/{-$locale}/pricing/'
-      preLoaderRoute: typeof Char123LocaleChar125rootLayoutPricingIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125rootLayoutRouteRoute
+    '/{-$locale}/(console-layout)/app/': {
+      id: '/{-$locale}/(console-layout)/app/'
+      path: '/app'
+      fullPath: '/{-$locale}/app/'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
     }
-    '/{-$locale}/(root-layout)/playground/': {
-      id: '/{-$locale}/(root-layout)/playground/'
-      path: '/playground'
-      fullPath: '/{-$locale}/playground/'
-      preLoaderRoute: typeof Char123LocaleChar125rootLayoutPlaygroundIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125rootLayoutRouteRoute
-    }
-    '/{-$locale}/(root-layout)/error/': {
-      id: '/{-$locale}/(root-layout)/error/'
-      path: '/error'
-      fullPath: '/{-$locale}/error/'
-      preLoaderRoute: typeof Char123LocaleChar125rootLayoutErrorIndexRouteImport
+    '/{-$locale}/(root-layout)/about/': {
+      id: '/{-$locale}/(root-layout)/about/'
+      path: '/about'
+      fullPath: '/{-$locale}/about/'
+      preLoaderRoute: typeof Char123LocaleChar125rootLayoutAboutIndexRouteImport
       parentRoute: typeof Char123LocaleChar125rootLayoutRouteRoute
     }
     '/{-$locale}/(root-layout)/changelog/': {
@@ -1067,242 +1124,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125rootLayoutChangelogIndexRouteImport
       parentRoute: typeof Char123LocaleChar125rootLayoutRouteRoute
     }
-    '/{-$locale}/(root-layout)/about/': {
-      id: '/{-$locale}/(root-layout)/about/'
-      path: '/about'
-      fullPath: '/{-$locale}/about/'
-      preLoaderRoute: typeof Char123LocaleChar125rootLayoutAboutIndexRouteImport
+    '/{-$locale}/(root-layout)/error/': {
+      id: '/{-$locale}/(root-layout)/error/'
+      path: '/error'
+      fullPath: '/{-$locale}/error/'
+      preLoaderRoute: typeof Char123LocaleChar125rootLayoutErrorIndexRouteImport
       parentRoute: typeof Char123LocaleChar125rootLayoutRouteRoute
     }
-    '/{-$locale}/(console-layout)/app/': {
-      id: '/{-$locale}/(console-layout)/app/'
-      path: '/app'
-      fullPath: '/{-$locale}/app/'
-      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
+    '/{-$locale}/(root-layout)/playground/': {
+      id: '/{-$locale}/(root-layout)/playground/'
+      path: '/playground'
+      fullPath: '/{-$locale}/playground/'
+      preLoaderRoute: typeof Char123LocaleChar125rootLayoutPlaygroundIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125rootLayoutRouteRoute
     }
-    '/{-$locale}/(admin-layout)/admin/': {
-      id: '/{-$locale}/(admin-layout)/admin/'
-      path: '/admin'
-      fullPath: '/{-$locale}/admin/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    '/{-$locale}/(root-layout)/pricing/': {
+      id: '/{-$locale}/(root-layout)/pricing/'
+      path: '/pricing'
+      fullPath: '/{-$locale}/pricing/'
+      preLoaderRoute: typeof Char123LocaleChar125rootLayoutPricingIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125rootLayoutRouteRoute
     }
-    '/{-$locale}/(root-layout)/(auth)/onboarding/': {
-      id: '/{-$locale}/(root-layout)/(auth)/onboarding/'
-      path: '/onboarding'
-      fullPath: '/{-$locale}/onboarding/'
-      preLoaderRoute: typeof Char123LocaleChar125rootLayoutauthOnboardingIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125rootLayoutauthRouteRoute
+    '/{-$locale}/(root-layout)/privacy-policy/': {
+      id: '/{-$locale}/(root-layout)/privacy-policy/'
+      path: '/privacy-policy'
+      fullPath: '/{-$locale}/privacy-policy/'
+      preLoaderRoute: typeof Char123LocaleChar125rootLayoutPrivacyPolicyIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125rootLayoutRouteRoute
     }
-    '/{-$locale}/(root-layout)/(auth)/dashboard/': {
-      id: '/{-$locale}/(root-layout)/(auth)/dashboard/'
-      path: '/dashboard'
-      fullPath: '/{-$locale}/dashboard/'
-      preLoaderRoute: typeof Char123LocaleChar125rootLayoutauthDashboardIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125rootLayoutauthRouteRoute
+    '/{-$locale}/(root-layout)/status/': {
+      id: '/{-$locale}/(root-layout)/status/'
+      path: '/status'
+      fullPath: '/{-$locale}/status/'
+      preLoaderRoute: typeof Char123LocaleChar125rootLayoutStatusIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125rootLayoutRouteRoute
     }
-    '/{-$locale}/(console-layout)/app/webhooks/': {
-      id: '/{-$locale}/(console-layout)/app/webhooks/'
-      path: '/app/webhooks'
-      fullPath: '/{-$locale}/app/webhooks/'
-      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppWebhooksIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
+    '/{-$locale}/(root-layout)/terms-of-service/': {
+      id: '/{-$locale}/(root-layout)/terms-of-service/'
+      path: '/terms-of-service'
+      fullPath: '/{-$locale}/terms-of-service/'
+      preLoaderRoute: typeof Char123LocaleChar125rootLayoutTermsOfServiceIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125rootLayoutRouteRoute
     }
-    '/{-$locale}/(console-layout)/app/team/': {
-      id: '/{-$locale}/(console-layout)/app/team/'
-      path: '/app/team'
-      fullPath: '/{-$locale}/app/team/'
-      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppTeamIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
-    }
-    '/{-$locale}/(console-layout)/app/settings/': {
-      id: '/{-$locale}/(console-layout)/app/settings/'
-      path: '/app/settings'
-      fullPath: '/{-$locale}/app/settings/'
-      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppSettingsIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
-    }
-    '/{-$locale}/(console-layout)/app/security/': {
-      id: '/{-$locale}/(console-layout)/app/security/'
-      path: '/app/security'
-      fullPath: '/{-$locale}/app/security/'
-      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppSecurityIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
-    }
-    '/{-$locale}/(console-layout)/app/projects/': {
-      id: '/{-$locale}/(console-layout)/app/projects/'
-      path: '/app/projects'
-      fullPath: '/{-$locale}/app/projects/'
-      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppProjectsIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
-    }
-    '/{-$locale}/(console-layout)/app/profile/': {
-      id: '/{-$locale}/(console-layout)/app/profile/'
-      path: '/app/profile'
-      fullPath: '/{-$locale}/app/profile/'
-      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppProfileIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
-    }
-    '/{-$locale}/(console-layout)/app/notifications/': {
-      id: '/{-$locale}/(console-layout)/app/notifications/'
-      path: '/app/notifications'
-      fullPath: '/{-$locale}/app/notifications/'
-      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppNotificationsIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
-    }
-    '/{-$locale}/(console-layout)/app/features/': {
-      id: '/{-$locale}/(console-layout)/app/features/'
-      path: '/app/features'
-      fullPath: '/{-$locale}/app/features/'
-      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppFeaturesIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
-    }
-    '/{-$locale}/(console-layout)/app/billing/': {
-      id: '/{-$locale}/(console-layout)/app/billing/'
-      path: '/app/billing'
-      fullPath: '/{-$locale}/app/billing/'
-      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppBillingIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
-    }
-    '/{-$locale}/(console-layout)/app/batch-jobs/': {
-      id: '/{-$locale}/(console-layout)/app/batch-jobs/'
-      path: '/app/batch-jobs'
-      fullPath: '/{-$locale}/app/batch-jobs/'
-      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppBatchJobsIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
-    }
-    '/{-$locale}/(console-layout)/app/audit/': {
-      id: '/{-$locale}/(console-layout)/app/audit/'
-      path: '/app/audit'
-      fullPath: '/{-$locale}/app/audit/'
-      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppAuditIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
-    }
-    '/{-$locale}/(console-layout)/app/api-keys/': {
-      id: '/{-$locale}/(console-layout)/app/api-keys/'
-      path: '/app/api-keys'
-      fullPath: '/{-$locale}/app/api-keys/'
-      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppApiKeysIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
-    }
-    '/{-$locale}/(console-layout)/app/ai-usage/': {
-      id: '/{-$locale}/(console-layout)/app/ai-usage/'
-      path: '/app/ai-usage'
-      fullPath: '/{-$locale}/app/ai-usage/'
-      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppAiUsageIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
-    }
-    '/{-$locale}/(centered-layout)/(guest)/sign-in/': {
-      id: '/{-$locale}/(centered-layout)/(guest)/sign-in/'
-      path: '/sign-in'
-      fullPath: '/{-$locale}/sign-in/'
-      preLoaderRoute: typeof Char123LocaleChar125centeredLayoutguestSignInIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125centeredLayoutguestRouteRoute
-    }
-    '/{-$locale}/(centered-layout)/(guest)/reset-password/': {
-      id: '/{-$locale}/(centered-layout)/(guest)/reset-password/'
-      path: '/reset-password'
-      fullPath: '/{-$locale}/reset-password/'
-      preLoaderRoute: typeof Char123LocaleChar125centeredLayoutguestResetPasswordIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125centeredLayoutguestRouteRoute
-    }
-    '/{-$locale}/(centered-layout)/(guest)/forgot-password/': {
-      id: '/{-$locale}/(centered-layout)/(guest)/forgot-password/'
-      path: '/forgot-password'
-      fullPath: '/{-$locale}/forgot-password/'
-      preLoaderRoute: typeof Char123LocaleChar125centeredLayoutguestForgotPasswordIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125centeredLayoutguestRouteRoute
-    }
-    '/{-$locale}/(centered-layout)/(guest)/create-an-account/': {
-      id: '/{-$locale}/(centered-layout)/(guest)/create-an-account/'
-      path: '/create-an-account'
-      fullPath: '/{-$locale}/create-an-account/'
-      preLoaderRoute: typeof Char123LocaleChar125centeredLayoutguestCreateAnAccountIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125centeredLayoutguestRouteRoute
-    }
-    '/{-$locale}/(centered-layout)/(guest)/accept-invite/': {
-      id: '/{-$locale}/(centered-layout)/(guest)/accept-invite/'
-      path: '/accept-invite'
-      fullPath: '/{-$locale}/accept-invite/'
-      preLoaderRoute: typeof Char123LocaleChar125centeredLayoutguestAcceptInviteIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125centeredLayoutguestRouteRoute
-    }
-    '/{-$locale}/(admin-layout)/admin/workspaces/': {
-      id: '/{-$locale}/(admin-layout)/admin/workspaces/'
-      path: '/admin/workspaces'
-      fullPath: '/{-$locale}/admin/workspaces/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminWorkspacesIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
-    }
-    '/{-$locale}/(admin-layout)/admin/users/': {
-      id: '/{-$locale}/(admin-layout)/admin/users/'
-      path: '/admin/users'
-      fullPath: '/{-$locale}/admin/users/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminUsersIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
-    }
-    '/{-$locale}/(admin-layout)/admin/usage/': {
-      id: '/{-$locale}/(admin-layout)/admin/usage/'
-      path: '/admin/usage'
-      fullPath: '/{-$locale}/admin/usage/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminUsageIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
-    }
-    '/{-$locale}/(admin-layout)/admin/subscriptions/': {
-      id: '/{-$locale}/(admin-layout)/admin/subscriptions/'
-      path: '/admin/subscriptions'
-      fullPath: '/{-$locale}/admin/subscriptions/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSubscriptionsIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
-    }
-    '/{-$locale}/(admin-layout)/admin/settings/': {
-      id: '/{-$locale}/(admin-layout)/admin/settings/'
-      path: '/admin/settings'
-      fullPath: '/{-$locale}/admin/settings/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSettingsIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
-    }
-    '/{-$locale}/(admin-layout)/admin/sessions/': {
-      id: '/{-$locale}/(admin-layout)/admin/sessions/'
-      path: '/admin/sessions'
-      fullPath: '/{-$locale}/admin/sessions/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSessionsIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
-    }
-    '/{-$locale}/(admin-layout)/admin/projects/': {
-      id: '/{-$locale}/(admin-layout)/admin/projects/'
-      path: '/admin/projects'
-      fullPath: '/{-$locale}/admin/projects/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminProjectsIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
-    }
-    '/{-$locale}/(admin-layout)/admin/plans/': {
-      id: '/{-$locale}/(admin-layout)/admin/plans/'
-      path: '/admin/plans'
-      fullPath: '/{-$locale}/admin/plans/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminPlansIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
-    }
-    '/{-$locale}/(admin-layout)/admin/features/': {
-      id: '/{-$locale}/(admin-layout)/admin/features/'
-      path: '/admin/features'
-      fullPath: '/{-$locale}/admin/features/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminFeaturesIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
-    }
-    '/{-$locale}/(admin-layout)/admin/feature-flags/': {
-      id: '/{-$locale}/(admin-layout)/admin/feature-flags/'
-      path: '/admin/feature-flags'
-      fullPath: '/{-$locale}/admin/feature-flags/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminFeatureFlagsIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
-    }
-    '/{-$locale}/(admin-layout)/admin/emails/': {
-      id: '/{-$locale}/(admin-layout)/admin/emails/'
-      path: '/admin/emails'
-      fullPath: '/{-$locale}/admin/emails/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminEmailsIndexRouteImport
+    '/{-$locale}/(admin-layout)/admin/audit/': {
+      id: '/{-$locale}/(admin-layout)/admin/audit/'
+      path: '/admin/audit'
+      fullPath: '/{-$locale}/admin/audit/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminAuditIndexRouteImport
       parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
     }
     '/{-$locale}/(admin-layout)/admin/billing/': {
@@ -1312,95 +1180,270 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminBillingIndexRouteImport
       parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
     }
-    '/{-$locale}/(admin-layout)/admin/audit/': {
-      id: '/{-$locale}/(admin-layout)/admin/audit/'
-      path: '/admin/audit'
-      fullPath: '/{-$locale}/admin/audit/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminAuditIndexRouteImport
+    '/{-$locale}/(admin-layout)/admin/emails/': {
+      id: '/{-$locale}/(admin-layout)/admin/emails/'
+      path: '/admin/emails'
+      fullPath: '/{-$locale}/admin/emails/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminEmailsIndexRouteImport
       parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
     }
-    '/{-$locale}/(console-layout)/app/projects/$projectId/': {
-      id: '/{-$locale}/(console-layout)/app/projects/$projectId/'
-      path: '/app/projects/$projectId'
-      fullPath: '/{-$locale}/app/projects/$projectId/'
-      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppProjectsProjectIdIndexRouteImport
+    '/{-$locale}/(admin-layout)/admin/feature-flags/': {
+      id: '/{-$locale}/(admin-layout)/admin/feature-flags/'
+      path: '/admin/feature-flags'
+      fullPath: '/{-$locale}/admin/feature-flags/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminFeatureFlagsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/features/': {
+      id: '/{-$locale}/(admin-layout)/admin/features/'
+      path: '/admin/features'
+      fullPath: '/{-$locale}/admin/features/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminFeaturesIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/plans/': {
+      id: '/{-$locale}/(admin-layout)/admin/plans/'
+      path: '/admin/plans'
+      fullPath: '/{-$locale}/admin/plans/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminPlansIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/projects/': {
+      id: '/{-$locale}/(admin-layout)/admin/projects/'
+      path: '/admin/projects'
+      fullPath: '/{-$locale}/admin/projects/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminProjectsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/sessions/': {
+      id: '/{-$locale}/(admin-layout)/admin/sessions/'
+      path: '/admin/sessions'
+      fullPath: '/{-$locale}/admin/sessions/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSessionsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/settings/': {
+      id: '/{-$locale}/(admin-layout)/admin/settings/'
+      path: '/admin/settings'
+      fullPath: '/{-$locale}/admin/settings/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSettingsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/subscriptions/': {
+      id: '/{-$locale}/(admin-layout)/admin/subscriptions/'
+      path: '/admin/subscriptions'
+      fullPath: '/{-$locale}/admin/subscriptions/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSubscriptionsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/usage/': {
+      id: '/{-$locale}/(admin-layout)/admin/usage/'
+      path: '/admin/usage'
+      fullPath: '/{-$locale}/admin/usage/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminUsageIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/users/': {
+      id: '/{-$locale}/(admin-layout)/admin/users/'
+      path: '/admin/users'
+      fullPath: '/{-$locale}/admin/users/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminUsersIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/workspaces/': {
+      id: '/{-$locale}/(admin-layout)/admin/workspaces/'
+      path: '/admin/workspaces'
+      fullPath: '/{-$locale}/admin/workspaces/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminWorkspacesIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(centered-layout)/(guest)/accept-invite/': {
+      id: '/{-$locale}/(centered-layout)/(guest)/accept-invite/'
+      path: '/accept-invite'
+      fullPath: '/{-$locale}/accept-invite/'
+      preLoaderRoute: typeof Char123LocaleChar125centeredLayoutguestAcceptInviteIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125centeredLayoutguestRouteRoute
+    }
+    '/{-$locale}/(centered-layout)/(guest)/create-an-account/': {
+      id: '/{-$locale}/(centered-layout)/(guest)/create-an-account/'
+      path: '/create-an-account'
+      fullPath: '/{-$locale}/create-an-account/'
+      preLoaderRoute: typeof Char123LocaleChar125centeredLayoutguestCreateAnAccountIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125centeredLayoutguestRouteRoute
+    }
+    '/{-$locale}/(centered-layout)/(guest)/forgot-password/': {
+      id: '/{-$locale}/(centered-layout)/(guest)/forgot-password/'
+      path: '/forgot-password'
+      fullPath: '/{-$locale}/forgot-password/'
+      preLoaderRoute: typeof Char123LocaleChar125centeredLayoutguestForgotPasswordIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125centeredLayoutguestRouteRoute
+    }
+    '/{-$locale}/(centered-layout)/(guest)/reset-password/': {
+      id: '/{-$locale}/(centered-layout)/(guest)/reset-password/'
+      path: '/reset-password'
+      fullPath: '/{-$locale}/reset-password/'
+      preLoaderRoute: typeof Char123LocaleChar125centeredLayoutguestResetPasswordIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125centeredLayoutguestRouteRoute
+    }
+    '/{-$locale}/(centered-layout)/(guest)/sign-in/': {
+      id: '/{-$locale}/(centered-layout)/(guest)/sign-in/'
+      path: '/sign-in'
+      fullPath: '/{-$locale}/sign-in/'
+      preLoaderRoute: typeof Char123LocaleChar125centeredLayoutguestSignInIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125centeredLayoutguestRouteRoute
+    }
+    '/{-$locale}/(console-layout)/app/ai-usage/': {
+      id: '/{-$locale}/(console-layout)/app/ai-usage/'
+      path: '/app/ai-usage'
+      fullPath: '/{-$locale}/app/ai-usage/'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppAiUsageIndexRouteImport
       parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
     }
-    '/{-$locale}/(admin-layout)/admin/workspaces/$id/': {
-      id: '/{-$locale}/(admin-layout)/admin/workspaces/$id/'
-      path: '/admin/workspaces/$id'
-      fullPath: '/{-$locale}/admin/workspaces/$id/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminWorkspacesIdIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    '/{-$locale}/(console-layout)/app/analysis/': {
+      id: '/{-$locale}/(console-layout)/app/analysis/'
+      path: '/app/analysis'
+      fullPath: '/{-$locale}/app/analysis/'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppAnalysisIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
     }
-    '/{-$locale}/(admin-layout)/admin/users/$id/': {
-      id: '/{-$locale}/(admin-layout)/admin/users/$id/'
-      path: '/admin/users/$id'
-      fullPath: '/{-$locale}/admin/users/$id/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminUsersIdIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    '/{-$locale}/(console-layout)/app/api-keys/': {
+      id: '/{-$locale}/(console-layout)/app/api-keys/'
+      path: '/app/api-keys'
+      fullPath: '/{-$locale}/app/api-keys/'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppApiKeysIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
     }
-    '/{-$locale}/(admin-layout)/admin/system/workers/': {
-      id: '/{-$locale}/(admin-layout)/admin/system/workers/'
-      path: '/admin/system/workers'
-      fullPath: '/{-$locale}/admin/system/workers/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSystemWorkersIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    '/{-$locale}/(console-layout)/app/audit/': {
+      id: '/{-$locale}/(console-layout)/app/audit/'
+      path: '/app/audit'
+      fullPath: '/{-$locale}/app/audit/'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppAuditIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
     }
-    '/{-$locale}/(admin-layout)/admin/system/jobs/': {
-      id: '/{-$locale}/(admin-layout)/admin/system/jobs/'
-      path: '/admin/system/jobs'
-      fullPath: '/{-$locale}/admin/system/jobs/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSystemJobsIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    '/{-$locale}/(console-layout)/app/batch-jobs/': {
+      id: '/{-$locale}/(console-layout)/app/batch-jobs/'
+      path: '/app/batch-jobs'
+      fullPath: '/{-$locale}/app/batch-jobs/'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppBatchJobsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
     }
-    '/{-$locale}/(admin-layout)/admin/system/incidents/': {
-      id: '/{-$locale}/(admin-layout)/admin/system/incidents/'
-      path: '/admin/system/incidents'
-      fullPath: '/{-$locale}/admin/system/incidents/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSystemIncidentsIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    '/{-$locale}/(console-layout)/app/billing/': {
+      id: '/{-$locale}/(console-layout)/app/billing/'
+      path: '/app/billing'
+      fullPath: '/{-$locale}/app/billing/'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppBillingIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
     }
-    '/{-$locale}/(admin-layout)/admin/system/health/': {
-      id: '/{-$locale}/(admin-layout)/admin/system/health/'
-      path: '/admin/system/health'
-      fullPath: '/{-$locale}/admin/system/health/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSystemHealthIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    '/{-$locale}/(console-layout)/app/cases/': {
+      id: '/{-$locale}/(console-layout)/app/cases/'
+      path: '/app/cases'
+      fullPath: '/{-$locale}/app/cases/'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppCasesIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
     }
-    '/{-$locale}/(admin-layout)/admin/subscriptions/$id/': {
-      id: '/{-$locale}/(admin-layout)/admin/subscriptions/$id/'
-      path: '/admin/subscriptions/$id'
-      fullPath: '/{-$locale}/admin/subscriptions/$id/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSubscriptionsIdIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    '/{-$locale}/(console-layout)/app/drivers/': {
+      id: '/{-$locale}/(console-layout)/app/drivers/'
+      path: '/app/drivers'
+      fullPath: '/{-$locale}/app/drivers/'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppDriversIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
     }
-    '/{-$locale}/(admin-layout)/admin/security/events/': {
-      id: '/{-$locale}/(admin-layout)/admin/security/events/'
-      path: '/admin/security/events'
-      fullPath: '/{-$locale}/admin/security/events/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSecurityEventsIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    '/{-$locale}/(console-layout)/app/features/': {
+      id: '/{-$locale}/(console-layout)/app/features/'
+      path: '/app/features'
+      fullPath: '/{-$locale}/app/features/'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppFeaturesIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
     }
-    '/{-$locale}/(admin-layout)/admin/projects/$projectId/': {
-      id: '/{-$locale}/(admin-layout)/admin/projects/$projectId/'
-      path: '/admin/projects/$projectId'
-      fullPath: '/{-$locale}/admin/projects/$projectId/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminProjectsProjectIdIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    '/{-$locale}/(console-layout)/app/fines/': {
+      id: '/{-$locale}/(console-layout)/app/fines/'
+      path: '/app/fines'
+      fullPath: '/{-$locale}/app/fines/'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppFinesIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
     }
-    '/{-$locale}/(admin-layout)/admin/plans/$id/': {
-      id: '/{-$locale}/(admin-layout)/admin/plans/$id/'
-      path: '/admin/plans/$id'
-      fullPath: '/{-$locale}/admin/plans/$id/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminPlansIdIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    '/{-$locale}/(console-layout)/app/notifications/': {
+      id: '/{-$locale}/(console-layout)/app/notifications/'
+      path: '/app/notifications'
+      fullPath: '/{-$locale}/app/notifications/'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppNotificationsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
     }
-    '/{-$locale}/(admin-layout)/admin/billing/profile/': {
-      id: '/{-$locale}/(admin-layout)/admin/billing/profile/'
-      path: '/admin/billing/profile'
-      fullPath: '/{-$locale}/admin/billing/profile/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminBillingProfileIndexRouteImport
+    '/{-$locale}/(console-layout)/app/profile/': {
+      id: '/{-$locale}/(console-layout)/app/profile/'
+      path: '/app/profile'
+      fullPath: '/{-$locale}/app/profile/'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppProfileIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
+    }
+    '/{-$locale}/(console-layout)/app/projects/': {
+      id: '/{-$locale}/(console-layout)/app/projects/'
+      path: '/app/projects'
+      fullPath: '/{-$locale}/app/projects/'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppProjectsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
+    }
+    '/{-$locale}/(console-layout)/app/protocols/': {
+      id: '/{-$locale}/(console-layout)/app/protocols/'
+      path: '/app/protocols'
+      fullPath: '/{-$locale}/app/protocols/'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppProtocolsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
+    }
+    '/{-$locale}/(console-layout)/app/security/': {
+      id: '/{-$locale}/(console-layout)/app/security/'
+      path: '/app/security'
+      fullPath: '/{-$locale}/app/security/'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppSecurityIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
+    }
+    '/{-$locale}/(console-layout)/app/settings/': {
+      id: '/{-$locale}/(console-layout)/app/settings/'
+      path: '/app/settings'
+      fullPath: '/{-$locale}/app/settings/'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppSettingsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
+    }
+    '/{-$locale}/(console-layout)/app/team/': {
+      id: '/{-$locale}/(console-layout)/app/team/'
+      path: '/app/team'
+      fullPath: '/{-$locale}/app/team/'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppTeamIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
+    }
+    '/{-$locale}/(console-layout)/app/vehicles/': {
+      id: '/{-$locale}/(console-layout)/app/vehicles/'
+      path: '/app/vehicles'
+      fullPath: '/{-$locale}/app/vehicles/'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppVehiclesIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
+    }
+    '/{-$locale}/(console-layout)/app/webhooks/': {
+      id: '/{-$locale}/(console-layout)/app/webhooks/'
+      path: '/app/webhooks'
+      fullPath: '/{-$locale}/app/webhooks/'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppWebhooksIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
+    }
+    '/{-$locale}/(root-layout)/(auth)/dashboard/': {
+      id: '/{-$locale}/(root-layout)/(auth)/dashboard/'
+      path: '/dashboard'
+      fullPath: '/{-$locale}/dashboard/'
+      preLoaderRoute: typeof Char123LocaleChar125rootLayoutauthDashboardIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125rootLayoutauthRouteRoute
+    }
+    '/{-$locale}/(root-layout)/(auth)/onboarding/': {
+      id: '/{-$locale}/(root-layout)/(auth)/onboarding/'
+      path: '/onboarding'
+      fullPath: '/{-$locale}/onboarding/'
+      preLoaderRoute: typeof Char123LocaleChar125rootLayoutauthOnboardingIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125rootLayoutauthRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/access/roles/': {
+      id: '/{-$locale}/(admin-layout)/admin/access/roles/'
+      path: '/admin/access/roles'
+      fullPath: '/{-$locale}/admin/access/roles/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminAccessRolesIndexRouteImport
       parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
     }
     '/{-$locale}/(admin-layout)/admin/billing/invoices/': {
@@ -1410,18 +1453,88 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminBillingInvoicesIndexRouteImport
       parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
     }
-    '/{-$locale}/(admin-layout)/admin/access/roles/': {
-      id: '/{-$locale}/(admin-layout)/admin/access/roles/'
-      path: '/admin/access/roles'
-      fullPath: '/{-$locale}/admin/access/roles/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminAccessRolesIndexRouteImport
+    '/{-$locale}/(admin-layout)/admin/billing/profile/': {
+      id: '/{-$locale}/(admin-layout)/admin/billing/profile/'
+      path: '/admin/billing/profile'
+      fullPath: '/{-$locale}/admin/billing/profile/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminBillingProfileIndexRouteImport
       parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
     }
-    '/{-$locale}/(console-layout)/app/projects/$projectId/settings': {
-      id: '/{-$locale}/(console-layout)/app/projects/$projectId/settings'
-      path: '/app/projects/$projectId/settings'
-      fullPath: '/{-$locale}/app/projects/$projectId/settings'
-      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppProjectsProjectIdSettingsRouteImport
+    '/{-$locale}/(admin-layout)/admin/plans/$id/': {
+      id: '/{-$locale}/(admin-layout)/admin/plans/$id/'
+      path: '/admin/plans/$id'
+      fullPath: '/{-$locale}/admin/plans/$id/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminPlansIdIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/projects/$projectId/': {
+      id: '/{-$locale}/(admin-layout)/admin/projects/$projectId/'
+      path: '/admin/projects/$projectId'
+      fullPath: '/{-$locale}/admin/projects/$projectId/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminProjectsProjectIdIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/security/events/': {
+      id: '/{-$locale}/(admin-layout)/admin/security/events/'
+      path: '/admin/security/events'
+      fullPath: '/{-$locale}/admin/security/events/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSecurityEventsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/subscriptions/$id/': {
+      id: '/{-$locale}/(admin-layout)/admin/subscriptions/$id/'
+      path: '/admin/subscriptions/$id'
+      fullPath: '/{-$locale}/admin/subscriptions/$id/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSubscriptionsIdIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/system/health/': {
+      id: '/{-$locale}/(admin-layout)/admin/system/health/'
+      path: '/admin/system/health'
+      fullPath: '/{-$locale}/admin/system/health/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSystemHealthIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/system/incidents/': {
+      id: '/{-$locale}/(admin-layout)/admin/system/incidents/'
+      path: '/admin/system/incidents'
+      fullPath: '/{-$locale}/admin/system/incidents/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSystemIncidentsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/system/jobs/': {
+      id: '/{-$locale}/(admin-layout)/admin/system/jobs/'
+      path: '/admin/system/jobs'
+      fullPath: '/{-$locale}/admin/system/jobs/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSystemJobsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/system/workers/': {
+      id: '/{-$locale}/(admin-layout)/admin/system/workers/'
+      path: '/admin/system/workers'
+      fullPath: '/{-$locale}/admin/system/workers/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSystemWorkersIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/users/$id/': {
+      id: '/{-$locale}/(admin-layout)/admin/users/$id/'
+      path: '/admin/users/$id'
+      fullPath: '/{-$locale}/admin/users/$id/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminUsersIdIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/workspaces/$id/': {
+      id: '/{-$locale}/(admin-layout)/admin/workspaces/$id/'
+      path: '/admin/workspaces/$id'
+      fullPath: '/{-$locale}/admin/workspaces/$id/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminWorkspacesIdIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(console-layout)/app/projects/$projectId/': {
+      id: '/{-$locale}/(console-layout)/app/projects/$projectId/'
+      path: '/app/projects/$projectId'
+      fullPath: '/{-$locale}/app/projects/$projectId/'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppProjectsProjectIdIndexRouteImport
       parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
     }
     '/{-$locale}/(console-layout)/app/projects/$projectId/build': {
@@ -1431,18 +1544,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppProjectsProjectIdBuildRouteImport
       parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
     }
-    '/{-$locale}/(admin-layout)/admin/system/jobs/$jobId/': {
-      id: '/{-$locale}/(admin-layout)/admin/system/jobs/$jobId/'
-      path: '/admin/system/jobs/$jobId'
-      fullPath: '/{-$locale}/admin/system/jobs/$jobId/'
-      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSystemJobsJobIdIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    '/{-$locale}/(console-layout)/app/projects/$projectId/settings': {
+      id: '/{-$locale}/(console-layout)/app/projects/$projectId/settings'
+      path: '/app/projects/$projectId/settings'
+      fullPath: '/{-$locale}/app/projects/$projectId/settings'
+      preLoaderRoute: typeof Char123LocaleChar125consoleLayoutAppProjectsProjectIdSettingsRouteImport
+      parentRoute: typeof Char123LocaleChar125consoleLayoutRouteRoute
     }
     '/{-$locale}/(admin-layout)/admin/billing/invoices/$id/': {
       id: '/{-$locale}/(admin-layout)/admin/billing/invoices/$id/'
       path: '/admin/billing/invoices/$id'
       fullPath: '/{-$locale}/admin/billing/invoices/$id/'
       preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminBillingInvoicesIdIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
+    }
+    '/{-$locale}/(admin-layout)/admin/system/jobs/$jobId/': {
+      id: '/{-$locale}/(admin-layout)/admin/system/jobs/$jobId/'
+      path: '/admin/system/jobs/$jobId'
+      fullPath: '/{-$locale}/admin/system/jobs/$jobId/'
+      preLoaderRoute: typeof Char123LocaleChar125adminLayoutAdminSystemJobsJobIdIndexRouteImport
       parentRoute: typeof Char123LocaleChar125adminLayoutRouteRoute
     }
   }
@@ -1592,17 +1712,23 @@ const Char123LocaleChar125centeredLayoutRouteRouteWithChildren =
 interface Char123LocaleChar125consoleLayoutRouteRouteChildren {
   Char123LocaleChar125consoleLayoutAppIndexRoute: typeof Char123LocaleChar125consoleLayoutAppIndexRoute
   Char123LocaleChar125consoleLayoutAppAiUsageIndexRoute: typeof Char123LocaleChar125consoleLayoutAppAiUsageIndexRoute
+  Char123LocaleChar125consoleLayoutAppAnalysisIndexRoute: typeof Char123LocaleChar125consoleLayoutAppAnalysisIndexRoute
   Char123LocaleChar125consoleLayoutAppApiKeysIndexRoute: typeof Char123LocaleChar125consoleLayoutAppApiKeysIndexRoute
   Char123LocaleChar125consoleLayoutAppAuditIndexRoute: typeof Char123LocaleChar125consoleLayoutAppAuditIndexRoute
   Char123LocaleChar125consoleLayoutAppBatchJobsIndexRoute: typeof Char123LocaleChar125consoleLayoutAppBatchJobsIndexRoute
   Char123LocaleChar125consoleLayoutAppBillingIndexRoute: typeof Char123LocaleChar125consoleLayoutAppBillingIndexRoute
+  Char123LocaleChar125consoleLayoutAppCasesIndexRoute: typeof Char123LocaleChar125consoleLayoutAppCasesIndexRoute
+  Char123LocaleChar125consoleLayoutAppDriversIndexRoute: typeof Char123LocaleChar125consoleLayoutAppDriversIndexRoute
   Char123LocaleChar125consoleLayoutAppFeaturesIndexRoute: typeof Char123LocaleChar125consoleLayoutAppFeaturesIndexRoute
+  Char123LocaleChar125consoleLayoutAppFinesIndexRoute: typeof Char123LocaleChar125consoleLayoutAppFinesIndexRoute
   Char123LocaleChar125consoleLayoutAppNotificationsIndexRoute: typeof Char123LocaleChar125consoleLayoutAppNotificationsIndexRoute
   Char123LocaleChar125consoleLayoutAppProfileIndexRoute: typeof Char123LocaleChar125consoleLayoutAppProfileIndexRoute
   Char123LocaleChar125consoleLayoutAppProjectsIndexRoute: typeof Char123LocaleChar125consoleLayoutAppProjectsIndexRoute
+  Char123LocaleChar125consoleLayoutAppProtocolsIndexRoute: typeof Char123LocaleChar125consoleLayoutAppProtocolsIndexRoute
   Char123LocaleChar125consoleLayoutAppSecurityIndexRoute: typeof Char123LocaleChar125consoleLayoutAppSecurityIndexRoute
   Char123LocaleChar125consoleLayoutAppSettingsIndexRoute: typeof Char123LocaleChar125consoleLayoutAppSettingsIndexRoute
   Char123LocaleChar125consoleLayoutAppTeamIndexRoute: typeof Char123LocaleChar125consoleLayoutAppTeamIndexRoute
+  Char123LocaleChar125consoleLayoutAppVehiclesIndexRoute: typeof Char123LocaleChar125consoleLayoutAppVehiclesIndexRoute
   Char123LocaleChar125consoleLayoutAppWebhooksIndexRoute: typeof Char123LocaleChar125consoleLayoutAppWebhooksIndexRoute
   Char123LocaleChar125consoleLayoutAppProjectsProjectIdBuildRoute: typeof Char123LocaleChar125consoleLayoutAppProjectsProjectIdBuildRoute
   Char123LocaleChar125consoleLayoutAppProjectsProjectIdSettingsRoute: typeof Char123LocaleChar125consoleLayoutAppProjectsProjectIdSettingsRoute
@@ -1615,6 +1741,8 @@ const Char123LocaleChar125consoleLayoutRouteRouteChildren: Char123LocaleChar125c
       Char123LocaleChar125consoleLayoutAppIndexRoute,
     Char123LocaleChar125consoleLayoutAppAiUsageIndexRoute:
       Char123LocaleChar125consoleLayoutAppAiUsageIndexRoute,
+    Char123LocaleChar125consoleLayoutAppAnalysisIndexRoute:
+      Char123LocaleChar125consoleLayoutAppAnalysisIndexRoute,
     Char123LocaleChar125consoleLayoutAppApiKeysIndexRoute:
       Char123LocaleChar125consoleLayoutAppApiKeysIndexRoute,
     Char123LocaleChar125consoleLayoutAppAuditIndexRoute:
@@ -1623,20 +1751,30 @@ const Char123LocaleChar125consoleLayoutRouteRouteChildren: Char123LocaleChar125c
       Char123LocaleChar125consoleLayoutAppBatchJobsIndexRoute,
     Char123LocaleChar125consoleLayoutAppBillingIndexRoute:
       Char123LocaleChar125consoleLayoutAppBillingIndexRoute,
+    Char123LocaleChar125consoleLayoutAppCasesIndexRoute:
+      Char123LocaleChar125consoleLayoutAppCasesIndexRoute,
+    Char123LocaleChar125consoleLayoutAppDriversIndexRoute:
+      Char123LocaleChar125consoleLayoutAppDriversIndexRoute,
     Char123LocaleChar125consoleLayoutAppFeaturesIndexRoute:
       Char123LocaleChar125consoleLayoutAppFeaturesIndexRoute,
+    Char123LocaleChar125consoleLayoutAppFinesIndexRoute:
+      Char123LocaleChar125consoleLayoutAppFinesIndexRoute,
     Char123LocaleChar125consoleLayoutAppNotificationsIndexRoute:
       Char123LocaleChar125consoleLayoutAppNotificationsIndexRoute,
     Char123LocaleChar125consoleLayoutAppProfileIndexRoute:
       Char123LocaleChar125consoleLayoutAppProfileIndexRoute,
     Char123LocaleChar125consoleLayoutAppProjectsIndexRoute:
       Char123LocaleChar125consoleLayoutAppProjectsIndexRoute,
+    Char123LocaleChar125consoleLayoutAppProtocolsIndexRoute:
+      Char123LocaleChar125consoleLayoutAppProtocolsIndexRoute,
     Char123LocaleChar125consoleLayoutAppSecurityIndexRoute:
       Char123LocaleChar125consoleLayoutAppSecurityIndexRoute,
     Char123LocaleChar125consoleLayoutAppSettingsIndexRoute:
       Char123LocaleChar125consoleLayoutAppSettingsIndexRoute,
     Char123LocaleChar125consoleLayoutAppTeamIndexRoute:
       Char123LocaleChar125consoleLayoutAppTeamIndexRoute,
+    Char123LocaleChar125consoleLayoutAppVehiclesIndexRoute:
+      Char123LocaleChar125consoleLayoutAppVehiclesIndexRoute,
     Char123LocaleChar125consoleLayoutAppWebhooksIndexRoute:
       Char123LocaleChar125consoleLayoutAppWebhooksIndexRoute,
     Char123LocaleChar125consoleLayoutAppProjectsProjectIdBuildRoute:
@@ -1745,13 +1883,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

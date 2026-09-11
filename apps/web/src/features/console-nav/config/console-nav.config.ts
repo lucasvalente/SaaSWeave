@@ -1,7 +1,14 @@
 import {
+  AlertTriangle,
+  Bell,
+  Car,
+  Cpu,
   CreditCard,
+  FileCheck2,
+  FileText,
   FolderKanban,
   KeyRound,
+  Layers,
   LayoutDashboard,
   type LucideIcon,
   ScrollText,
@@ -10,8 +17,6 @@ import {
   Sparkles,
   UserRound,
   Users,
-  Bell,
-  Layers,
   Webhook
 } from "lucide-react";
 
@@ -35,6 +40,17 @@ export type ConsoleNavGroup = {
 
 export function getConsoleNav(): ConsoleNavGroup[] {
   return [
+    {
+      heading: "AUTUAX Trânsito",
+      items: [
+        { icon: AlertTriangle, label: "Multas & Infrações", to: "/app/fines" as LinkProps["to"] },
+        { icon: FileText, label: "Processos & Defesas", to: "/app/cases" as LinkProps["to"] },
+        { icon: Car, label: "Veículos & Frota", to: "/app/vehicles" as LinkProps["to"] },
+        { icon: Users, label: "Condutores", to: "/app/drivers" as LinkProps["to"] },
+        { icon: Cpu, label: "Análise de Vícios", to: "/app/analysis" as LinkProps["to"] },
+        { icon: FileCheck2, label: "Protocolos", to: "/app/protocols" as LinkProps["to"] }
+      ]
+    },
     {
       heading: m.console_nav__workspace_heading(),
       items: [

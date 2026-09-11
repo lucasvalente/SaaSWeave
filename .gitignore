@@ -18,6 +18,7 @@ node_modules
 work/
 dist
 dist-ssr
+.turbo
 **/project.inlang/cache
 **/project.inlang/project_id
 .env
